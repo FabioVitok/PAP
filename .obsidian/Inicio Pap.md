@@ -1,5 +1,5 @@
 
-Para programar a parte de comunidade vai ser preciso desenvolver uma frontend backend e uma base de dados para armazenar tudo, como usuarios comentarios posts e status dos posts.
+Para programar a parte de comunidade vai ser preciso desenvolver uma frontend backend e uma base de dados para armazenar tudo, como usuários comentários posts e status dos posts.
 
 Para a a Frontend vai ser necessário usar as seguintes linguagens [HTML, CSS, JavaScript]
 Para a Backend pode se usar varias diferentes mas para simplificar provavelmente seria melhor usa algo em JavaScript para não diferenciar tanto do processo da Frontend
