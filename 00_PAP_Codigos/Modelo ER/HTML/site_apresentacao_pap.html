@@ -1,10 +1,195 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imoral - Apresetação</title>
+    <title>Imoral - Apresentação</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body>
-    
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black py-3">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="/PAP/00_PAP_Codigos/Modelo ER/HTML/Images/imoral_logo2_transp.png"
+                alt="imoral_logo" 
+                width="100" 
+                height="100" 
+                style="height:50px; object-fit:cover;"
+                class="d-inline-block align-text-top">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Links de navegação -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sobre">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Customization</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contato">Contact us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo da página -->
+    <div>
+        <!-- Carrossel -->
+        <div class="container-fluid p-0">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_1.jpg" 
+                        class="d-block w-100" 
+                        alt="primeiro slide"
+                        style="height:554px; object-fit:cover;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Pintura de 1650</h5>
+                            <p>Isso é o primeiro slide com uma pintura de Abraham van Beyeren.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                        class="d-block w-100" 
+                        alt="segundo slide"
+                        style="height:554px; object-fit:cover; object-position:50% 20%;">
+                        <div class="carousel-caption d-none d-md-block" style="color: black;">
+                            <h5>Flechada Espanta Corvo</h5>
+                            <p>Muitas flechas disparadas em prol de uma guerra desnecessaria muito demais ne rodrigo.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_3.jpg" 
+                        class="d-block w-100" 
+                        alt="terceiro slide"
+                        style="height:554px; object-fit:cover; object-position:50% 30%;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <div class="position-absolute top-0 start-50 translate-middle">
+                                <button class="btn btn-light">About us</button>
+                            </div>
+                            <p>Uma sereia n tem muito o que falar mais.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Tipos de Produtos/Serviço -->
+        <div class="container-fluid p-0">
+            <div class="row g-0">
+                <div class="col-6 col-md-3 position-relative">
+                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    class="w-100" 
+                    alt="primeira imagem">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <button class="btn btn-light">T-SHIRTS</button>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 position-relative">
+                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    class="w-100" 
+                    alt="segunda imagem">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <button class="btn btn-light">PANTS</button>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 position-relative">
+                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    class="w-100" 
+                    alt="terceira imagem">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <button class="btn btn-light">ACESSORIES</button>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 position-relative">
+                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    class="w-100" 
+                    alt="quarta imagem">
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <button class="btn btn-light">CUSTOMIZATION</button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 IMAGENS CENTRALIZADAS -->
+        <div class="container-fluid bg-white py-5">
+            <div class="row g-4 justify-content-center">
+                <div class="col-auto">
+                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    alt="primeira imagem"
+                    style="height: 200px; width: 200px; object-fit: cover;">
+                </div>
+
+                <div class="col-auto">
+                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    alt="segunda imagem"
+                    style="height: 200px; width: 200px; object-fit: cover;">
+                </div>
+
+                <div class="col-auto">
+                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    alt="terceira imagem"
+                    style="height: 200px; width: 200px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Sobre -->
+        <div id="sobre" class="container-fluid p-0">
+            <div class="row g-0">
+                <div class="col-7 bg-black" style="height: 350px;"></div>
+                <div class="col-5 p-0">
+                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_1.jpg" 
+                    class="w-100" 
+                    alt="primeira imagem"
+                    style="height: 350px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Contato -->
+        <div id="contato" class="container-fluid p-0">
+            <div class="bg-white" style="height: 500px;"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
