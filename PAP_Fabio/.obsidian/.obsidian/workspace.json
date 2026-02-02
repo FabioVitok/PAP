@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "Inicio Pap"
             }
+          },
+          {
+            "id": "239ad51e7f26dfef",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "O que manter e o que adicionar.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "O que manter e o que adicionar"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -169,9 +184,10 @@
       "bases:Create new base": false
     }
   },
-  "active": "c7165fc12a38050f",
+  "active": "239ad51e7f26dfef",
   "lastOpenFiles": [
-    "Metodologia Agil, Desenvolvimento de software.md",
-    "Inicio Pap.md"
+    "Inicio Pap.md",
+    "O que manter e o que adicionar.md",
+    "Metodologia Agil, Desenvolvimento de software.md"
   ]
 }
