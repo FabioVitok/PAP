@@ -11,14 +11,10 @@
             "id": "9a32c663516eeebf",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Inicio Pap.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Inicio Pap"
+              "title": "New tab"
             }
           },
           {
