@@ -8,10 +8,12 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black py-3">
+    <!-- Barra de navegação -->
+    <nav id="home" class="navbar navbar-expand-lg navbar-dark bg-black py-3">
         <div class="container-fluid">
+
             <!-- Logo -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="site_apresentacao_pap.html">
                 <img src="/PAP/00_PAP_Codigos/Modelo ER/HTML/Images/imoral_logo2_transp.png"
                 alt="imoral_logo" 
                 width="100" 
@@ -28,16 +30,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="navbar-brand" href="site_apresentacao_pap.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#sobre">About us</a>
+                        <a class="nav-link" href="pagina_em_construção.html">Customization</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Customization</a>
+                        <a class="nav-link" href="site_apresentacao_pap.html#sobre">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contato">Contact us</a>
+                        <a class="nav-link" href="contact.html">Contact us</a>
                     </li>
                 </ul>
             </div>
@@ -48,61 +50,73 @@
     <div>
         <!-- Carrossel -->
         <div class="container-fluid p-0">
-            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
 
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
 
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_1.jpg" 
+                        <img src="/PAP/PAP_Fabio/imagens/Stairwell photoshoot long hair.jpg" 
                         class="d-block w-100" 
                         alt="primeiro slide"
                         style="height:554px; object-fit:cover;">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Pintura de 1650</h5>
-                            <p>Isso é o primeiro slide com uma pintura de Abraham van Beyeren.</p>
+                            <div style="border: 4px solid black;">
+                                <div class="bg-black" style="border: 2px solid white;">
+                                    <h5 class="mt-2">Titulo Exemplo</h5>
+                                    <p>Texto Exemplo</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="carousel-item">
-                        <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                        <img src="/PAP/PAP_Fabio/imagens/transferir (3).jpg" 
                         class="d-block w-100" 
                         alt="segundo slide"
-                        style="height:554px; object-fit:cover; object-position:50% 20%;">
-                        <div class="carousel-caption d-none d-md-block" style="color: black;">
-                            <h5>Flechada Espanta Corvo</h5>
-                            <p>Muitas flechas disparadas em prol de uma guerra desnecessaria muito demais ne rodrigo.</p>
+                        style="height:554px; object-fit:cover; object-position:50% 60%;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <div style="border: 4px solid black;">
+                                <div class="bg-black" style="border: 2px solid white;">
+                                    <h5 class="mt-2">Titulo Exemplo</h5>
+                                    <p>Texto Exemplo</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="carousel-item">
-                        <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_3.jpg" 
+                        <img src="/PAP/PAP_Fabio/imagens/transferir (4).jpg" 
                         class="d-block w-100" 
                         alt="terceiro slide"
-                        style="height:554px; object-fit:cover; object-position:50% 30%;">
+                        style="height:554px; object-fit:cover; object-position:10% ;">
                         <div class="carousel-caption d-none d-md-block">
                             <div class="position-absolute top-0 start-50 translate-middle">
-                                <button class="btn btn-light">About us</button>
+                                <a class="btn btn-light mb-2" href="#sobre">About us</a>
                             </div>
-                            <p>Uma sereia n tem muito o que falar mais.</p>
+                            <div style="border: 4px solid black;">
+                                <div class="bg-black" style="border: 2px solid white;">
+                                    <h5 class="mt-2">Know more about us</h5>
+                                    <p>click in the button to learn more.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
 
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-
             </div>
         </div>
 
@@ -110,36 +124,40 @@
         <div class="container-fluid p-0">
             <div class="row g-0">
                 <div class="col-6 col-md-3 position-relative">
-                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/WhatsApp Image 2026-02-02 at 22.41.46 (1).jpeg" 
                     class="w-100" 
-                    alt="primeira imagem">
+                    alt="primeira imagem"
+                    style="height: 300px; width: 25%; object-fit: cover;">
                     <div class="position-absolute top-50 start-50 translate-middle">
                         <button class="btn btn-light">T-SHIRTS</button>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-3 position-relative">
-                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/WhatsApp Image 2026-02-02 at 22.41.46 (2).jpeg" 
                     class="w-100" 
-                    alt="segunda imagem">
+                    alt="segunda imagem"
+                    style="height: 300px; width: 25%; object-fit: cover; object-position: 80% 43%;">
                     <div class="position-absolute top-50 start-50 translate-middle">
                         <button class="btn btn-light">PANTS</button>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-3 position-relative">
-                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/WhatsApp Image 2026-02-02 at 22.41.46 (3).jpeg" 
                     class="w-100" 
-                    alt="terceira imagem">
+                    alt="terceira imagem"
+                    style="height: 300px; width: 25%; object-fit: cover; object-position: 80% 30%;">
                     <div class="position-absolute top-50 start-50 translate-middle">
                         <button class="btn btn-light">ACESSORIES</button>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-3 position-relative">
-                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/WhatsApp Image 2026-02-02 at 22.41.46 (4).jpeg" 
                     class="w-100" 
-                    alt="quarta imagem">
+                    alt="quarta imagem"
+                    style="height: 300px; width: 25%; object-fit: cover;">
                     <div class="position-absolute top-50 start-50 translate-middle">
                         <button class="btn btn-light">CUSTOMIZATION</button>
                     </div>  
@@ -147,45 +165,83 @@
             </div>
         </div>
 
-        <!-- 3 IMAGENS CENTRALIZADAS -->
-        <div class="container-fluid bg-white py-5">
-            <div class="row g-4 justify-content-center">
+        <!-- icones -->
+        <div class="container-fluid bg-black py-5">
+            <div class="row g-0 justify-content-center">
                 <div class="col-auto">
-                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/background_contact.jpg" 
                     alt="primeira imagem"
                     style="height: 200px; width: 200px; object-fit: cover;">
                 </div>
 
                 <div class="col-auto">
-                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/background_contact.jpg" 
                     alt="segunda imagem"
                     style="height: 200px; width: 200px; object-fit: cover;">
                 </div>
 
                 <div class="col-auto">
-                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_2.jpg" 
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/background_contact.jpg" 
+                    alt="terceira imagem"
+                    style="height: 200px; width: 200px; object-fit: cover;">
+                </div>
+                <div class="col-auto">
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/background_contact.jpg" 
+                    alt="terceira imagem"
+                    style="height: 200px; width: 200px; object-fit: cover;">
+                </div>
+                <div class="col-auto">
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/background_contact.jpg" 
+                    alt="terceira imagem"
+                    style="height: 200px; width: 200px; object-fit: cover;">
+                </div>
+                <div class="col-auto">
+                    <img src="/PAP/PAP_Arthur/PAP_documentos/Imagens/background_contact.jpg" 
                     alt="terceira imagem"
                     style="height: 200px; width: 200px; object-fit: cover;">
                 </div>
             </div>
         </div>
-
         <!-- Sobre -->
         <div id="sobre" class="container-fluid p-0">
             <div class="row g-0">
-                <div class="col-7 bg-black" style="height: 350px;"></div>
+                <div class="col-7 bg-black" style="height: 350px; color: white; border: 4px solid black;">
+                    <div class="bg-black pb-5" style="border: 2px solid white;">
+                        <h4 class="m-3 mt-2 pt-5" style="font-size: 18px;">About Us
+                            <span class="badge bg-light" style="color: black;">:</span>
+                        </h4>
+                        <p class="m-3" style="font-size: 15px;">
+                            "Imoral" is essentially a clothing brand project with alternative style inspirations
+                            that goes beyond selling and customizing clothes, also trying to create a community space.
+                            <br><br>
+                            "Imoral" is not just a company or clothing brand, it would be a movement against standardization,
+                            and in favor of the growth and development of other independent brands and where creative
+                            and innovative ideas of personal expression are shared.
+                        </p>
+                            <a class="nav-link active ps-5 pt-1" 
+                            style="text-decoration: underline; font-size: 14px; color: white;" 
+                            href="site_apresentacao_pap.html">HOME
+                            
+                        </a>
+            
+                    </div>
+                </div>
                 <div class="col-5 p-0">
-                    <img src="/RC/HTML/BootStrap/Site_Apresentacao_Carrosel/Images/image_1.jpg" 
-                    class="w-100" 
+                    <img src="/PAP/PAP_Fabio/imagens/WhatsApp Image 2026-02-02 at 14.37.48.jpeg" 
+                    class="w-100"
                     alt="primeira imagem"
                     style="height: 350px; object-fit: cover;">
                 </div>
             </div>
         </div>
-
         <!-- Contato -->
         <div id="contato" class="container-fluid p-0">
-            <div class="bg-white" style="height: 500px;"></div>
+            <div class="bg-black" style="height: 500px;">
+                <h4 class="ps-5 pt-5" style="font-size: 18px; color: white;">
+                    CUSTOMER SERVICE:
+                </h4>
+                <a class="nav-link active ps-5 pt-3" style="font-size: 14px; color: white;" href="contact.html">CONTACT US</a>
+            </div>
         </div>
     </div>
 
