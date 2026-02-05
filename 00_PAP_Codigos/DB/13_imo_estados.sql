@@ -1,0 +1,8 @@
+USE imo_system;
+
+DROP TABLE IF EXISTS estados;
+
+CREATE TABLE estados (
+    id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome_estado VARCHAR(100) NOT NULL
+);
