@@ -7,7 +7,6 @@ CREATE TABLE estado_entregas (
     id_entrega INT(11) UNSIGNED NOT NULL,
     id_estado INT(11) UNSIGNED NOT NULL,
     data_alteracao DATE NULL,
-    cor_estado CHAR NOT NULL,
     FOREIGN KEY (id_entrega) REFERENCES entregas(id),
     FOREIGN KEY (id_estado) REFERENCES estados(id)
 );
