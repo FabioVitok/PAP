@@ -1,5 +1,6 @@
 package com.example.imoral;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -7,6 +8,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -33,7 +35,28 @@ public class EntranceActivity extends AppCompatActivity {
         ImageView imageViewRotateLogo = (ImageView) findViewById(R.id.imageViewRotateLogo);
         animate(imageViewRotate, imagesToShow, 0, true);
         animate(imageViewRotateLogo, logosToShow, 0, true);
+
+        Button buttonSignup = findViewById(R.id.buttonSignup);
+        buttonSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EntranceActivity.this, SignupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonLogin = findViewById(R.id.buttonLogin);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EntranceActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 
 
 
