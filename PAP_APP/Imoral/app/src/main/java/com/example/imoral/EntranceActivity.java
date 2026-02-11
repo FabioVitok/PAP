@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -31,6 +32,7 @@ public class EntranceActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         ImageView imageViewRotate = (ImageView) findViewById(R.id.imageViewRotate);
         ImageView imageViewRotateLogo = (ImageView) findViewById(R.id.imageViewRotateLogo);
         animate(imageViewRotate, imagesToShow, 0, true);
