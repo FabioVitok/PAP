@@ -34,9 +34,21 @@
               "icon": "lucide-file",
               "title": "O que manter e o que adicionar"
             }
+          },
+          {
+            "id": "e5b57dc65432d8be",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.11.4"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.11.4"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -184,7 +196,7 @@
       "bases:Create new base": false
     }
   },
-  "active": "239ad51e7f26dfef",
+  "active": "e5b57dc65432d8be",
   "lastOpenFiles": [
     "Inicio Pap.md",
     "O que manter e o que adicionar.md",
