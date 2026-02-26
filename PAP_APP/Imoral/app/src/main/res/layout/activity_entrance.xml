@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".EntranceActivity">
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/black_background"/>
+    <ImageView
         android:id="@+id/imageViewRotate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,27 +26,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/logo1"
-
-        />
+        app:srcCompat="@drawable/logo1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutButtons"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/black"
-        android:paddingTop="40dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/buttonLogin"
+            android:id="@+id/buttonSignup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_gravity="center"
             android:background="@drawable/blackbutton_background"
-            android:text="SignUp"
+            android:text="Sign Up"
             android:textSize="18sp"
             android:textColor="@color/white"
             app:backgroundTint="@null"
@@ -54,14 +55,14 @@
             />
 
         <Button
-            android:id="@+id/buttonSignup"
+            android:id="@+id/buttonLogin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/blackbutton_background"
-            android:text="LogIn"
+            android:text="Log In"
             android:textSize="18sp"
             android:textColor="@color/white"
             app:backgroundTint="@null"

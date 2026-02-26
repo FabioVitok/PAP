@@ -1,5 +1,6 @@
 package com.example.imoral;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -7,10 +8,12 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -29,11 +32,33 @@ public class EntranceActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         ImageView imageViewRotate = (ImageView) findViewById(R.id.imageViewRotate);
         ImageView imageViewRotateLogo = (ImageView) findViewById(R.id.imageViewRotateLogo);
         animate(imageViewRotate, imagesToShow, 0, true);
         animate(imageViewRotateLogo, logosToShow, 0, true);
+
+        Button buttonSignup = findViewById(R.id.buttonSignup);
+        buttonSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EntranceActivity.this, SignupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonLogin = findViewById(R.id.buttonLogin);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EntranceActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 
 
 
