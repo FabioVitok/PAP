@@ -1,0 +1,793 @@
+
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imoral - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body> 
+<style>
+    /* 1. Estilo padrão do item (em repouso) */
+    .menu-item {
+        background-color: transparent !important; /* Fundo transparente */
+        color: white !important;                 /* Texto branco */
+        border: 1px solid #444 !important;       /* Borda cinza escura */
+        transition: all 0.3s ease;               /* Deixa a mudança suave */
+        width: 200px;
+        text-align: center;
+    }
+
+    /* 2. Estilo de HOVER (Ao passar o mouse) */
+    .menu-item:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important; /* Fundo levemente branco */
+        color: #ffc107 !important;                            /* Texto fica amarelo */
+        border-color: #ffc107 !important;                     /* Borda fica amarela */
+    }
+
+    /* 3. Estilo de ACTIVE (Quando clicado/selecionado) */
+    /* O Bootstrap usa a classe .active para marcar o item atual */
+    .menu-item.active {
+        background-color: #ffc107 !important; /* Fundo amarelo vivo */
+        color: black !important;             /* Texto preto para contrastar */
+        border-color: #ffc107 !important;
+        font-weight: bold;
+    }
+</style>
+
+<!-- Símbolos SVG reutilizáveis -->
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="home" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"></path>
+    </symbol>
+    <symbol id="box" viewBox="0 0 16 16">
+        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+    </symbol>
+    <symbol id="cart" viewBox="0 0 16 16">
+        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+    <symbol id="people" viewBox="0 0 16 16">
+        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
+    </symbol>
+    <symbol id="marketing-icon" viewBox="0 0 16 16">
+        <path d="M3 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H3zm9.5 2a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5zM8.5 4a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5zM6.5 6a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4A.5.5 0 0 1 6.5 6z"/>
+    </symbol>
+</svg>
+
+<div class="container-fluid">
+    <div class="row">  
+        <!-- Sidebar fixa -->
+        <div class="col-md-3 col-lg-2 d-md-block bg-black sidebar vh-100 p-3 position-fixed" style="width: 300px;">
+            <!-- Logo -->
+            <div class="mb-4 text-center">
+                <img src="Images/imoral_logo1.png" alt="logo_imoral" class="mb-3" style="width: 200px;">
+            </div>
+            
+            <!-- menu de navegação -->
+            <div class="list-group d-flex flex-column gap-3 align-items-center" role="tablist">
+                <ul class="list-unstyled">
+                    <li>
+                        <a class="list-group-item list-group-item-action menu-item border rounded px-4 mb-2 text-center active" style="width: 200px; background-color: black;"
+                        data-bs-toggle="list"  href="#dashboard">
+                            <svg class="me-2" width="16" height="16" style="fill: white;">
+                                <use xlink:href="#home"></use>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a  class="list-group-item list-group-item-action menu-item border rounded px-4 mb-2 text-center" style="width: 200px; background-color: black;"
+                        data-bs-toggle="list" href="#products">
+                            <svg class="me-2" width="16" height="16" style="fill: white;">
+                                <use xlink:href="#box"></use>
+                            </svg>
+                            Products
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action menu-item border rounded px-4 mb-2 text-center" style="width: 200px; background-color: black;"
+                        data-bs-toggle="list" href="#orders">
+                            <svg class="me-2" width="16" height="16" style="fill: white;">
+                                <use xlink:href="#cart"></use>
+                            </svg>
+                            Orders
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action menu-item border rounded px-4 mb-2 text-center" style="width: 200px; background-color: black;"
+                        data-bs-toggle="list" href="#users">
+                            <svg class="me-2" width="16" height="16" style="fill: white;">
+                                <use xlink:href="#people"></use>
+                            </svg>
+                            Users
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action menu-item border rounded px-4 mb-2 text-center" style="width: 200px; background-color: black;"
+                        data-bs-toggle="list" href="#marketing">
+                            <svg class="me-2" width="16" height="16" style="fill: white;">
+                                <use xlink:href="#marketing-icon"></use>
+                            </svg>
+                            Marketing
+                        </a>
+                    </li>
+                </ul>      
+            </div>
+        </div>
+        <!-- end-sidebar -->
+        <!-- Topbar -->
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-black" style="height: 60px; margin-left: 300px;">
+        </div>
+        <!-- end-topbar -->
+        <!-- Conteúdo principal -->
+        <div id="mainPage" class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin-left: 300px;">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                    <h1 class="text-center mt-5">Bem-vindo ao Backoffice</h1>
+                    <p class="text-center">Aqui você pode gerenciar o conteúdo do site.</p>
+                    <div>
+                        <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                            <div class="col-md-5"
+                            style="min-width: 300px;">
+                                <div class="card card-stats">
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="h5 card-title text-uppercase mb-0" style="color: black; font-weight: bold;">Sales Today</p>
+                                                <span class="h2 mb-0" style="color: black;">15</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                style="width: 50px; height: 50px;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    📈
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="text-success me-2">+12%</span>
+                                            <span class="text-nowrap">from yesterday</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5"
+                            style="min-width: 300px;">
+                                <div class="card card-stats">
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="h5 card-title text-uppercase mb-0" style="color: black; font-weight: bold;">Customers Today</p>
+                                                <span class="h2 mb-0" style="color: black;">11</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                style="width: 50px; height: 50px;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    🧑‍🤝‍🧑
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="text-success me-2">+200%</span>
+                                            <span class="text-nowrap">from yesterday</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5"
+                            style="min-width: 300px;">
+                                <div class="card card-stats">
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="h5 card-title text-uppercase mb-0" style="color: black; font-weight: bold;">T-Shirt Sold Today</p>
+                                                <span class="h2 mb-0" style="color: black;">9</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                style="width: 50px; height: 50px;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    👕
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="text-success me-2">-60%</span>
+                                            <span class="text-nowrap">from yesterday</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5"
+                            style="min-width: 300px;">
+                                <div class="card card-stats">
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="h5 card-title text-uppercase mb-0" style="color: black; font-weight: bold;">Pants Sold Today</p>
+                                                <span class="h2 mb-0" style="color: black;">6</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                style="width: 50px; height: 50px;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    👖
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="text-success me-2">+20%</span>
+                                            <span class="text-nowrap">from yesterday</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="products" role="tabpanel">
+                    <h1 class="text-center mt-5">Produtos</h1>
+                    <p class="text-center">Aqui você pode gerenciar os produtos do site.</p>
+                    <div class="d-flex justify-content-center">
+                        <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 950px;">
+                            <div class="col-md-12" style="min-width: 300px;">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Top Selling Products</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Color</th>
+                                                        <th>Product</th>
+                                                        <th>Category</th>
+                                                        <th>Price</th>
+                                                        <th>Sales</th>
+                                                        <th>Revenue</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div style="width: 40px; height: 40px; background-color: #000; margin-right: 1px;"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <span>Agitat Solum Merch</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>T-Shirts</td>
+                                                        <td>€15.00</td>
+                                                        <td>47</td>
+                                                        <td>€705.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div style="width: 40px; height: 40px; background-color: #333; margin-right: 1px;"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <span>Custom Baggy Jeans</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>Pants</td>
+                                                        <td>€85.00</td>
+                                                        <td>32</td>
+                                                        <td>€2,720.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div style="width: 40px; height: 40px; background-color: #555; margin-right: 1px;"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <span>Battle Jacket</span>
+                                                            </div>
+                                                        </td>
+                                                        </td>
+                                                        <td>Jackets</td>
+                                                        <td>€105.00</td>
+                                                        <td>18</td>
+                                                        <td>€1,890.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div style="width: 40px; height: 40px; background-color: #222; margin-right: 1px;"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <span>Custom T-Shirt</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>T-Shirts</td>
+                                                        <td>€25.00</td>
+                                                        <td>28</td>
+                                                        <td>€700.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="orders" role="tabpanel">
+                    <h1 class="text-center mt-5">Pedidos</h1>
+                    <p class="text-center">Aqui você pode gerenciar os pedidos do site.</p>
+                </div>
+                <div class="tab-pane fade" id="users" role="tabpanel">
+                    <h1 class="mt-5" style="margin-left: 70px;">Users 👥</h1>
+                    <button class="btn btn-outline-secondary mb-3" data-bs-toggle="collapse" data-bs-target="#conteudo"
+                    style="margin-left: 70px;">
+                        View Details
+                    </button>
+                    <div id="conteudo" class="collapse">
+                        <div id="conteudo" class="row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                            <div class="col-md-5"
+                            style="min-width: 300px;">
+                                <div class="card card-stats">
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title text-uppercase mb-0" style="color: black;">Total Registered Users</h5>
+                                                <span class="h2 font-weight-bold mb-0" style="color: black;">110</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                style="width: 50px; height: 50px;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    👥
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="text-success me-2">+200%</span>
+                                            <span class="text-nowrap">from yesterday</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5"
+                            style="min-width: 300px;">
+                                <div class="card card-stats">
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title text-uppercase mb-0" style="color: black;">Users Resgistered Today</h5>
+                                                <span class="h2 font-weight-bold mb-0" style="color: black;">45</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                style="width: 50px; height: 50px;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    👤
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="text-success me-2">+42%</span>
+                                            <span class="text-nowrap">from yesterday</span>
+                                        </p>
+                                        <!-- colocar uma barra para dizer o maximo de registrados por dia-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5"
+                            style="min-width: 300px;">
+                                <div class="card card-stats">
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title text-uppercase mb-0" style="color: black;">Active Accounts</h5>
+                                                <span class="h2 font-weight-bold mb-0" style="color: black;">101</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                style="width: 50px; height: 50px;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    ✔
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="text-success me-2">+20%</span>
+                                            <span class="text-nowrap">from yesterday</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5"
+                            style="min-width: 300px;">
+                                <div class="card card-stats">
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title text-uppercase mb-0" style="color: black;">Unactive Accounts</h5>
+                                                <span class="h2 font-weight-bold mb-0" style="color: black;">9</span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                style="width: 50px; height: 50px;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    😴
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="text-success me-2">-60%</span>
+                                            <span class="text-nowrap">from yesterday</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="mt-4" style="margin-left: 70px;"> 
+                        <section class="mb-4">
+                            <h2 class="mb-3">Deleted Accounts ❌</h2>
+                            <button class="btn btn-outline-secondary mb-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStart">
+                                View Details
+                            </button>
+                        </section>
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title">Painel Esquerdo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="col-md-5"
+                                style="min-width: 300px;">
+                                    <div class="card card-stats">
+                                        <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="card-title text-uppercase mb-0" style="color: black;">Deleted Accounts</h5>
+                                                    <span class="h2 font-weight-bold mb-0" style="color: black;">6</span>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                                    style="width: 50px; height: 50px;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;">
+                                                        ❌
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="mt-3 mb-0 text-muted text-sm">
+                                                <span class="text-success me-2">+20%</span>
+                                                <span class="text-nowrap">from yesterday</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 class="mt-5" style="margin-left: 70px;">Retention Rate</h1>
+                    <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                        <div class="col-md-5" 
+                        style="min-width: 300px;">
+                            <div class="card card-stats">
+                                <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                    <div class="row">
+                                        <div class="col">
+                                            <span class="h2 font-weight-bold mb-0" style="color: black;">110</span>
+                                            <p class="card-title text-uppercase mb-0" style="color: black;">Total Registered Users</p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                            style="width: 50px; height: 50px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;">
+                                                👥
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-3">
+                                            <canvas id="donutChart" width="200" height="200"></canvas>
+                                            <script>
+                                              const ctx = document.getElementById('donutChart').getContext('2d');
+                                              new Chart(ctx, {
+                                                type: 'doughnut',
+                                                data: {
+                                                  labels: ['Active', 'Unactive'],
+                                                  datasets: [{
+                                                    data: [101, 9],
+                                                    backgroundColor: ['#3b82f6', '#ef4444'],
+                                                    borderWidth: 0
+                                                  }]
+                                                },
+                                                options: {
+                                                  cutout: '72%',
+                                                  plugins: {
+                                                    legend: { display: false },
+                                                    tooltip: { enabled: true }
+                                                  },
+                                                  hover: { mode: null }
+                                                }
+                                              });
+                                            </script>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p class="card-title text-uppercase mb-0" style="color: black; font-size: 12px; font-weight: bold;">Active Accounts</p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <span class="h2 font-weight-bold mb-0" style="color: black; font-size: 30px;">101</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p class="card-title text-uppercase mb-0" style="color: black; font-size: 12px; font-weight: bold;">Unactive Accounts</p>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <span class="h2 font-weight-bold mb-0" style="color: black; font-size: 30px;">9</span>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-success me-2">-60%</span>
+                                        <span class="text-nowrap">from yesterday</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5"
+                         style="min-width: 300px;">
+                            <div class="card card-stats">
+                                <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase mb-0" style="color: black;">Deleted Accounts</h5>
+                                            <span class="h2 font-weight-bold mb-0" style="color: black;">6</span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-dark text-white rounded-circle shadow"
+                                            style="width: 50px; height: 50px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;">
+                                                ❌
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-success me-2">+20%</span>
+                                        <span class="text-nowrap">from yesterday</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3" style="margin-left: 70px;">
+                        <div class="card card-stats mt-3">
+                            <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                <div class="row">
+                                    <div class="col">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="retention-tab" data-bs-toggle="tab" data-bs-target="#retention" type="button" role="tab">Retention</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="unactive-tab" data-bs-toggle="tab" data-bs-target="#unactive" type="button" role="tab">Unactive</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="deleted-tab" data-bs-toggle="tab" data-bs-target="#deleted" type="button" role="tab">Deleted</button>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="retention" role="tabpanel" aria-labelledby="retention-tab">
+                                                <table class="table mt-3">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Retention Rate</th>
+                                                            <th>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>85%</td>
+                                                            <td>2024-01-15</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>85%</td>
+                                                            <td>2024-01-15</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>               
+                                            <div class="tab-pane fade" id="unactive" role="tabpanel" aria-labelledby="unactive-tab">
+                                                <table class="table mt-3">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Retention Rate</th>
+                                                            <th>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>40%</td>
+                                                            <td>2024-01-15</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>40%</td>
+                                                            <td>2024-01-15</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="deleted" role="tabpanel" aria-labelledby="deleted-tab">
+                                                <table class="table mt-3">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Retention Rate</th>
+                                                            <th>Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>25%</td>
+                                                            <td>2024-01-15</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>25%</td>
+                                                            <td>2024-01-15</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5" style="margin-left: 70px; width: 450px;">
+                        <div class="card card-stats">
+                            <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                <div class="row">
+                                    <div class="col">
+                                       <p class="h2" style="font-weight: bold;">Unactive Users by Period</p>
+                                    </div>
+                                </div>
+                                <div class="my-3" style="width: 400px;">
+                                    <canvas id="chart"></canvas>
+                                    <script>
+                                         new Chart(document.getElementById('chart'), {
+                                           type: 'bar',
+                                           data: {
+                                             labels: ['< 30 days', '< 60 days', '< 90 days', '6 months +'],
+                                             datasets: [{
+                                               data: [420, 780, 390, 210],
+                                               backgroundColor: ['#f4c95d', '#f4a541', '#e06c3a', '#c0392b'],
+                                               borderRadius: 4,
+                                             }]
+                                           },
+                                           options: {
+                                             plugins: {
+                                               legend: { display: false},
+                                               tooltip: { enabled: false }
+                                             },
+                                             scales: {
+                                               y: { beginAtZero: true }
+                                             }
+                                           }
+                                         });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5" style="margin-left: 70px;">
+                        <p class="h2 mt-5" style="font-weight: bold;">Reasons for Account Deletion</p>
+                        <div class="card card-stats mt-3">
+                            <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                <div class="row">
+                                    <p class="h3 mb-3">Feedbacks: 4</p>
+                                    <div class="col">
+                                        <div class="overflow-auto" style="height: 182px;">
+                                            <div class="accordion" id="clientsAccordion">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                            Clients Name - Title - date/date/date
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#clientsAccordion">
+                                                        <div class="accordion-body">
+                                                            <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                            Clients Name - Title - date/date/date
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#clientsAccordion">
+                                                        <div class="accordion-body">
+                                                            <strong>This is the second item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                            const inputTarefa = document.querySelector('#inputTarefa');
+                                            const btnAdicionarLista = document.querySelector('#btnAdicionarLista');
+                                            const btnLimparLista = document.querySelector('#btnLimparLista');
+                                            const listaTarefas = document.querySelector('#listaTarefas');
+
+                                            btnAdicionarLista.addEventListener("click", function() {
+                                                const textoTarefa = inputTarefa.value.trim();
+                                                if (textoTarefa === "") return;
+                                                const listItem = document.createElement("li");
+                                                listItem.className = "list-group-item";
+                                                listItem.textContent = textoTarefa;
+                                                listaTarefas.appendChild(listItem);
+                                                inputTarefa.value = "";
+                                                inputTarefa.focus();
+                                            });
+                                        
+                                            btnLimparLista.addEventListener("click", function() {
+                                                if (listaTarefas === "") return;
+                                                listaTarefas.innerHTML = "";
+                                            });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="marketing" role="tabpanel">
+                    <h1 class="text-center mt-5">Marketing</h1>
+                    <p class="text-center">Aqui você pode gerenciar as campanhas de marketing do site.</p>
+                </div>
+            </div>
+        </div>
+        <!-- end-conteudo -->
+    </div>
+</div>
+
+    <!-- Bootstrap jS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
