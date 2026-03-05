@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Acessorio
+comment1.params=nome\ cor\ tamanho\ stock\ precoVenda\ precoCusto
+comment1.target=Acessorio(java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ double,\ double)
+numComments=2

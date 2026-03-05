@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Estado
+comment1.params=nome\ descricao\ cor\ entregado
+comment1.target=Estado(java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ getNome()
+comment3.params=
+comment3.target=java.lang.String\ getDescricao()
+comment4.params=
+comment4.target=java.lang.String\ getCor()
+comment5.params=
+comment5.target=boolean\ getEntregado()
+numComments=6

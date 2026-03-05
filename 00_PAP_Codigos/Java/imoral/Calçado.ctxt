@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Cal\u00E7ado
+comment1.params=nome\ cor\ tamanho\ stock\ precoVenda\ precoCusto
+comment1.target=Cal\u00E7ado(java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ double,\ double)
+numComments=2
