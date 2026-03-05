@@ -8,8 +8,9 @@ public class Comentario
     private String textoComentario;
     private int likeCount;
     
-    public Comentario(Utilizador user, Post postPai, int idComentarioPai, String textoComentario)
+    public Comentario(int id, Utilizador user, Post postPai, int idComentarioPai, String textoComentario)
     {
+        this.id = id;
         this.user = user;
         this.postPai = postPai;
         this.idComentarioPai = idComentarioPai; // 0 se não houver comentario pai

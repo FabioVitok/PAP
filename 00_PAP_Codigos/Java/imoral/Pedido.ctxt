@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Pedido
-comment1.params=carrinho
-comment1.target=Pedido(Carrinho)
+comment1.params=id\ carrinho
+comment1.target=Pedido(int,\ Carrinho)
 comment2.params=
 comment2.target=Carrinho\ getCarrinho()
 numComments=3

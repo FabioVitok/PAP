@@ -5,12 +5,13 @@ public class Post
     private String dtPostagem;
     private String textoPost;   
     private int likeCount;
-    public Post(Utilizador user, String dtPostagem, String textoPost)
+    public Post(int id, Utilizador user, String dtPostagem, String textoPost)
     {
-     this.user = user;
-     this.dtPostagem = dtPostagem;
-     this.textoPost = textoPost;
-     this.likeCount = 0;
+        this.id = id;
+        this.user = user;
+        this.dtPostagem = dtPostagem;
+        this.textoPost = textoPost;
+        this.likeCount = 0;
     }
     
     public Utilizador getUser()

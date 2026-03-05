@@ -4,11 +4,13 @@ public class Carrinho
     private int id;
     private Utilizador user;
     private double custoTotal;
-    //HashMap<String, Produto> Produtos= new HashMap<String, Produto>();
+    HashMap<String, Produto> produtos;
      
-    public Carrinho(Utilizador user)
+    public Carrinho(int id, Utilizador user)
     {
+        this.id = id;
         this.user = user;
+        this.produtos = new HashMap<>();
     }
  
     public Utilizador getUser()
@@ -16,12 +18,15 @@ public class Carrinho
         return this.user;
     }
     
-    /* metodo q retorna o peso de todos os produtos
-    public pesoTotal()
+    public double pesoTotal()
     {
-        double pesoTotal
+        double pesoTotal = 0;
         
-        for(
+        for(String key : this.produtos.keySet()){
+            pesoTotal = pesoTotal + this.produtos.get(key).getPeso();
+        }
+        
+        return pesoTotal;
     }
-    */
+
 }

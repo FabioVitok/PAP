@@ -9,14 +9,15 @@ public class Entrega
     private String dataEntrega;
     private Estado estadoEntrega;
     
-    public Entrega(Pedido pedido, String morada, String metodoEnvio, String entregadora, Estado estadoEntrega)
+    public Entrega(int id, Pedido pedido, String morada, String metodoEnvio, String entregadora, Estado estadoEntrega)
     {
+        this.id = id;
         this.pedido = pedido;
         this.morada = morada;
         this.metodoEnvio = metodoEnvio;
         this.entregadora = entregadora;
         this.estadoEntrega = estadoEntrega;
-        //this.peso = this.pedido.getCarrinho().pesoTotal();
+        this.peso = this.pedido.getCarrinho().pesoTotal();
     }
     
     public Pedido getPedido() 

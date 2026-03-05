@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Post
-comment1.params=user\ dtPostagem\ textoPost
-comment1.target=Post(Utilizador,\ java.lang.String,\ java.lang.String)
+comment1.params=id\ user\ dtPostagem\ textoPost
+comment1.target=Post(int,\ Utilizador,\ java.lang.String,\ java.lang.String)
 comment2.params=
 comment2.target=Utilizador\ getUser()
 comment3.params=

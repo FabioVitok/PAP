@@ -6,15 +6,18 @@ public abstract class Produto
     private String cor;
     private String tamanho;
     private int stock;
+    private double peso;
     private double precoVenda;
     private double precoCusto;
-    public Produto(String nome, String tipo, String cor, String tamanho, int stock, double precoVenda, double precoCusto)
+    public Produto(int id, String nome, String tipo, String cor, String tamanho, int stock, double peso, double precoVenda, double precoCusto)
     {
+        this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.cor = cor;
         this.tamanho = tamanho;
         this.stock = stock;
+        this.peso = peso;
         this.precoVenda = precoVenda;
         this.precoCusto = precoCusto;
     }
@@ -52,6 +55,11 @@ public abstract class Produto
     public void setStock(int stock)
     {
         this.stock = stock;
+    }
+    
+    public double getPeso()
+    {
+        return this.peso;
     }
     
     public double getPrecoVenda()

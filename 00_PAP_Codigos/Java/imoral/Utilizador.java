@@ -7,14 +7,16 @@ public class Utilizador
     private String password;
     private String morada;
     private String dtNascimento;
-    public Utilizador(String nome, String email,String telefone, String password, String morada, String dtNascimento )
+    
+    public Utilizador(int id, String nome, String email,String telefone, String password, String morada, String dtNascimento )
     {
-     this.nome = nome;
-     this.email = email;
-     this.telefone = telefone;
-     this.password = password;
-     this.morada = morada;
-     this.dtNascimento = dtNascimento;
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.password = password;
+        this.morada = morada;
+        this.dtNascimento = dtNascimento;
     }
 
     public int getId()
