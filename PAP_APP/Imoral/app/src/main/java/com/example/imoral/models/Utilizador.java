@@ -1,3 +1,4 @@
+package com.example.imoral.models;
 public class Utilizador
 {
     private int id;
