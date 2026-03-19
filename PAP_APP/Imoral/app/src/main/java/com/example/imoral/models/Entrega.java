@@ -1,3 +1,4 @@
+package com.example.imoral.models;
 public class Entrega
 {
     private int id;
