@@ -32,4 +32,9 @@ INSERT INTO produtos(nome, tamanho, peso, tipo, cor, preco_venda, preco_custo, s
 
 INSERT INTO produtos(nome, tamanho, peso, tipo, cor, preco_venda, preco_custo, stock) VALUES
 ('Distressed Scarf', "Único", 0,20, "Preto", 15.50, 5.00, 10),
-('Eyelet Lace Bag' "Único", 0,20, "Preto", 25.99, 15.00, 10);
+('Eyelet Lace Bag', "Único", 0,20, "Preto", 25.99, 15.00, 10),
+('Snake Belt', "Único", 0,15, "Preto", 19.99, 10.00, 10),
+('Eyelet kerchief', "Único", 0,10, "Preto", 12.99, 5.00, 10);
+
+
+
