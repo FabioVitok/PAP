@@ -78,7 +78,7 @@ public abstract class Produto
         return this.precoCusto;
     }
     
-    public void setPrecoCusto(double precoVenda)
+    public void setPrecoCusto(double precoCusto)
     {
         this.precoCusto = precoCusto;
     }
