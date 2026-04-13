@@ -10,3 +10,15 @@ CREATE TABLE estado_contas (
     FOREIGN KEY (id_utilizador) REFERENCES utilizadores(id),
     FOREIGN KEY (id_estado) REFERENCES estados(id)
 );
+
+INSERT INTO estado_contas(id_utilizador, id_estado, data_alteracao) VALUES
+(1, 6, '2024-06-01'),
+(2, 6, '2024-06-02'),
+(3, 7, '2024-06-03'),
+(4, 6, '2024-06-04'),
+(5, 8, '2024-06-05'),
+(6, 9, '2024-06-06'),
+(7, 9, '2024-06-07'),
+(8, 9, '2024-06-08'),
+(9, 8, '2024-06-09'),
+(10, 7, '2024-06-10');

@@ -10,3 +10,11 @@ CREATE TABLE posts (
     like_count INT DEFAULT 0,
     FOREIGN KEY (id_utilizador) REFERENCES utilizadores(id)
 );
+
+INSERT INTO posts (id_utilizador, dt_postagem, texto_post) VALUES
+(1, '2024-06-01 10:00:00', 'Adoro os produtos desta loja!'),
+(2, '2024-06-02 12:30:00', 'A entrega foi super rápida, recomendo!'),
+(3, '2024-06-03 15:45:00', 'Os preços são ótimos e a qualidade é excelente.'),
+(1, '2024-06-04 09:20:00', 'Comprei uma camisola e estou muito satisfeita!'),
+(2, '2024-06-05 14:10:00', 'O atendimento ao cliente foi muito eficiente.'),
+(3, '2024-06-06 18:25:00', 'Adorei a variedade de produtos disponíveis.');

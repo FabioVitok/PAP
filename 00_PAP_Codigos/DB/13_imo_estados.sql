@@ -9,11 +9,13 @@ CREATE TABLE estados (
 );
 
 INSERT INTO estados(nome_estado ,cor_estado) VALUES
+-- Estados de encomenda
 ('Encomenda Cancelada', 'R'), -- Red
 ('Encomenda Enviada', 'B'), -- Blue
 ('Encomenda Entregue', 'G'), -- Green
 ('Encomenda em Transferência', 'Y'), -- Yellow
 ('Pedido por pagar', 'Y'), -- Yellow
+-- Estados de conta
 ('Conta Apagada', 'R'), -- Red
 ('Conta Banida', 'DR'), -- DarkRed
 ('Conta Suspensa', 'Y'), -- Yellow
