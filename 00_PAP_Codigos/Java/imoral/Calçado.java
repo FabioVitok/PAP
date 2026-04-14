@@ -1,4 +1,4 @@
-package com.example.imoral.models;
+ 
 public class Calçado extends Produto
 {
     private static final String TIPO = "Calçado";

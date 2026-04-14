@@ -1,11 +1,11 @@
 #BlueJ class context
 comment0.target=Comentario
 comment1.params=id\ user\ postPai\ idComentarioPai\ textoComentario
-comment1.target=Comentario(int,\ Utilizador,\ Post,\ int,\ java.lang.String)
+comment1.target=Comentario(int,\ com.example.imoral.models.Utilizador,\ Post,\ int,\ java.lang.String)
 comment2.params=
 comment2.target=int\ getId()
 comment3.params=
-comment3.target=Utilizador\ getUser()
+comment3.target=com.example.imoral.models.Utilizador\ getUser()
 comment4.params=
 comment4.target=Post\ getPostPai()
 comment5.params=

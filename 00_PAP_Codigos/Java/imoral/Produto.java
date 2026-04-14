@@ -1,4 +1,4 @@
-package com.example.imoral.models;
+ 
 public abstract class Produto
 {
     private int id;

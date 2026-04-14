@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=ProdutoCarrinho
+comment1.params=produto\ quantidade
+comment1.target=ProdutoCarrinho(Produto,\ int)
+comment2.params=
+comment2.target=Produto\ getProduto()
+comment3.params=
+comment3.target=int\ getQuantidade()
+comment4.params=quantidade
+comment4.target=void\ setQuantidade(int)
+comment5.params=
+comment5.target=boolean\ getSelecionado()
+comment6.params=selecionado
+comment6.target=void\ setSelecionado(boolean)
+numComments=7
