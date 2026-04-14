@@ -6,17 +6,19 @@ public abstract class Produto
     private String tipo;
     private String cor;
     private String tamanho;
+    private String imagem;
     private int stock;
     private double peso;
     private double precoVenda;
     private double precoCusto;
-    public Produto(int id, String nome, String tipo, String cor, String tamanho, int stock, double peso, double precoVenda, double precoCusto)
+    public Produto(int id, String nome, String tipo, String cor, String tamanho, String imagem, int stock, double peso, double precoVenda, double precoCusto)
     {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.cor = cor;
         this.tamanho = tamanho;
+        this.imagem = imagem;
         this.stock = stock;
         this.peso = peso;
         this.precoVenda = precoVenda;
@@ -47,6 +49,8 @@ public abstract class Produto
     {
         return this.tamanho;
     }
+
+    public String getImagem(){return this.imagem;}
     
     public int getStock()
     {
