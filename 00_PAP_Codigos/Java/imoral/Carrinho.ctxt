@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Carrinho
 comment1.params=id\ user
-comment1.target=Carrinho(int,\ Utilizador)
+comment1.target=Carrinho(int,\ com.example.imoral.models.Utilizador)
 comment2.params=
-comment2.target=Utilizador\ getUser()
+comment2.target=com.example.imoral.models.Utilizador\ getUser()
 comment3.params=
 comment3.target=double\ pesoTotal()
 numComments=4

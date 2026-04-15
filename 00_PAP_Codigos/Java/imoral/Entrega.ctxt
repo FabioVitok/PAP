@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Entrega
 comment1.params=id\ pedido\ morada\ metodoEnvio\ entregadora\ estadoEntrega
-comment1.target=Entrega(int,\ Pedido,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ Estado)
+comment1.target=Entrega(int,\ com.example.imoral.models.Pedido,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ com.example.imoral.models.Estado)
 comment2.params=
-comment2.target=Pedido\ getPedido()
+comment2.target=com.example.imoral.models.Pedido\ getPedido()
 comment3.params=
 comment3.target=java.lang.String\ getMorada()
 comment4.params=password
@@ -13,5 +13,5 @@ comment5.target=java.lang.String\ getMetodoEnvio()
 comment6.params=
 comment6.target=java.lang.String\ getEntregadora()
 comment7.params=
-comment7.target=Estado\ getEstadoEntrega()
+comment7.target=com.example.imoral.models.Estado\ getEstadoEntrega()
 numComments=8

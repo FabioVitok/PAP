@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Wishlist
 comment1.params=id\ user
-comment1.target=Wishlist(int,\ Utilizador)
+comment1.target=Wishlist(int,\ com.example.imoral.models.Utilizador)
 comment2.params=
-comment2.target=Utilizador\ getUser()
+comment2.target=com.example.imoral.models.Utilizador\ getUser()
 comment3.params=
 comment3.target=java.util.HashMap\ getProdutos()
 numComments=4
