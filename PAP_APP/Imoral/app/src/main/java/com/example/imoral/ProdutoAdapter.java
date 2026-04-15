@@ -37,7 +37,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
     public void onBindViewHolder(@NonNull ProdutoViewHolder holder, int position) {
         Produto Produto = Produtos.get(position);
 
-        //holder.ivImage.setImageResource(Produto.getImageRes());
+        holder.ivImage.setImageResource(Produto.getImageRes());
         holder.tvName.setText(Produto.getNome());
         String preco = Double.toString(Produto.getPrecoVenda());
         holder.tvPrice.setText(preco);
@@ -58,7 +58,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
 
         public ProdutoViewHolder(@NonNull View itemView) {
             super(itemView);
-            //ivImage  = itemView.findViewById(R.id.ivProdutoImage);
+            ivImage  = itemView.findViewById(R.id.ivProdutoImage);
             tvName   = itemView.findViewById(R.id.tvProdutoName);
             tvPrice  = itemView.findViewById(R.id.tvProdutoPrice);
         }

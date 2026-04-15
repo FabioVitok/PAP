@@ -5,7 +5,7 @@ public class Carrinho
     private int id;
     private Utilizador user;
     private double custoTotal;
-    HashMap<String, Produto> produtos;
+    HashMap<String, ProdutoCarrinho> produtos;
      
     public Carrinho(int id, Utilizador user)
     {
@@ -19,15 +19,16 @@ public class Carrinho
         return this.user;
     }
     
+    // Metodo para calcular o peso do carrinho ignorando se o produto está selecionado ou não
     public double pesoTotal()
     {
         double pesoTotal = 0;
-        
         for(String key : this.produtos.keySet()){
-            pesoTotal = pesoTotal + this.produtos.get(key).getPeso();
+            double pesoProduto = this.produtos.get(key).getProduto().getPeso();
+            int quantidadeProduto = this.produtos.get(key).getQuantidade();
+            pesoTotal = pesoTotal + (pesoProduto * quantidadeProduto);
         }
         
         return pesoTotal;
     }
-
 }

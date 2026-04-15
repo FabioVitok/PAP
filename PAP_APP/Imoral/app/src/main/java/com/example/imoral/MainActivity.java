@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Lista de produtos
         List<Produto> produtos = new ArrayList<>();
-        produtos.add(new Acessorio(1, "Eyelet Lace Bag", "preto", "m", 25, 34.00, 25.00 , 12.00));
-        produtos.add(new Acessorio(1, "Eyelete Bag", "preto", "m", 25, 34.00, 15.00 , 12.00));
+        produtos.add(new Acessorio(1, "Eyelet Lace Bag", "preto", "m", "Eyeletbag", 25, 34.00, 25.00 , 12.00));
+        produtos.add(new Acessorio(1, "Eyelete Bag", "preto", "m", "Eyeletbag" ,25, 34.00, 15.00 , 12.00));
 
 
         // RecyclerView — 2 colunas + scroll automático

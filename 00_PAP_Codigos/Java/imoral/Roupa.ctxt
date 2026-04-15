@@ -1,5 +1,5 @@
 #BlueJ class context
 comment0.target=Roupa
-comment1.params=id\ nome\ cor\ tamanho\ stock\ peso\ precoVenda\ precoCusto
-comment1.target=Roupa(int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ double,\ double,\ double)
+comment1.params=id\ nome\ cor\ tamanho\ imagemId\ stock\ peso\ precoVenda\ precoCusto
+comment1.target=Roupa(int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ int,\ double,\ double,\ double)
 numComments=2

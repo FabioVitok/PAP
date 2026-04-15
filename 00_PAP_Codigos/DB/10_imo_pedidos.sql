@@ -8,4 +8,15 @@ CREATE TABLE pedidos (
     FOREIGN KEY (id_carrinho) REFERENCES carrinhos(id)
 );
 
+INSERT INTO pedidos(id_carrinho) VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6),
+(7),
+(8),
+(9),
+(10);
 

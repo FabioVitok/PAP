@@ -4,16 +4,20 @@ public class Utilizador
     private int id;
     private String nome;
     private String email;
+    private String imagem;
+    private String role;
     private String telefone;
     private String password;
     private String morada;
     private String dtNascimento;
     
-    public Utilizador(int id, String nome, String email,String telefone, String password, String morada, String dtNascimento )
+    public Utilizador(int id, String nome, String email, String imagem, String role, String telefone, String password, String morada, String dtNascimento )
     {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        this.imagem = imagem;
+        this.role = role;
         this.telefone = telefone;
         this.password = password;
         this.morada = morada;
@@ -43,6 +47,26 @@ public class Utilizador
     public void setEmail(String email)
     {
         this.email = email;
+    }
+    
+    public String getImagem()
+    {
+        return this.imagem;
+    }
+    
+    public void setImagem(String imagem)
+    {
+        this.imagem = imagem;
+    }
+    
+    public String getRole() 
+    {
+        return this.role;
+    }
+    
+    public void setRole(String role)
+    {
+        this.role = role;
     }
     
     public String getTelefone()
