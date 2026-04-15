@@ -12,12 +12,7 @@ FROM carrinho_produtos as cp, produtos as p
 WHERE cp.id_produto = p.id AND cp.id_carrinho = carrinhos.id)
 WHERE carrinhos.id IN (SELECT id_carrinho FROM carrinho_produtos);
 
--- Query para ver os pordutos mais vendidos (CARRINHOS)
-SELECT p.nome, SUM(cp.quantidade) AS total_vendido
-FROM carrinho_produtos AS cp, produtos as p
-WHERE cp.id_produto = p.id
-GROUP BY p.nome
-ORDER BY total_vendido DESC;
+
 
 -- Filtro para calças
 SELECT * FROM produtos
@@ -48,3 +43,13 @@ SELECT nome, SUM(stock) AS total_stock
 FROM produtos
 GROUP BY nome
 ORDER BY total_stock DESC;
+
+
+-- 15 Queries
+-- Query para ver os pordutos mais vendidos (CARRINHOS)
+SELECT p.nome, SUM(cp.quantidade) AS total_vendido
+FROM carrinho_produtos AS cp
+INNER JOIN produtos AS p ON cp.id_produto = p.id
+INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
+GROUP BY p.nome
+ORDER BY total_vendido DESC;
