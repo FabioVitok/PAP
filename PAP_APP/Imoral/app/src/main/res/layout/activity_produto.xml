@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
@@ -12,7 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- HEADER / TOOLBAR -->
         <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
 
         <!-- PRODUCT TITLE -->
         <TextView
-            android:id="@+id/tvProductName"
+            android:id="@+id/NomeProduto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Eyelet Lace Bag"
@@ -61,7 +61,7 @@
 
             <!-- Product Image -->
             <ImageView
-                android:id="@+id/ivProduct"
+                android:id="@+id/ImagemProduto"
                 android:layout_width="220dp"
                 android:layout_height="300dp"
                 android:layout_gravity="center"

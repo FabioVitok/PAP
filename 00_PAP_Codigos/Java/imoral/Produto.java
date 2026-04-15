@@ -6,29 +6,19 @@ public abstract class Produto
     private String tipo;
     private String cor;
     private String tamanho;
-<<<<<<< HEAD
-=======
     private int imagemId;
->>>>>>> 4fb0673a2627fb37207e6fc0eb5e107d14143e42
     private int stock;
     private double peso;
     private double precoVenda;
     private double precoCusto;
-<<<<<<< HEAD
-    public Produto(int id, String nome, String tipo, String cor, String tamanho, int stock, double peso, double precoVenda, double precoCusto)
-=======
     public Produto(int id, String nome, String tipo, String cor, String tamanho, int imagemId, int stock, double peso, double precoVenda, double precoCusto)
->>>>>>> 4fb0673a2627fb37207e6fc0eb5e107d14143e42
     {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.cor = cor;
         this.tamanho = tamanho;
-<<<<<<< HEAD
-=======
         this.imagemId = imagemId;
->>>>>>> 4fb0673a2627fb37207e6fc0eb5e107d14143e42
         this.stock = stock;
         this.peso = peso;
         this.precoVenda = precoVenda;
@@ -59,11 +49,8 @@ public abstract class Produto
     {
         return this.tamanho;
     }
-<<<<<<< HEAD
-=======
 
     public int getImagemId(){return this.imagemId;}
->>>>>>> 4fb0673a2627fb37207e6fc0eb5e107d14143e42
     
     public int getStock()
     {
@@ -95,11 +82,7 @@ public abstract class Produto
         return this.precoCusto;
     }
     
-<<<<<<< HEAD
-    public void setPrecoCusto(double precoVenda)
-=======
     public void setPrecoCusto(double precoCusto)
->>>>>>> 4fb0673a2627fb37207e6fc0eb5e107d14143e42
     {
         this.precoCusto = precoCusto;
     }
