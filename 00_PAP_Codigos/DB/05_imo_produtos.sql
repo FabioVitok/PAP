@@ -15,12 +15,12 @@ CREATE TABLE produtos (
 );
 
 INSERT INTO produtos(nome, tamanho, peso, tipo, cor, preco_venda, preco_custo, stock) VALUES
-('Pierced shoulder Off', "xs", 0.45,"Camisola", "Preto", 25.55, 15.00, 10),
-('Pierced shoulder Off', "s", 0.50, "Camisola", "Preto", 25.55, 15.10, 10),
-('Pierced shoulder Off', "m", 0.55, "Camisola", "Preto", 25.55, 15.20, 10),
-('Pierced shoulder Off', "l", 0.60, "Camisola", "Preto", 25.55, 15.30, 10),
-('Pierced shoulder Off', "xl", 0.65, "Camisola", "Preto", 25.55, 15.40, 10),
-('Pierced shoulder Off', "xxl", 0.70, "Camisola", "Preto", 25.55, 15.50, 10);
+('Pierced shoulder Off', "XS", 0.45,"Camisola", "Preto", 25.55, 15.00, 10),
+('Pierced shoulder Off', "S", 0.50, "Camisola", "Preto", 25.55, 15.10, 10),
+('Pierced shoulder Off', "M", 0.55, "Camisola", "Preto", 25.55, 15.20, 10),
+('Pierced shoulder Off', "L", 0.60, "Camisola", "Preto", 25.55, 15.30, 10),
+('Pierced shoulder Off', "XL", 0.65, "Camisola", "Preto", 25.55, 15.40, 10),
+('Pierced shoulder Off', "XLL", 0.70, "Camisola", "Preto", 25.55, 15.50, 10);
 
 INSERT INTO produtos(nome, tamanho, peso, tipo, cor, preco_venda, preco_custo, stock) VALUES
 ('Flared distress Jeans', "36", 0.65,"Calças", "Preto", 29.99, 15.00, 10),

@@ -1,4 +1,5 @@
 package com.example.imoral;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,12 +38,17 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
     public void onBindViewHolder(@NonNull ProdutoViewHolder holder, int position) {
         Produto Produto = Produtos.get(position);
 
-        holder.ivImage.setImageResource(Produto.getImageRes());
+        holder.ivImage.setImageResource(Produto.getImagemId());
         holder.tvName.setText(Produto.getNome());
         String preco = Double.toString(Produto.getPrecoVenda());
         holder.tvPrice.setText(preco);
 
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(Produto));
+        holder.itemView.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), ProdutosActivity.class);
+            i.putExtra("prodNome", Produto.getNome());
+            i.putExtra("prodImg",Produto.getImagemId());
+            v.getContext().startActivity(i);
+        });
     }
 
     @Override
