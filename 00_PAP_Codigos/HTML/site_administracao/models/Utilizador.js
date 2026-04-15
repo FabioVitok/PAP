@@ -1,5 +1,7 @@
-class User {
-    constructor(image, username, role, email, cellphone, status, address, birthdate, pronouns, accountCreation, lastLogin) {
+
+class Utilizador {
+    constructor(id, image, username, role, email, cellphone, status, address, birthdate, pronouns, accountCreation, lastLogin) {
+        this.id = id;
         this.image = image;
         this.username = username;
         this.role = role;

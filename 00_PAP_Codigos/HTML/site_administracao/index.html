@@ -6,7 +6,8 @@
     <title>Imoral - Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-    <script src="models/User.js" defer></script>
+    <script src="models/Utilizador.js" defer></script>
+    <script src="models/Produto.js" defer></script>
 </head>
 <body> 
 <style>
@@ -53,6 +54,9 @@
     </symbol>
     <symbol id="cart" viewBox="0 0 16 16">
         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+    <symbol id="comunity-icon" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.25 4a.75.75 0 0 1 .75.75v2h2a.75.75 0 0 1 0 1.5h-2v2a.75.75 0 0 1-1.5 0v-2h-2a.75.75 0 0 1 0-1.5h2v-2A.75.75 0 0 1 8.25 4z"/>
     </symbol>
     <symbol id="marketing-icon" viewBox="0 0 16 16">
         <path d="M3 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H3zm9.5 2a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5zM8.5 4a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5zM6.5 6a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4A.5.5 0 0 1 6.5 6z"/>
@@ -114,6 +118,15 @@
                                 <use xlink:href="#cart"></use>
                             </svg>
                             Orders
+                        </a>
+                    </li>
+                    <li id="comunitynav">
+                        <a class="list-group-item list-group-item-action menu-item border rounded px-4 mb-2 text-center" style="width: 200px; background-color: black;"
+                        data-bs-toggle="list" href="#comunity">
+                            <svg class="me-2" width="16" height="16" style="fill: white;">
+                                <use xlink:href="#comunity-icon"></use>
+                            </svg>
+                            Community
                         </a>
                     </li>
                     <li id="marketingnav">
@@ -1660,6 +1673,122 @@
                     <p class="text-center">Here you can manage the site orders.</p>
                 </div>
 
+                <!-- ==================== COMUNITY ==================== -->
+                <div class="tab-pane fade" id="comunity" role="tabpanel" style="margin-left: 70px;">
+                    <h1 class="text-center mt-5">Comunity</h1>
+                    <p class="text-center">Here is the comunity management section.</p>
+                    <ul class="nav nav-tabs" id="comunityMainTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="comunity-maininfo-tab" data-bs-toggle="tab" data-bs-target="#comunity-maininfo" type="button" role="tab">Main Info</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="comunity-list-tab" data-bs-toggle="tab" data-bs-target="#comunity-postList" type="button" role="tab">Post List</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="comunityMainTabContent">
+                        <!-- Main Tab -->
+                        <div class="tab-pane fade show active" id="comunity-maininfo" role="tabpanel" aria-labelledby="comunity-maininfo-tab">
+
+                        </div>
+                        <!-- Post List -->
+                        <div class="tab-pane fade" id="comunity-postList" role="tabpanel" aria-labelledby="post-list-tab">
+                            <div class="mt-3">
+                                <div class="card card-stats mt-3">
+                                    <div class="card-header">
+                                        <ul class="nav nav-tabs" id="postListTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="postList-insert-tab" data-bs-toggle="tab" data-bs-target="#postList-insert" type="button" role="tab">Insert</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="postList-search-tab" data-bs-toggle="tab" data-bs-target="#postList-search" type="button" role="tab">Search</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="tab-content" id="postListTabContent">
+                                                    <div class="tab-pane fade show active" id="postList-insert" role="tabpanel" aria-labelledby="postList-insert-tab">
+                                                        <!-- Botão para abrir o modal -->
+                                                        <button id="addPost" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#insertPostModal">
+                                                            Add Post
+                                                        </button>       
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="insertPostModal" tabindex="-1">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Add New Post</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <label for="post-inputImage" class="form-label">Image URL</label>
+                                                                        <input type="text" id="post-inputImage" class="form-control mb-2" placeholder="Image URL">
+                                                                        <label for="post-inputText" class="form-label">Text</label>
+                                                                        <input type="text" id="post-inputText" class="form-control mb-2" placeholder="Text">
+                                                                        <label for="post-inputUsername" class="form-label">User</label>
+                                                                        <input type="text" id="post-inputUsername" class="form-control mb-2" placeholder="Username">
+                                                                        <label for="post-inputDate" class="form-label">Date</label>
+                                                                        <input type="date" id="post-inputDate" class="form-control mb-2" placeholder="Date">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-success" id="btnSalvarUser">Salvar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Barra de pesquisa e filtros -->
+                                                    <div class="tab-pane fade" id="postList-search" role="tabpanel" aria-labelledby="postList-search-tab">
+                                                        <div class="card mb-3">
+                                                          <div class="card-body">
+                                                            <div class="row g-2">
+                                                              <div class="col-md-10">
+                                                                <input type="text" id="searchPostsInput" class="form-control" placeholder="🔍 Search Posts...">
+                                                              </div>
+                                                                <div class="col-md-2">
+                                                                    <button class="btn btn-primary mb-3 w-100" id="btnLimparFiltrosPosts">
+                                                                        Clear
+                                                                    </button>   
+                                                                </div> 
+                                                              <div class="col-md-3">
+
+                                                              </div>
+                                                              <div class="col-md-3">
+ 
+                                                              </div>
+                                                              <div class="col-md-6">
+
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Tabela Posts -->
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Image</th>
+                                                                <th>Text</th>
+                                                                <th>User</th>
+                                                                <th>Date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <!-- Estao Aqui Dados de Usuarios de Exemplo-->
+                                                        <tbody id="corpoTabelaPosts">
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <!-- ==================== MARKETING ==================== -->
                 <div class="tab-pane fade" id="marketing" role="tabpanel" style="margin-left: 70px;">
                     <!-- FIX: traduzido de português para inglês -->
@@ -1742,7 +1871,7 @@
             return;
         }
     
-        const user = new User(image, username, role, email, cellphone, status, address, birthdate, pronouns, accountCreation, lastLogin);
+        const user = new Utilizador(image, username, role, email, cellphone, status, address, birthdate, pronouns, accountCreation, lastLogin);
     
         const novaLinha = `
             <tr>
@@ -1824,6 +1953,16 @@
         
             bootstrap.Modal.getOrCreateInstance(document.getElementById('insertUserModal')).show();
         }
+
+            // ACTIVATE
+            if (e.target.classList.contains('btnActivateUser')) {
+                linha.cells[4].textContent = 'Active';
+            }
+    
+            // SUSPEND
+        if (e.target.classList.contains('btnSuspendUser')) {
+            linha.cells[4].textContent = 'Suspended';
+        }
     });
 
     document.getElementById('insertUserModal').addEventListener('hidden.bs.modal', function () {
@@ -1889,29 +2028,31 @@
     document.getElementById('btnSalvarProduct').addEventListener('click', function () {
         const image = document.getElementById('inputImage').value;
         const color = document.getElementById('inputColor').value;
-        const product = document.getElementById('inputProduct').value;
+        const productName = document.getElementById('inputProductName').value;
         const category = document.getElementById('inputCategorySelect').value;
         const price = document.getElementById('inputPrice').value;
         const sales = document.getElementById('inputSales').value;
         const revenue = document.getElementById('inputRevenue').value;
 
-        if (!product || !category || !price || !sales || !revenue) {
+        if (!productName || !category || !price || !sales || !revenue) {
             alert('Fill all fields!');
             return;
         }
     
+        const product = Produto(image, color, productName, category, size, price, manufacCost, stock, sales, revenue);
+
         const novaLinha = `
             <tr>
-                <td><img src="${image || 'productImage1.jpg'}" alt="product image" style="width: 40px; height: 40px; object-fit: cover;"></td>
-                <td><div style="width: 40px; height: 40px; background-color: ${color};"></div></td>
-                <td>${product}</td>
-                <td>${category}</td>
+                <td><img src="${product.image || 'productImage1.jpg'}" alt="product image" style="width: 40px; height: 40px; object-fit: cover;"></td>
+                <td><div style="width: 40px; height: 40px; background-color: ${product.color};"></div></td>
+                <td>${product.productName}</td>
+                <td>${product.category}</td>
                 <td>-</td>
-                <td>${price}</td>
+                <td>${product.price}</td>
                 <td>-</td>
                 <td>-</td>
-                <td>${sales}</td>
-                <td>${revenue}</td>
+                <td>${product.sales}</td>
+                <td>${product.revenue}</td>
                 <td>
                     <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
                     <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
@@ -2009,14 +2150,14 @@
         const linhas = document.querySelectorAll('#corpoTabelaProduct tr');
     
         linhas.forEach(function(linha) {
-            const product = linha.cells[2]?.textContent.toLowerCase() || '';
+            const productName = linha.cells[2]?.textContent.toLowerCase() || '';
             const cat = linha.cells[3]?.textContent.toLowerCase() || '';
             const price = parseFloat(linha.cells[5]?.textContent.replace('€', '')) || 0;
             const sales = parseFloat(linha.cells[8]?.textContent) || 0;
             const revenue = parseFloat(linha.cells[9]?.textContent.replace('€', '')) || 0;
         
             const match =
-                product.includes(search) &&
+                productNmae.includes(search) &&
                 (category === '' || cat.includes(category)) &&
                 price >= priceMin && price <= priceMax &&
                 sales >= salesMin && sales <= salesMax &&
@@ -2043,7 +2184,7 @@
      'filterSalesMin', 'filterSalesMax', 'filterRevenueMin', 'filterRevenueMax']
         .forEach(id => document.getElementById(id).addEventListener('input', filtrarTabela));
 
-    // ---- Script de lista de tarefas (mantido do original) ----
+    // ---- Script de lista de tarefas ----
     const inputTarefa = document.querySelector('#inputTarefa');
     const btnAdicionarLista = document.querySelector('#btnAdicionarLista');
     const btnLimparLista = document.querySelector('#btnLimparLista');

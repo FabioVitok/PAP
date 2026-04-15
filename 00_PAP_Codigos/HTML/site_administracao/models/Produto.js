@@ -1,8 +1,8 @@
 class Produto {
-    constructor(image, color, product, category, size, price, manufacCost, stock, sales, revenue) {
+    constructor(image, color, productName, category, size, price, manufacCost, stock, sales, revenue) {
         this.image = image;
         this.color = color;
-        this.product = product;
+        this.productName = productName;
         this.category = category;
         this.size = size;
         this.price = price;
