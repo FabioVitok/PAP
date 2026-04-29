@@ -5,6 +5,10 @@ SELECT * FROM carrinhos;
 
 SELECT * FROM produtos;
 
+SELECT * FROM utilizadores;
+
+SELECT * FROM posts;
+
 
 -- Filtro para calças
 SELECT * FROM produtos
@@ -38,6 +42,18 @@ ORDER BY total_stock DESC;
 
 
 -- 15 Queries
+
+-- Query para ver todos os produtos
+SELECT p.id, p.nome, p.tamanho, p.peso, p.tipo, p.cor, p.preco_venda, p.preco_custo, p.stock
+FROM produtos AS p;
+
+-- Query para ver todos os utilizadores
+SELECT u.id, u.username, u.email, u.imageId, u.telefone, u.password, u.morada, u.dt_nascimento, u.pronomes
+FROM utilizadores AS u;
+
+-- Query para ver todos os posts
+SELECT po.id, po.id_utilizador, po.dt_postagem, po.texto_post, po.like_count
+FROM posts AS po;
 
 -- Query para contar o número total de utilizadores
 SELECT COUNT(*)
@@ -76,5 +92,16 @@ INNER JOIN produtos AS p ON cp.id_produto = p.id
 INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
 GROUP BY p.tipo;
 
--- Query para contar utilizadores ativos
+-- Query para ver os posts sem comentários
+SELECT po.id, po.id_utilizador, po.dt_postagem, po.texto_post, po.like_count
+FROM posts AS po
+LEFT JOIN comentarios AS c ON po.id = c.id_post
+WHERE c.id_post IS NULL;
+
+
+-- Query para contar utilizadores inativos
 SELECT COUNT(*)
+FROM utilizadores AS u
+LEFT JOIN estado_contas AS ec ON u.id = ec.id_utilizador
+WHERE ec.id_estado = 10;
+
