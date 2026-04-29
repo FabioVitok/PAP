@@ -105,3 +105,4 @@ FROM utilizadores AS u
 LEFT JOIN estado_contas AS ec ON u.id = ec.id_utilizador
 WHERE ec.id_estado = 10;
 
+blah
