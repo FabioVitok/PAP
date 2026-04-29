@@ -5,7 +5,7 @@ require_once __DIR__ .'/../models/User.php';
 
 class UserDAO
 {
-
+    // IMPORTANT!: isto podia estar numa classe parent dao
     private $conn;
     public function __construct()
     {
@@ -24,18 +24,25 @@ class UserDAO
         if ($row) {
             $user = new User(
                 $row['id'],
-                $row['username'],
-                $row['email'],
-                $row['password'],
-                $row['is_admin'],
-                $row['created_at'],
-                $row['updated_at'],
-                $row['deleted_at']
+                $row['username']
             );
 
             return $row;
         } else {
             return null;
         }
+    }
+
+    public function createPending($username, $email)
+    {
+        $sql = "
+            INSERT INTO users (username, email, password, is_admin, is_verified, verified_at, created_at, updated_at, deleted_at)
+            VALUES (?, ?, '', 0, 0, NULL, NOW(), NOW(), NULL)
+        ";
+ 
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$username, $email]);
+ 
+        return (int)$this->conn->lastInsertId();
     }
 }

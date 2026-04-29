@@ -6,6 +6,9 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h4 class="mb-3">Login</h4>
+
+
+
                     <form method="POST" action="/login">
                         <input name="email" class="form-control mb-2" placeholder="Email">
                         <input name="password" type="password" class="form-control mb-3" placeholder="Password">
@@ -14,8 +17,7 @@
 
                         <button class="btn btn-primary w-100">Entrar</button>
                     </form>
-                    
-                    <!-- Link para a página de registro -->
+
                     <div class="text-center mt-3">
                         <a class="text-decoration-none" href="/signup">Não tem uma conta? Registre-se aqui.</a>
                     </div>

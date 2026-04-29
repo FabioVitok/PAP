@@ -1,5 +1,14 @@
 <?php include __DIR__ . "/../includes/header.php"; ?>
 
+// Verifica se existe uma mensagem de erro na sessão e exibe-a
+<?php if(isset($_SESSION['error'])): ?>
+    <div class="alert alert-danger" role="alert">
+        <?= $_SESSION['error']; ?>
+    </div>
+    // Limpa a mensagem de erro da sessão
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-6 col-lg-4">
@@ -8,9 +17,10 @@
                     <h4 class="mb-3">Sign up</h4>
 
                     <form method="POST" action="/signup">
-                        <input name="username" value="UserExemple" class="form-control mb-2" placeholder="Username" required>
-                        <input name="email" value="user@example.com" type="email" class="form-control mb-2" placeholder="Email" required>
-                        <input name="password" value="1234" type="password" class="form-control mb-3" placeholder="Password" required>
+                        <input name="username" value="Albertina" class="form-control mb-2" placeholder="Username" required>
+                        <input name="email" value="albertina@example.com" type="email" class="form-control mb-2" placeholder="Email" required>
+                        <input name="password" value="password123" type="password" class="form-control mb-3" placeholder="Password"
+                            required>
 
                         <button class="btn btn-primary w-100">Criar conta</button>
                     </form>
@@ -23,4 +33,5 @@
         </div>
     </div>
 </div>
+
 <?php include __DIR__ . "/../includes/footer.php"; ?>
