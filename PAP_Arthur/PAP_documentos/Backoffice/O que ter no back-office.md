@@ -23,19 +23,20 @@ Informações -
 				(Taxa de retenção é por exemplo se vários utilizadores só criam uma conta mas não são ativos e não voltam a comprar a taxa de retenção é baixa)
 	Financeiro
 		Ticket médio 
-				(quanto em média cada compra vale)
+			(quanto em média cada compra vale)
 		Custo de cada produto
 	    Lucro estimado
 		Cupons usados
 			quanto você deixou de faturar por causa de descontos
 			se o desconto gerou volume suficiente pra compensar
-		Impacto dos descontos no faturamento
-		Faturamento
+		Impacto dos descontos na receita
+		Receita
 			faturamento total 
 			(faturamento por produto, categoria e periodo)
 		Vendas
 			Vendas totais
 			(adiciornar filtros por periodo e por categoria de produto)
+		Despesas
 	Produtos
 		Produtos mais e menos vendidos 
 		Produtos mais e menos vendidos dia
@@ -79,4 +80,3 @@ Exemplo muito bom:
 https://keenthemes.com/keen/demo1/?page=index
 Usa o Bootstrap:
 https://sitfiscal.portaldasfinancas.gov.pt/geral/home?segmento=CD
-

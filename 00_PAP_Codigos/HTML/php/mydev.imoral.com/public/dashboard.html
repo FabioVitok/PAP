@@ -6,7 +6,9 @@
     <title>Imoral - Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-    <script src="models/User.js"></script>
+    <script src="models/Utilizador.js" defer></script>
+    <script src="models/Produto.js" defer></script>
+    <script src="models/Post.js" defer></script>
 </head>
 <body> 
 <style>
@@ -54,6 +56,9 @@
     <symbol id="cart" viewBox="0 0 16 16">
         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
     </symbol>
+    <symbol id="comunity-icon" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm.25 4a.75.75 0 0 1 .75.75v2h2a.75.75 0 0 1 0 1.5h-2v2a.75.75 0 0 1-1.5 0v-2h-2a.75.75 0 0 1 0-1.5h2v-2A.75.75 0 0 1 8.25 4z"/>
+    </symbol>
     <symbol id="marketing-icon" viewBox="0 0 16 16">
         <path d="M3 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H3zm9.5 2a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5zM8.5 4a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5zM6.5 6a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4A.5.5 0 0 1 6.5 6z"/>
     </symbol>
@@ -73,7 +78,7 @@
                 <ul class="list-unstyled">
                     <li id="dashboradnav">
                         <a class="list-group-item list-group-item-action menu-item border rounded px-4 mb-2 text-center active" style="width: 200px; background-color: black;"
-                        data-bs-toggle="list"  href="#dashboard">
+                        data-bs-toggle="list" href="#dashboard">
                             <svg class="me-2" width="16" height="16" style="fill: white;">
                                 <use xlink:href="#home"></use>
                             </svg>
@@ -114,6 +119,15 @@
                                 <use xlink:href="#cart"></use>
                             </svg>
                             Orders
+                        </a>
+                    </li>
+                    <li id="comunitynav">
+                        <a class="list-group-item list-group-item-action menu-item border rounded px-4 mb-2 text-center" style="width: 200px; background-color: black;"
+                        data-bs-toggle="list" href="#comunity">
+                            <svg class="me-2" width="16" height="16" style="fill: white;">
+                                <use xlink:href="#comunity-icon"></use>
+                            </svg>
+                            Community
                         </a>
                     </li>
                     <li id="marketingnav">
@@ -213,7 +227,7 @@
                                             </div>
                                         </div>
                                         <p class="mt-3 mb-0 text-muted text-sm">
-                                            <span class="text-success me-2">-60%</span>
+                                            <span class="text-danger me-2">-60%</span>
                                             <span class="text-nowrap">from yesterday</span>
                                         </p>
                                     </div>
@@ -248,24 +262,28 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ==================== USERS ==================== -->
                 <div class="tab-pane fade" id="users" role="tabpanel" style="margin-left: 70px;">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <h1 class="text-center mt-5">Users</h1>
+                    <p class="text-center">Here is the users management section.</p>
+                    <ul class="nav nav-tabs" id="usersMainTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="maininfo-tab" data-bs-toggle="tab" data-bs-target="#maininfo" type="button" role="tab">Main Info</button>
+                            <button class="nav-link active" id="users-maininfo-tab" data-bs-toggle="tab" data-bs-target="#users-maininfo" type="button" role="tab">Main Info</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="usersList-tab" data-bs-toggle="tab" data-bs-target="#usersList" type="button" role="tab">Users List</button>
+                            <button class="nav-link" id="users-list-tab" data-bs-toggle="tab" data-bs-target="#users-usersList" type="button" role="tab">Users List</button>
                         </li>
                     </ul>
-                    <div class="tab-content" id="myTabContent">
+                    <div class="tab-content" id="usersMainTabContent">
                         <!-- Main Tab -->
-                        <div class="tab-pane fade show active" id="maininfo" role="tabpanel" aria-labelledby="maininfo-tab">
+                        <div class="tab-pane fade show active" id="users-maininfo" role="tabpanel" aria-labelledby="users-maininfo-tab">
                             <h1 class="mt-5">Users 👥</h1>
                             <button class="btn btn-outline-secondary mb-3" data-bs-toggle="collapse" data-bs-target="#userscontent">
                                 View Details
                             </button>
                             <div id="userscontent" class="collapse">
-                                <div id="conteudo" class="row" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px;">
                                     <div class="col-md-5"
                                     style="min-width: 300px;">
                                         <div class="card card-stats">
@@ -298,7 +316,7 @@
                                             <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <h5 class="card-title text-uppercase mb-0" style="color: black;">Users Resgistered Today</h5>
+                                                        <h5 class="card-title text-uppercase mb-0" style="color: black;">Users Registered Today</h5>
                                                         <span class="h2 font-weight-bold mb-0" style="color: black;">45</span>
                                                     </div>
                                                     <div class="col-auto">
@@ -351,7 +369,7 @@
                                             <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <h5 class="card-title text-uppercase mb-0" style="color: black;">Unactive Accounts</h5>
+                                                        <h5 class="card-title text-uppercase mb-0" style="color: black;">Inactive Accounts</h5>
                                                         <span class="h2 font-weight-bold mb-0" style="color: black;">9</span>
                                                     </div>
                                                     <div class="col-auto">
@@ -365,7 +383,7 @@
                                                     </div>
                                                 </div>
                                                 <p class="mt-3 mb-0 text-muted text-sm">
-                                                    <span class="text-success me-2">-60%</span>
+                                                    <span class="text-danger me-2">-60%</span>
                                                     <span class="text-nowrap">from yesterday</span>
                                                 </p>
                                             </div>
@@ -382,7 +400,7 @@
                                 </section>
                                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart">
                                     <div class="offcanvas-header">
-                                        <h5 class="offcanvas-title">Painel Esquerdo</h5>
+                                        <h5 class="offcanvas-title">Deleted Accounts Details</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
                                     </div>
                                     <div class="offcanvas-body">
@@ -423,7 +441,7 @@
                                             <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <h5 class="card-title text-uppercase mb-0" style="color: black;">Users Resgistered Today</h5>
+                                                        <h5 class="card-title text-uppercase mb-0" style="color: black;">Users Registered Today</h5>
                                                         <span class="h2 font-weight-bold mb-0" style="color: black;">45</span>
                                                     </div>
                                                     <div class="col-auto">
@@ -440,10 +458,10 @@
                                                     <span class="text-success me-2">+42%</span>
                                                     <span class="text-nowrap">from yesterday</span>
                                                 </p>
-                                                <div class="progress mt-2" role="progressbar" aria-label="Users Today" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                                    <div class="progress-bar w-75"></div>
-                                                </div>
                                                 <!-- colocar uma barra para dizer o maximo de registrados por dia-->
+                                                <div class="progress mt-2" role="progressbar" aria-label="Users Today" aria-valuenow="45" aria-valuemin="0" aria-valuemax="60">
+                                                    <div class="progress-bar" style="width: 75%;"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -451,7 +469,7 @@
                                     View Details
                                 </button>
                                 <div id="userstodaycontent" class="collapse mt-3">
-                                    <div id="conteudo" class="row" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                    <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px;">
                                         <div class="col-md-5"
                                         style="min-width: 300px;">
                                             <div class="card card-stats">
@@ -484,7 +502,7 @@
                                                 <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <h5 class="card-title text-uppercase mb-0" style="color: black;">Users Resgistered Today</h5>
+                                                            <h5 class="card-title text-uppercase mb-0" style="color: black;">Users Registered Today</h5>
                                                             <span class="h2 font-weight-bold mb-0" style="color: black;">45</span>
                                                         </div>
                                                         <div class="col-auto">
@@ -537,7 +555,7 @@
                                                 <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <h5 class="card-title text-uppercase mb-0" style="color: black;">Unactive Accounts</h5>
+                                                            <h5 class="card-title text-uppercase mb-0" style="color: black;">Inactive Accounts</h5>
                                                             <span class="h2 font-weight-bold mb-0" style="color: black;">9</span>
                                                         </div>
                                                         <div class="col-auto">
@@ -551,7 +569,7 @@
                                                         </div>
                                                     </div>
                                                     <p class="mt-3 mb-0 text-muted text-sm">
-                                                        <span class="text-success me-2">-60%</span>
+                                                        <span class="text-danger me-2">-60%</span>
                                                         <span class="text-nowrap">from yesterday</span>
                                                     </p>
                                                 </div>
@@ -584,28 +602,6 @@
                                             <div class="row mt-4">
                                                 <div class="col-3">
                                                     <canvas id="donutChart" width="200" height="200"></canvas>
-                                                    <script>
-                                                      const ctx = document.getElementById('donutChart').getContext('2d');
-                                                      new Chart(ctx, {
-                                                        type: 'doughnut',
-                                                        data: {
-                                                          labels: ['Active', 'Unactive'],
-                                                          datasets: [{
-                                                            data: [101, 9],
-                                                            backgroundColor: ['#3b82f6', '#ef4444'],
-                                                            borderWidth: 0
-                                                          }]
-                                                        },
-                                                        options: {
-                                                          cutout: '72%',
-                                                          plugins: {
-                                                            legend: { display: false },
-                                                            tooltip: { enabled: true }
-                                                          },
-                                                          hover: { mode: null }
-                                                        }
-                                                      });
-                                                    </script>
                                                 </div>
                                                 <div class="col-9">
                                                     <div class="row">
@@ -618,7 +614,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <p class="card-title text-uppercase mb-0" style="color: black; font-size: 12px; font-weight: bold;">Unactive Accounts</p>
+                                                            <p class="card-title text-uppercase mb-0" style="color: black; font-size: 12px; font-weight: bold;">Inactive Accounts</p>
                                                         </div>
                                                         <div class="col-auto">
                                                             <span class="h2 font-weight-bold mb-0" style="color: black; font-size: 30px;">9</span>
@@ -627,7 +623,7 @@
                                                 </div>
                                             </div>
                                             <p class="mt-3 mb-0 text-muted text-sm">
-                                                <span class="text-success me-2">-60%</span>
+                                                <span class="text-danger me-2">-60%</span>
                                                 <span class="text-nowrap">from yesterday</span>
                                             </p>
                                         </div>
@@ -665,19 +661,19 @@
                                     <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                         <div class="row">
                                             <div class="col">
-                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <ul class="nav nav-tabs" id="retentionTab" role="tablist">
                                                     <li class="nav-item" role="presentation">
-                                                        <button class="nav-link active" id="retention-tab" data-bs-toggle="tab" data-bs-target="#retention" type="button" role="tab">Retention</button>
+                                                        <button class="nav-link active" id="retention-rate-tab" data-bs-toggle="tab" data-bs-target="#retention-rate" type="button" role="tab">Retention</button>
                                                     </li>
                                                     <li class="nav-item" role="presentation">
-                                                        <button class="nav-link" id="unactive-tab" data-bs-toggle="tab" data-bs-target="#unactive" type="button" role="tab">Unactive</button>
+                                                        <button class="nav-link" id="retention-inactive-tab" data-bs-toggle="tab" data-bs-target="#retention-inactive" type="button" role="tab">Inactive</button>
                                                     </li>
                                                     <li class="nav-item" role="presentation">
-                                                        <button class="nav-link" id="deleted-tab" data-bs-toggle="tab" data-bs-target="#deleted" type="button" role="tab">Deleted</button>
+                                                        <button class="nav-link" id="retention-deleted-tab" data-bs-toggle="tab" data-bs-target="#retention-deleted" type="button" role="tab">Deleted</button>
                                                     </li>
                                                 </ul>
-                                                <div class="tab-content" id="myTabContent">
-                                                    <div class="tab-pane fade show active" id="retention" role="tabpanel" aria-labelledby="retention-tab">
+                                                <div class="tab-content" id="retentionTabContent">
+                                                    <div class="tab-pane fade show active" id="retention-rate" role="tabpanel" aria-labelledby="retention-rate-tab">
                                                         <table class="table mt-3">
                                                             <thead>
                                                                 <tr>
@@ -697,7 +693,7 @@
                                                             </tbody>
                                                         </table>
                                                     </div>               
-                                                    <div class="tab-pane fade" id="unactive" role="tabpanel" aria-labelledby="unactive-tab">
+                                                    <div class="tab-pane fade" id="retention-inactive" role="tabpanel" aria-labelledby="retention-inactive-tab">
                                                         <table class="table mt-3">
                                                             <thead>
                                                                 <tr>
@@ -717,7 +713,7 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <div class="tab-pane fade" id="deleted" role="tabpanel" aria-labelledby="deleted-tab">
+                                                    <div class="tab-pane fade" id="retention-deleted" role="tabpanel" aria-labelledby="retention-deleted-tab">
                                                         <table class="table mt-3">
                                                             <thead>
                                                                 <tr>
@@ -748,33 +744,11 @@
                                     <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                         <div class="row">
                                             <div class="col">
-                                               <p class="h2" style="font-weight: bold;">Unactive Users by Period</p>
+                                               <p class="h2" style="font-weight: bold;">Inactive Users by Period</p>
                                             </div>
                                         </div>
                                         <div class="my-3" style="width: 400px;">
                                             <canvas id="chart"></canvas>
-                                            <script>
-                                                 new Chart(document.getElementById('chart'), {
-                                                   type: 'bar',
-                                                   data: {
-                                                     labels: ['< 30 days', '< 60 days', '< 90 days', '6 months +'],
-                                                     datasets: [{
-                                                       data: [420, 780, 390, 210],
-                                                       backgroundColor: ['#f4c95d', '#f4a541', '#e06c3a', '#c0392b'],
-                                                       borderRadius: 4,
-                                                     }]
-                                                   },
-                                                   options: {
-                                                     plugins: {
-                                                       legend: { display: false},
-                                                       tooltip: { enabled: false }
-                                                     },
-                                                     scales: {
-                                                       y: { beginAtZero: true }
-                                                     }
-                                                   }
-                                                 });
-                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -796,7 +770,7 @@
                                                             </h2>
                                                             <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#clientsAccordion">
                                                                 <div class="accordion-body">
-                                                                    <strong>This is the first item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                                                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -808,33 +782,11 @@
                                                             </h2>
                                                             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#clientsAccordion">
                                                                 <div class="accordion-body">
-                                                                    <strong>This is the second item’s accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                                                    <strong>This is the second item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <script>
-                                                    const inputTarefa = document.querySelector('#inputTarefa');
-                                                    const btnAdicionarLista = document.querySelector('#btnAdicionarLista');
-                                                    const btnLimparLista = document.querySelector('#btnLimparLista');
-                                                    const listaTarefas = document.querySelector('#listaTarefas');
-                                                    
-                                                    btnAdicionarLista.addEventListener("click", function() {
-                                                        const textoTarefa = inputTarefa.value.trim();
-                                                        if (textoTarefa === "") return;
-                                                        const listItem = document.createElement("li");
-                                                        listItem.className = "list-group-item";
-                                                        listItem.textContent = textoTarefa;
-                                                        listaTarefas.appendChild(listItem);
-                                                        inputTarefa.value = "";
-                                                        inputTarefa.focus();
-                                                    });
-                                                
-                                                    btnLimparLista.addEventListener("click", function() {
-                                                        if (listaTarefas === "") return;
-                                                        listaTarefas.innerHTML = "";
-                                                    });
-                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -843,24 +795,24 @@
                             </div>
                         </div>
                         <!-- Users List -->
-                        <div class="tab-pane fade" id="usersList" role="tabpanel" aria-labelledby="usersList-tab">
+                        <div class="tab-pane fade" id="users-usersList" role="tabpanel" aria-labelledby="users-list-tab">
                             <div class="mt-3">
                                 <div class="card card-stats mt-3">
                                     <div class="card-header">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <ul class="nav nav-tabs" id="usersListTab" role="tablist">
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="insert-tab" data-bs-toggle="tab" data-bs-target="#insertUsers" type="button" role="tab">Insert</button>
+                                                <button class="nav-link active" id="usersList-insert-tab" data-bs-toggle="tab" data-bs-target="#usersList-insert" type="button" role="tab">Insert</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#searchUsers" type="button" role="tab">Search</button>
+                                                <button class="nav-link" id="usersList-search-tab" data-bs-toggle="tab" data-bs-target="#usersList-search" type="button" role="tab">Search</button>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                         <div class="row">
                                             <div class="col">
-                                                <div class="tab-content" id="myTabContent">
-                                                    <div class="tab-pane fade show active" id="insertUsers" role="tabpanel" aria-labelledby="insert-tab">
+                                                <div class="tab-content" id="usersListTabContent">
+                                                    <div class="tab-pane fade show active" id="usersList-insert" role="tabpanel" aria-labelledby="usersList-insert-tab">
                                                         <!-- Botão para abrir o modal -->
                                                         <button id="addUser" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#insertUserModal">
                                                             Add User
@@ -874,121 +826,57 @@
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <label for="inputImage" class="form-label">Image URL</label>
-                                                                        <input type="text" id="inputImage" class="form-control mb-2" placeholder="Image URL">
-                                                                        <label for="inputUsername" class="form-label">Username</label>
-                                                                        <input type="text" id="inputUsername" class="form-control mb-2" placeholder="Username">
-                                                                        <label for="inputRoleSelect" class="form-label">Role</label>
+                                                                        <label for="user-inputImage" class="form-label">Image URL</label>
+                                                                        <input type="text" id="user-inputImage" class="form-control mb-2" placeholder="Image URL">
+                                                                        <label for="user-inputUsername" class="form-label">Username</label>
+                                                                        <input type="text" id="user-inputUsername" class="form-control mb-2" placeholder="Username">
+                                                                        <label for="user-inputRoleSelect" class="form-label">Role</label>
                                                                         <!-- Roles -->
-                                                                        <select id="inputRoleSelect" class="form-select">
+                                                                        <select id="user-inputRoleSelect" class="form-select mb-2">
                                                                             <option value="Admin">Admin</option>
                                                                             <option value="User">User</option>
                                                                         </select>
-                                                                        <label for="inputEmail" class="form-label">E-mail</label>
-                                                                        <input type="email" id="inputEmail" class="form-control mb-2" placeholder="E-mail">
-                                                                        <label for="inputCellphone" class="form-label">Cell Phone</label>
-                                                                        <input type="text" id="inputCellphone" class="form-control mb-2" placeholder="Cell Phone">
-                                                                        <label for="inputStatusSelect" class="form-label">Status</label>
+                                                                        <label for="user-inputEmail" class="form-label">E-mail</label>
+                                                                        <input type="email" id="user-inputEmail" class="form-control mb-2" placeholder="E-mail">
+                                                                        <label for="user-inputCellphone" class="form-label">Cell Phone</label>
+                                                                        <input type="text" id="user-inputCellphone" class="form-control mb-2" placeholder="Cell Phone">
+                                                                        <label for="user-inputStatusSelect" class="form-label">Status</label>
                                                                         <!-- Status -->
-                                                                        <select id="inputStatusSelect" class="form-select">
+                                                                        <select id="user-inputStatusSelect" class="form-select mb-2">
                                                                             <option value="Active">Active</option>
                                                                             <option value="Inactive">Inactive</option>
                                                                             <option value="Suspended">Suspended</option>
                                                                             <option value="Deleted">Deleted</option>
                                                                             <option value="Banned">Banned</option>
                                                                         </select>
-                                                                        <label for="inputAddress" class="form-label">Address</label>
-                                                                        <input type="text" id="inputAddress" class="form-control mb-2" placeholder="Address">
-                                                                        <label for="inputBirthdate" class="form-label">Birth Date</label>
-                                                                        <input type="date" id="inputBirthdate" class="form-control mb-2" placeholder="Birth Date">
-                                                                        <label for="inputPronouns" class="form-label">Pronouns</label>
-                                                                        <input type="text" id="inputPronouns" class="form-control mb-2" placeholder="Pronouns">
-                                                                        <label for="inputAccountCreation" class="form-label">Account Creation Date</label>
-                                                                        <input type="date" id="inputAccountCreation" class="form-control mb-2" placeholder="Account Creation Date">
-                                                                        <label for="inputLastLogin" class="form-label">Last Login Date</label>
-                                                                        <input type="date" id="inputLastLogin" class="form-control mb-2" placeholder="Last Login Date">
+                                                                        <label for="user-inputAddress" class="form-label">Address</label>
+                                                                        <input type="text" id="user-inputAddress" class="form-control mb-2" placeholder="Address">
+                                                                        <label for="user-inputBirthdate" class="form-label">Birth Date</label>
+                                                                        <input type="date" id="user-inputBirthdate" class="form-control mb-2" placeholder="Birth Date">
+                                                                        <label for="user-inputPronouns" class="form-label">Pronouns</label>
+                                                                        <input type="text" id="user-inputPronouns" class="form-control mb-2" placeholder="Pronouns">
+                                                                        <label for="user-inputAccountCreation" class="form-label">Account Creation Date</label>
+                                                                        <input type="date" id="user-inputAccountCreation" class="form-control mb-2" placeholder="Account Creation Date">
+                                                                        <label for="user-inputLastLogin" class="form-label">Last Login Date</label>
+                                                                        <input type="date" id="user-inputLastLogin" class="form-control mb-2" placeholder="Last Login Date">
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-success" id="btnSalvarUser">Salvar</button>
+                                                                        <button type="button" class="btn btn-success" id="btnSalvarUser">Save</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- Script que adiciona/atualiza user -->
-                                                        <script>
-                                                            document.getElementById('btnSalvarUser').addEventListener('click', function () {
-                                                                const image = document.getElementById('inputImage').value;
-                                                                const username = document.getElementById('inputUsername').value;
-                                                                const role = document.getElementById('inputRoleSelect').value;
-                                                                const email = document.getElementById('inputEmail').value;
-                                                                const cellphone = document.getElementById('inputCellphone').value;
-                                                                const status = document.getElementById('inputStatusSelect').value;
-                                                                const address = document.getElementById('inputAddress').value;
-                                                                const birthdate = document.getElementById('inputBirthdate').value;
-                                                                const pronouns = document.getElementById('inputPronouns').value;
-                                                                const accountCreation = document.getElementById('inputAccountCreation').value;
-                                                                const lastLogin = document.getElementById('inputLastLogin').value;
-
-                                                                if (!username || !email || !cellphone || !status || !address || !birthdate || !pronouns || !accountCreation || !lastLogin) {
-                                                                    alert('Fill all fields!');
-                                                                    return;
-                                                                }
-                                                            
-                                                                const user = new User(image, username, role, email, cellphone, status, address, birthdate, pronouns, accountCreation, lastLogin);
-                                                            
-                                                                const novaLinha = `
-                                                                    <tr>
-                                                                        <td><img src="${user.image || 'productImage1.jpg'}" alt="user image"></td>
-                                                                        <td>${user.username}</td>
-                                                                        <td>${user.role}</td>
-                                                                        <td>${user.email}</td>
-                                                                        <td>${user.cellphone}</td>
-                                                                        <td>${user.status}</td>
-                                                                        <td>${user.accountCreation}</td>
-                                                                        <td>${user.lastLogin}</td>
-                                                                        <td>
-                                                                            <button class="btn btn-sm btn-warning btnUpdateUser">Update</button>
-                                                                            <button class="btn btn-sm btn-danger btnDeleteUser">Delete</button>
-                                                                        </td>
-                                                                    </tr>`;
-                                                                
-                                                                const editIndex = this.dataset.editLinha;
-                                                                const tbody = document.getElementById('corpoTabelaUsers');
-                                                                
-                                                                if (editIndex !== undefined && editIndex !== '') {
-                                                                    tbody.rows[editIndex].outerHTML = novaLinha;
-                                                                    delete this.dataset.editLinha;
-                                                                } else {
-                                                                    tbody.innerHTML += novaLinha;
-                                                                }
-                                                            
-                                                                document.getElementById('inputImage').value = '';
-                                                                document.getElementById('inputUsername').value = '';
-                                                                document.getElementById('inputRoleSelect').value = '';
-                                                                document.getElementById('inputEmail').value = '';
-                                                                document.getElementById('inputCellphone').value = '';
-                                                                document.getElementById('inputStatusSelect').value = '';
-                                                                document.getElementById('inputAddress').value = '';
-                                                                document.getElementById('inputBirthdate').value = '';
-                                                                document.getElementById('inputPronouns').value = '';
-                                                                document.getElementById('inputAccountCreation').value = '';
-                                                                document.getElementById('inputLastLogin').value = '';
-                                                            
-                                                                bootstrap.Modal.getOrCreateInstance(document.getElementById('insertUserModal')).hide();
-                                                            });
-                                                        </script>
-                                                        
-                                                    </div>               
-                                                    <div class="tab-pane fade" id="searchUsers" role="tabpanel" aria-labelledby="search-tab">
-                                                        <!-- Barra de pesquisa e filtros -->
+                                                    </div>
+                                                    <!-- Barra de pesquisa e filtros -->
+                                                    <div class="tab-pane fade" id="usersList-search" role="tabpanel" aria-labelledby="usersList-search-tab">
                                                         <div class="card mb-3">
                                                           <div class="card-body">
                                                             <div class="row g-2">
                                                               <div class="col-md-10">
-                                                                <input type="text" id="searchUsers" class="form-control" placeholder="🔍 Search Users...">
+                                                                <input type="text" id="searchUsersInput" class="form-control" placeholder="🔍 Search Users...">
                                                               </div>
                                                                 <div class="col-md-2">
-                                                                    <button class="btn btn-primary mb-3 w-100" data-bs-toggle="modal" id="btnLimparFiltros">
+                                                                    <button class="btn btn-primary mb-3 w-100" id="btnLimparFiltrosUsers">
                                                                         Clear
                                                                     </button>   
                                                                 </div> 
@@ -1011,14 +899,7 @@
                                                                     <option value="Banned">Banned</option>
                                                                 </select>
                                                               </div>
-                                                              <div class="col-md-3">
-                                                                <label class="form-label">Age</label>
-                                                                <div class="d-flex gap-1">
-                                                                  <input type="text" id="filterAgeMin" class="form-control" placeholder="Min">
-                                                                  <input type="text" id="filterAgeMax" class="form-control" placeholder="Max">
-                                                                </div>
-                                                              </div>
-                                                              <div class="col-md-3">
+                                                              <div class="col-md-6">
                                                                 <label class="form-label">Account Creation Date</label>
                                                                 <div class="d-flex gap-1">
                                                                   <input type="date" id="filterAccountCreationDateMin" class="form-control">
@@ -1028,52 +909,6 @@
                                                             </div>
                                                           </div>
                                                         </div>
-                                                        <!-- Script de filtragem -->
-                                                        <script>
-                                                            function filtrarTabelaUsers() {
-                                                                const search = document.getElementById('searchUsers').value.toLowerCase();
-                                                                const role = document.getElementById('filterRole').value.toLowerCase();
-                                                                const status = document.getElementById('filterStatus').value.toLowerCase();
-                                                                const ageMin = parseFloat(document.getElementById('filterAgeMin').value) || 0;
-                                                                const ageMax = parseFloat(document.getElementById('filterAgeMax').value) || Infinity;
-                                                                const accountCreationMin = document.getElementById('filterAccountCreationDateMin').value;
-                                                                const accountCreationMax = document.getElementById('filterAccountCreationDateMax').value;
-                                                                                                                        
-                                                                const linhas = document.querySelectorAll('#corpoTabelaUsers tr');
-                                                                                                                        
-                                                                linhas.forEach(function(linha) {
-                                                                    const username = linha.cells[1]?.textContent.toLowerCase() || '';
-                                                                    const roleCell = linha.cells[2]?.textContent.toLowerCase() || '';
-                                                                    const statusCell = linha.cells[3]?.textContent.toLowerCase() || '';
-                                                                    const accountCreation = linha.cells[6]?.textContent || '';
-                                                                
-                                                                    const match =
-                                                                        username.includes(search) &&
-                                                                        (role === '' || roleCell.includes(role)) &&
-                                                                        (status === '' || statusCell.includes(status)) &&
-                                                                        (accountCreationMin === '' || accountCreation >= accountCreationMin) &&
-                                                                        (accountCreationMax === '' || accountCreation <= accountCreationMax);
-                                                                
-                                                                    linha.style.display = match ? '' : 'none';
-                                                                });
-                                                            }
-
-                                                            document.getElementById('btnLimparFiltrosUsers').addEventListener('click', function () {
-                                                                document.getElementById('searchUsers').value = '';
-                                                                document.getElementById('filterRole').value = '';
-                                                                document.getElementById('filterStatus').value = '';
-                                                                document.getElementById('filterAgeMin').value = '';
-                                                                document.getElementById('filterAgeMax').value = '';
-                                                                document.getElementById('filterAccountCreationDateMin').value = '';
-                                                                document.getElementById('filterAccountCreationDateMax').value = '';
-                                                            
-                                                                filtrarTabelaUsers();
-                                                            });
-
-                                                            ['searchUsers', 'filterRole', 'filterStatus', 'filterAgeMin', 'filterAgeMax',
-                                                             'filterAccountCreationDateMin', 'filterAccountCreationDateMax']
-                                                                .forEach(id => document.getElementById(id).addEventListener('input', filtrarTabelaUsers));
-                                                        </script>
                                                     </div>
                                                     <!-- Tabela Users -->
                                                     <table class="table table-bordered">
@@ -1083,63 +918,91 @@
                                                                 <th>Username</th>
                                                                 <th>Role</th>
                                                                 <th>Email</th>
-                                                                <th>Cellphone</th>
                                                                 <th>Status</th>
                                                                 <th>Account Creation</th>
                                                                 <th>Last Login</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
+                                                        <!-- Estao Aqui Dados de Usuarios de Exemplo-->
                                                         <tbody id="corpoTabelaUsers">
-
+                                                            <tr>
+                                                                <td><img src="userImage1.jpg" alt="user image"></td>
+                                                                <td><span>john_doe</span></td>
+                                                                <td>Admin</td>
+                                                                <td>john.doe@example.com</td>
+                                                                <td>Active</td>
+                                                                <td>2023-01-01</td>
+                                                                <td>2023-10-01</td>
+                                                                <td>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-warning btnUpdateUser" style="width: 80px;">Update</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-danger btnDeleteUser" style="width: 80px;">Delete</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-primary btnActivateUser" style="width: 80px;">Activate</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-danger btnSuspendUser" style="width: 80px;">Suspend</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><img src="userImage1.jpg" alt="user image"></td>
+                                                                <td><span>jane_smith</span></td>
+                                                                <td>User</td>
+                                                                <td>jane.smith@example.com</td>
+                                                                <td>Active</td>
+                                                                <td>2023-02-01</td>
+                                                                <td>2023-10-01</td>
+                                                                <td>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-warning btnUpdateUser" style="width: 80px;">Update</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-danger btnDeleteUser" style="width: 80px;">Delete</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-primary btnActivateUser" style="width: 80px;">Activate</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-danger btnSuspendUser" style="width: 80px;">Suspend</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><img src="userImage1.jpg" alt="user image"></td>
+                                                                <td><span>alice_wonder</span></td>
+                                                                <td>User</td>
+                                                                <td>alice.wonder@example.com</td>
+                                                                <td>Active</td>
+                                                                <td>2023-03-01</td>
+                                                                <td>2023-10-01</td>
+                                                                <td>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-warning btnUpdateUser" style="width: 80px;">Update</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-danger btnDeleteUser" style="width: 80px;">Delete</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-primary btnActivateUser" style="width: 80px;">Activate</button>
+                                                                        </div>
+                                                                        <div class="col-md-6 d-flex justify-content-center">
+                                                                            <button class="btn btn-sm btn-danger btnSuspendUser" style="width: 80px;">Suspend</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
-                                                    <!-- Script de UPDATE e DELETE -->
-                                                    <script>
-                                                        document.getElementById('corpoTabelaUsers').addEventListener('click', function(e) {
-                                                            const linha = e.target.closest('tr');
-
-                                                            // DELETE
-                                                            if (e.target.classList.contains('btnDeleteUser')) {
-                                                                linha.remove();
-                                                            }
-                                                        
-                                                            // UPDATE
-                                                            if (e.target.classList.contains('btnUpdateUser')) {
-                                                                const cells = linha.querySelectorAll('td');
-                                                            
-                                                                document.getElementById('inputImage').value = cells[0].querySelector('img').src;
-                                                                document.getElementById('inputUsername').value = cells[1].textContent;
-                                                                document.getElementById('inputRoleSelect').value = cells[2].textContent;
-                                                                document.getElementById('inputEmail').value = cells[3].textContent;
-                                                                document.getElementById('inputCellphone').value = cells[4].textContent;
-                                                                document.getElementById('inputStatusSelect').value = cells[5].textContent;
-                                                                document.getElementById('inputAccountCreation').value = cells[6].textContent;
-                                                                document.getElementById('inputLastLogin').value = cells[7].textContent;
-                                                            
-                                                                document.getElementById('btnSalvarUser').dataset.editLinha = Array.from(
-                                                                    document.getElementById('corpoTabelaUsers').rows
-                                                                ).indexOf(linha);
-                                                            
-                                                                bootstrap.Modal.getOrCreateInstance(document.getElementById('insertUserModal')).show();
-                                                            }
-                                                        });
-
-                                                        document.getElementById('insertUserModal').addEventListener('hidden.bs.modal', function () {
-                                                            document.getElementById('btnSalvarUser').dataset.editLinha = '';
-                                                            document.getElementById('inputImage').value = '';
-                                                            document.getElementById('inputUsername').value = '';
-                                                            document.getElementById('inputRoleSelect').value = '';
-                                                            document.getElementById('inputEmail').value = '';
-                                                            document.getElementById('inputCellphone').value = '';
-                                                            document.getElementById('inputStatusSelect').value = '';
-                                                            document.getElementById('inputAddress').value = '';
-                                                            document.getElementById('inputBirthdate').value = '';
-                                                            document.getElementById('inputPronouns').value = '';
-                                                            document.getElementById('inputAccountCreation').value = '';
-                                                            document.getElementById('inputLastLogin').value = '';
-                                                        });
-                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -1149,6 +1012,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ==================== FINANCE ==================== -->
                 <div class="tab-pane fade" id="finance" role="tabpanel" style="margin-left: 70px;">
                     <h1 class="text-center mt-5">Finance</h1>
                     <h3>Revenue - Receita</h3>
@@ -1182,27 +1047,29 @@
                     </div>
                     <h3>Sales - Vendas</h3>
                     <h3>Profit - Lucro</h3>
-                    <h3>Expanses Despesas</h3>
+                    <h3>Expenses - Despesas</h3>
                     <h3>Product Manufacturing Cost - Custo de fabricação do produto</h3>
                     <h3>Average Order Value - Ticket Medio</h3>
                     <h3>Claimed Coupons - Cupons Resgatados</h3>
                     <h3>Impact of discounts on revenue - Impacto dos descontos na receita</h3>
                 </div>
+
+                <!-- ==================== PRODUCTS ==================== -->
                 <div class="tab-pane fade" id="products" role="tabpanel" style="margin-left: 70px;">
                     <h1 class="text-center mt-5">Products</h1>
                     <p class="text-center">Here is the products management section.</p>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs" id="productsMainTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="maininfo-tab" data-bs-toggle="tab" data-bs-target="#maininfo" type="button" role="tab">Main Info</button>
+                            <button class="nav-link active" id="products-maininfo-tab" data-bs-toggle="tab" data-bs-target="#products-maininfo" type="button" role="tab">Main Info</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="productsList-tab" data-bs-toggle="tab" data-bs-target="#productsList" type="button" role="tab">Products List</button>
+                            <button class="nav-link" id="products-list-tab" data-bs-toggle="tab" data-bs-target="#products-productsList" type="button" role="tab">Products List</button>
                         </li>
                     </ul>
-                    <div class="tab-content" id="myTabContent">
+                    <div class="tab-content" id="productsMainTabContent">
                         <!-- Main Tab -->
-                        <div class="tab-pane fade show active" id="maininfo" role="tabpanel" aria-labelledby="main-tab">
-                            <div class="d-flex justify-content-center   mt-4">
+                        <div class="tab-pane fade show active" id="products-maininfo" role="tabpanel" aria-labelledby="products-maininfo-tab">
+                            <div class="d-flex justify-content-center mt-4">
                                 <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 950px;">
                                     <!-- Top Selling Products Table -->
                                     <div class="col-md-12" style="min-width: 300px;">
@@ -1226,7 +1093,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <!-- Color -->
                                                                 <td>
                                                                     <div class="d-flex align-items-center">
@@ -1240,7 +1107,7 @@
                                                                 <td>€705.00</td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <!-- Color -->
                                                                 <td>
                                                                     <div class="d-flex align-items-center">
@@ -1254,7 +1121,7 @@
                                                                 <td>€2,720.00</td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <!-- Color -->
                                                                 <td>
                                                                     <div class="d-flex align-items-center">
@@ -1262,14 +1129,13 @@
                                                                     </div>
                                                                 </td>
                                                                 <td><span>Battle Jacket</span></td>
-                                                                </td>
                                                                 <td>Jackets</td>
                                                                 <td>€105.00</td>
                                                                 <td>18</td>
                                                                 <td>€1,890.00</td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <!-- Color -->
                                                                 <td>
                                                                     <div class="d-flex align-items-center">
@@ -1291,25 +1157,25 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Products List Tab -->
-                        <div class="tab-pane fade" id="productsList" role="tabpanel" aria-labelledby="search-tab">
+                        <!-- Products List Tab -->                       
+                        <div class="tab-pane fade" id="products-productsList" role="tabpanel" aria-labelledby="products-list-tab">
                             <div class="mt-3">
                                 <div class="card card-stats mt-3">
                                     <div class="card-header">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <ul class="nav nav-tabs" id="productsListTab" role="tablist">
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="insert-tab" data-bs-toggle="tab" data-bs-target="#insertProducts" type="button" role="tab">Insert</button>
+                                                <button class="nav-link active" id="productsList-insert-tab" data-bs-toggle="tab" data-bs-target="#productsList-insert" type="button" role="tab">Insert</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#researchProducts" type="button" role="tab">Search</button>
+                                                <button class="nav-link" id="productsList-search-tab" data-bs-toggle="tab" data-bs-target="#productsList-search" type="button" role="tab">Search</button>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
                                         <div class="row">
                                             <div class="col">
-                                                <div class="tab-content" id="myTabContent">
-                                                    <div class="tab-pane fade show active" id="insertProducts" role="tabpanel" aria-labelledby="insert-tab">
+                                                <div class="tab-content" id="productsListTabContent">
+                                                    <div class="tab-pane fade show active" id="productsList-insert" role="tabpanel" aria-labelledby="productsList-insert-tab">
                                                         <!-- Botão para abrir o modal -->
                                                         <button id="addProduct" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#insertProductModal">
                                                             Add Product
@@ -1325,13 +1191,13 @@
                                                                     <div class="modal-body">
                                                                         <label for="inputImage" class="form-label">Image URL</label>
                                                                         <input type="text" id="inputImage" class="form-control mb-2" placeholder="Image URL">
-                                                                        <label for="inputProduct" class="form-label">Color</label>
+                                                                        <label for="inputColor" class="form-label">Color</label>
                                                                         <input type="color" id="inputColor" class="form-control form-control-color mb-2">
-                                                                        <label for="inputProduct" class="form-label">Product</label>
-                                                                        <input type="text" id="inputProduct" class="form-control mb-2" placeholder="Product">
-                                                                        <label for="inputCategory" class="form-label">Category</label>
+                                                                        <label for="inputProductName" class="form-label">Product</label>
+                                                                        <input type="text" id="inputProductName" class="form-control mb-2" placeholder="Product">
+                                                                        <label for="inputCategorySelect" class="form-label">Category</label>
                                                                         <!-- Categories -->
-                                                                        <select id="inputCategorySelect" class="form-select">
+                                                                        <select id="inputCategorySelect" class="form-select mb-2">
                                                                             <option value="">All</option>
                                                                             <option value="T-Shirts">T-Shirts</option>
                                                                             <option value="Pants">Pants</option>
@@ -1345,66 +1211,13 @@
                                                                         <input type="text" id="inputRevenue" class="form-control mb-2" placeholder="Revenue (€)">
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-success" id="btnSalvar">Salvar</button>
+                                                                        <button type="button" class="btn btn-success" id="btnSalvarProduct">Save</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- Script que adiciona/atualiza produtos -->
-                                                        <script>
-                                                        document.getElementById('btnSalvar').addEventListener('click', function () {
-                                                            const image = document.getElementById('inputImage').value;
-                                                            const color = document.getElementById('inputColor').value;
-                                                            const product = document.getElementById('inputProduct').value;
-                                                            const category = document.getElementById('inputCategorySelect').value;
-                                                            const price = document.getElementById('inputPrice').value;
-                                                            const sales = document.getElementById('inputSales').value;
-                                                            const revenue = document.getElementById('inputRevenue').value;
-
-                                                          if (!product || !category || !price || !sales || !revenue) {
-                                                            alert('Fill all fields!');
-                                                            return;
-                                                          }
-                                                      
-                                                          const novaLinha = `
-                                                            <tr>
-                                                                <td><img src="${image || 'productImage1.jpg'}" alt="product image"></td>
-                                                                <td><div style="width: 40px; height: 40px; background-color: ${color};"></div></td>
-                                                                <td>${product}</td>
-                                                                <td>${category}</td>
-                                                                <td>${price}</td>
-                                                                <td>${sales}</td>
-                                                                <td>${revenue}</td>
-                                                                <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
-                                                                </td>
-                                                            </tr>`;
-                                                        
-                                                          const editIndex = this.dataset.editLinha;
-                                                          const tbody = document.getElementById('corpoTabela');
-                                                        
-                                                          if (editIndex !== undefined && editIndex !== '') {
-                                                            // UPDATE - substitui a linha existente
-                                                            tbody.rows[editIndex].outerHTML = novaLinha;
-                                                            delete this.dataset.editLinha;
-                                                          } else {
-                                                            // INSERT - adiciona nova linha
-                                                            tbody.innerHTML += novaLinha;
-                                                          }
-                                                          
-                                                          document.getElementById('inputImage').value = '';
-                                                          document.getElementById('inputProduct').value = '';
-                                                          document.getElementById('inputCategorySelect').value = '';
-                                                          document.getElementById('inputPrice').value = '';
-                                                          document.getElementById('inputSales').value = '';
-                                                          document.getElementById('inputRevenue').value = '';
-                                                      
-                                                          bootstrap.Modal.getOrCreateInstance(document.getElementById('insertProductModal')).hide();
-                                                        });
-                                                        </script>
-                                                    </div>               
-                                                    <div class="tab-pane fade" id="researchProducts" role="tabpanel" aria-labelledby="search-tab">
+                                                    </div>
+                                                    <div class="tab-pane fade" id="productsList-search" role="tabpanel" aria-labelledby="productsList-search-tab">
                                                         <!-- Barra de pesquisa e filtros -->
                                                         <div class="card mb-3">
                                                           <div class="card-body">
@@ -1413,7 +1226,7 @@
                                                                 <input type="text" id="searchProduct" class="form-control" placeholder="🔍 Search Products...">
                                                               </div>
                                                                 <div class="col-md-2">
-                                                                    <button class="btn btn-primary mb-3 w-100" data-bs-toggle="modal" id="btnLimparFiltros">
+                                                                    <button class="btn btn-primary mb-3 w-100" id="btnLimparFiltros">
                                                                         Clear
                                                                     </button>   
                                                                 </div> 
@@ -1450,54 +1263,6 @@
                                                             </div>
                                                           </div>
                                                         </div>
-                                                        <!-- Script de filtragem -->
-                                                        <script>
-                                                          function filtrarTabela() {
-                                                            const search = document.getElementById('searchProduct').value.toLowerCase();
-                                                            const category = document.getElementById('filterCategory').value.toLowerCase();
-                                                            const priceMin = parseFloat(document.getElementById('filterPriceMin').value) || 0;
-                                                            const priceMax = parseFloat(document.getElementById('filterPriceMax').value) || Infinity;
-                                                            const salesMin = parseFloat(document.getElementById('filterSalesMin').value) || 0;
-                                                            const salesMax = parseFloat(document.getElementById('filterSalesMax').value) || Infinity;
-                                                            const revenueMin = parseFloat(document.getElementById('filterRevenueMin').value) || 0;
-                                                            const revenueMax = parseFloat(document.getElementById('filterRevenueMax').value) || Infinity;
-                                                        
-                                                            const linhas = document.querySelectorAll('#corpoTabela tr');
-                                                        
-                                                            linhas.forEach(function(linha) {
-                                                              const product = linha.cells[1]?.textContent.toLowerCase() || '';
-                                                              const cat = linha.cells[2]?.textContent.toLowerCase() || '';
-                                                              const price = parseFloat(linha.cells[3]?.textContent.replace('€', '')) || 0;
-                                                              const sales = parseFloat(linha.cells[4]?.textContent) || 0;
-                                                              const revenue = parseFloat(linha.cells[5]?.textContent.replace('€', '')) || 0;
-                                                            
-                                                              const match =
-                                                                product.includes(search) &&
-                                                                (category === '' || cat.includes(category)) &&
-                                                                price >= priceMin && price <= priceMax &&
-                                                                sales >= salesMin && sales <= salesMax &&
-                                                                revenue >= revenueMin && revenue <= revenueMax;
-                                                            
-                                                              linha.style.display = match ? '' : 'none';
-                                                            });
-                                                          }
-                                                          document.getElementById('btnLimparFiltros').addEventListener('click', function () {
-                                                          document.getElementById('searchProduct').value = '';
-                                                          document.getElementById('filterCategory').value = '';
-                                                          document.getElementById('filterPriceMin').value = '';
-                                                          document.getElementById('filterPriceMax').value = '';
-                                                          document.getElementById('filterSalesMin').value = '';
-                                                          document.getElementById('filterSalesMax').value = '';
-                                                          document.getElementById('filterRevenueMin').value = '';
-                                                          document.getElementById('filterRevenueMax').value = '';
-                                                        
-                                                          filtrarTabela();
-                                                        });
-                                                    
-                                                          ['searchProduct', 'filterCategory', 'filterPriceMin', 'filterPriceMax',
-                                                           'filterSalesMin', 'filterSalesMax', 'filterRevenueMin', 'filterRevenueMax']
-                                                            .forEach(id => document.getElementById(id).addEventListener('input', filtrarTabela));
-                                                        </script>
                                                     </div>
                                                     <!-- Tabela -->
                                                     <table class="table table-bordered">
@@ -1516,10 +1281,11 @@
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody id="corpoTabela">
+                                                        <!-- Estao Aqui Dados de Produtos de Exemplo-->
+                                                        <tbody id="corpoTabelaProduct">
                                                             <!-- Pierced shoulder Off -->
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Pierced shoulder Off</td>
                                                                 <td>T-Shirts</td>
@@ -1530,12 +1296,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Pierced shoulder Off</td>
                                                                 <td>T-Shirts</td>
@@ -1546,12 +1312,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Pierced shoulder Off</td>
                                                                 <td>T-Shirts</td>
@@ -1562,12 +1328,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Pierced shoulder Off</td>
                                                                 <td>T-Shirts</td>
@@ -1578,12 +1344,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Pierced shoulder Off</td>
                                                                 <td>T-Shirts</td>
@@ -1594,12 +1360,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Pierced shoulder Off</td>
                                                                 <td>T-Shirts</td>
@@ -1610,13 +1376,13 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <!-- Flared distress Jeans -->
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Flared distress Jeans</td>
                                                                 <td>Jeans</td>
@@ -1627,12 +1393,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Flared distress Jeans</td>
                                                                 <td>Jeans</td>
@@ -1643,12 +1409,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Flared distress Jeans</td>
                                                                 <td>Jeans</td>
@@ -1659,12 +1425,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Flared distress Jeans</td>
                                                                 <td>Jeans</td>
@@ -1675,12 +1441,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Flared distress Jeans</td>
                                                                 <td>Jeans</td>
@@ -1691,12 +1457,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Flared distress Jeans</td>
                                                                 <td>Jeans</td>
@@ -1707,13 +1473,13 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <!-- Acessórios -->
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Distressed Scarf</td>
                                                                 <td>Acessórios</td>
@@ -1724,12 +1490,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Eyelet Lace Bag</td>
                                                                 <td>Acessórios</td>
@@ -1740,12 +1506,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct"> Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Snake Belt</td>
                                                                 <td>Acessórios</td>
@@ -1756,12 +1522,12 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#000000;"></div></td>
                                                                 <td>Eyelet kerchief</td>
                                                                 <td>Acessórios</td>
@@ -1772,13 +1538,13 @@
                                                                 <td>0</td>
                                                                 <td>€0.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <!-- Outros -->
                                                              <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#1a1a2e;"></div></td>
                                                                 <td>Agitat Solum Merch</td>
                                                                 <td>T-Shirts</td>
@@ -1789,12 +1555,12 @@
                                                                 <td>47</td>
                                                                 <td>€705.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#2d2d2d;"></div></td>
                                                                 <td>Custom Baggy Jeans</td>
                                                                 <td>Pants</td>
@@ -1805,12 +1571,12 @@
                                                                 <td>32</td>
                                                                 <td>€2720.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#4a4a4a;"></div></td>
                                                                 <td>Battle Jacket</td>
                                                                 <td>Jackets</td>
@@ -1821,12 +1587,12 @@
                                                                 <td>18</td>
                                                                 <td>€1890.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#222222;"></div></td>
                                                                 <td>Custom T-Shirt</td>
                                                                 <td>T-Shirts</td>
@@ -1837,12 +1603,12 @@
                                                                 <td>28</td>
                                                                 <td>€700.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#3b3b3b;"></div></td>
                                                                 <td>Oversized Hoodie</td>
                                                                 <td>Jackets</td>
@@ -1853,12 +1619,12 @@
                                                                 <td>61</td>
                                                                 <td>€3355.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td><img src="productImage1.jpg" alt="product image"></td>
+                                                                <td><img src="Images/productImage1.jpg" alt="product image" style="width: 40px;"></td>
                                                                 <td><div style="width:40px;height:40px;background-color:#111111;"></div></td>
                                                                 <td>Slim Fit Trousers</td>
                                                                 <td>Pants</td>
@@ -1869,60 +1635,12 @@
                                                                 <td>24</td>
                                                                 <td>€1680.00</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-warning btnUpdate">Update</button>
-                                                                    <button class="btn btn-sm btn-danger btnDelete">Delete</button>
+                                                                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                                                                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <!-- Script de UPDATE e DELETE -->
-                                                    <script>
-                                                    document.getElementById('corpoTabela').addEventListener('click', function(e) {
-                                                      const linha = e.target.closest('tr');
-
-                                                      // DELETE
-                                                      if (e.target.classList.contains('btnDelete')) {
-                                                        linha.remove();
-                                                      }
-                                                  
-                                                      // UPDATE - abre o modal preenchido com os dados da linha
-                                                      if (e.target.classList.contains('btnUpdate')) {
-                                                        const cells = linha.querySelectorAll('td');
-                                                        const cor = cells[1].querySelector('div').style.backgroundColor;
-                                                    
-                                                        document.getElementById('inputImage').value = cells[0].querySelector('img').src;
-                                                        document.getElementById('inputColor').value = rgbToHex(cor);
-                                                        document.getElementById('inputProduct').value = cells[2].textContent;
-                                                        document.getElementById('inputCategorySelect').value = cells[3].textContent;
-                                                        document.getElementById('inputPrice').value = cells[4].textContent;
-                                                        document.getElementById('inputSales').value = cells[5].textContent;
-                                                        document.getElementById('inputRevenue').value = cells[6].textContent;
-                                                    
-                                                        // Guarda referência à linha para atualizar depois
-                                                        document.getElementById('btnSalvar').dataset.editLinha = Array.from(
-                                                          document.getElementById('corpoTabela').rows
-                                                        ).indexOf(linha);
-                                                    
-                                                        bootstrap.Modal.getOrCreateInstance(document.getElementById('insertProductModal')).show();
-                                                      }
-                                                    });
-                                                    // Converte RGB para HEX (necessário para o color picker)
-                                                    function rgbToHex(rgb) {
-                                                        const result = rgb.match(/\d+/g);
-                                                        if (!result) return '#000000';
-                                                    }
-                                                    // *IMPORTANTE* Limpa o dataset de edição e os campos do modal quando ele for fechado
-                                                    document.getElementById('insertProductModal').addEventListener('hidden.bs.modal', function () {
-                                                        document.getElementById('btnSalvar').dataset.editLinha = '';
-                                                        document.getElementById('inputImage').value = '';
-                                                        document.getElementById('inputColor').value = '#000000';
-                                                        document.getElementById('inputProduct').value = '';
-                                                        document.getElementById('inputCategorySelect').value = '';
-                                                        document.getElementById('inputPrice').value = '';
-                                                        document.getElementById('inputSales').value = '';
-                                                        document.getElementById('inputRevenue').value = '';
-                                                    });
-                                                    </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -1931,16 +1649,130 @@
                             </div>
                         </div>
                     </div>
-                    
+                </div>
 
-                </div>
+                <!-- ==================== ORDERS ==================== -->
                 <div class="tab-pane fade" id="orders" role="tabpanel" style="margin-left: 70px">
-                    <h1 class="text-center mt-5">Pedidos</h1>
-                    <p class="text-center">Aqui você pode gerenciar os pedidos do site.</p>
+                    <h1 class="text-center mt-5">Orders</h1>
+                    <p class="text-center">Here you can manage the site orders.</p>
                 </div>
+
+                <!-- ==================== COMUNITY ==================== -->
+                <div class="tab-pane fade" id="comunity" role="tabpanel" style="margin-left: 70px;">
+                    <h1 class="text-center mt-5">Comunity</h1>
+                    <p class="text-center">Here is the comunity management section.</p>
+                    <ul class="nav nav-tabs" id="comunityMainTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="comunity-maininfo-tab" data-bs-toggle="tab" data-bs-target="#comunity-maininfo" type="button" role="tab">Main Info</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="comunity-list-tab" data-bs-toggle="tab" data-bs-target="#comunity-postList" type="button" role="tab">Post List</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="comunityMainTabContent">
+                        <!-- Main Tab -->
+                        <div class="tab-pane fade show active" id="comunity-maininfo" role="tabpanel" aria-labelledby="comunity-maininfo-tab">
+
+                        </div>
+                        <!-- Post List -->
+                        <div class="tab-pane fade" id="comunity-postList" role="tabpanel" aria-labelledby="post-list-tab">
+                            <div class="mt-3">
+                                <div class="card card-stats mt-3">
+                                    <div class="card-header">
+                                        <ul class="nav nav-tabs" id="postListTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="postList-insert-tab" data-bs-toggle="tab" data-bs-target="#postList-insert" type="button" role="tab">Insert</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="postList-search-tab" data-bs-toggle="tab" data-bs-target="#postList-search" type="button" role="tab">Search</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body" style="background-color: #f1f1f1; border-radius: 10px;">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="tab-content" id="postListTabContent">
+                                                    <div class="tab-pane fade show active" id="postList-insert" role="tabpanel" aria-labelledby="postList-insert-tab">
+                                                        <!-- Botão para abrir o modal -->
+                                                        <button id="addPost" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#insertPostModal">
+                                                            Add Post
+                                                        </button>       
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="insertPostModal" tabindex="-1">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Add New Post</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <label for="post-inputImage" class="form-label">Image URL</label>
+                                                                        <input type="text" id="post-inputImage" class="form-control mb-2" placeholder="Image URL">
+                                                                        <label for="post-inputText" class="form-label">Text</label>
+                                                                        <input type="text" id="post-inputText" class="form-control mb-2" placeholder="Text">
+                                                                        <label for="post-inputUsername" class="form-label">User</label>
+                                                                        <input type="text" id="post-inputUsername" class="form-control mb-2" placeholder="Username">
+                                                                        <label for="post-inputDate" class="form-label">Date</label>
+                                                                        <input type="date" id="post-inputDate" class="form-control mb-2" placeholder="Date">
+                                                                        <label for="post-inputLikeCount" class="form-label">Like Count</label>
+                                                                        <input type="number" id="post-inputLikeCount" class="form-control mb-2" placeholder="Like Count">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-success" id="btnSalvarPost">Save</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Barra de pesquisa e filtros -->
+                                                    <div class="tab-pane fade" id="postList-search" role="tabpanel" aria-labelledby="postList-search-tab">
+                                                        <div class="card mb-3">
+                                                            <div class="card-body">
+                                                                <div class="row g-2">
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" id="searchPostsInput" class="form-control" placeholder="🔍 Search Posts...">
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <button class="btn btn-primary mb-3 w-100" id="btnLimparFiltrosPosts">
+                                                                            Clear
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Tabela Posts -->
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Image</th>
+                                                                <th>Text</th>
+                                                                <th>User</th>
+                                                                <th>Date</th>
+                                                                <th>Likes</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <!-- Estao Aqui Dados de Usuarios de Exemplo-->
+                                                        <tbody id="corpoTabelaPosts">
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ==================== MARKETING ==================== -->
                 <div class="tab-pane fade" id="marketing" role="tabpanel" style="margin-left: 70px;">
                     <h1 class="text-center mt-5">Marketing</h1>
-                    <p class="text-center">Aqui você pode gerenciar as campanhas de marketing do site.</p>
+                    <p class="text-center">Here you can manage the site marketing campaigns.</p>
                 </div>
             </div>  
         </div>
@@ -1948,7 +1780,471 @@
     </div>
 </div>
 
-    <!-- Bootstrap jS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ============================================================
+     Todos os scripts no final do body, após o Bootstrap JS
+     ============================================================ -->
+<script>
+    // ---- Donut Chart (Retention Rate) ----
+    const ctxDonut = document.getElementById('donutChart').getContext('2d');
+    new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+            labels: ['Active', 'Inactive'],
+            datasets: [{
+                data: [101, 9],
+                backgroundColor: ['#3b82f6', '#ef4444'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            cutout: '72%',
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: true }
+            },
+            hover: { mode: null }
+        }
+    });
+
+    // ---- Bar Chart (Inactive Users by Period) ----
+    new Chart(document.getElementById('chart'), {
+        type: 'bar',
+        data: {
+            labels: ['< 30 days', '< 60 days', '< 90 days', '6 months +'],
+            datasets: [{
+                data: [420, 780, 390, 210],
+                backgroundColor: ['#f4c95d', '#f4a541', '#e06c3a', '#c0392b'],
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // ---- Script que adiciona/atualiza user ----
+    document.getElementById('btnSalvarUser').addEventListener('click', function () {
+        const image = document.getElementById('user-inputImage').value;
+        const username = document.getElementById('user-inputUsername').value;
+        const role = document.getElementById('user-inputRoleSelect').value;
+        const email = document.getElementById('user-inputEmail').value;
+        const cellphone = document.getElementById('user-inputCellphone').value;
+        const status = document.getElementById('user-inputStatusSelect').value;
+        const address = document.getElementById('user-inputAddress').value;
+        const birthdate = document.getElementById('user-inputBirthdate').value;
+        const pronouns = document.getElementById('user-inputPronouns').value;
+        const accountCreation = document.getElementById('user-inputAccountCreation').value;
+        const lastLogin = document.getElementById('user-inputLastLogin').value;
+
+        if (!username || !email || !cellphone || !status || !address || !birthdate || !pronouns || !accountCreation || !lastLogin) {
+            alert('Fill all fields!');
+            return;
+        }
+    
+        const user = new Utilizador(image, username, role, email, cellphone, status, address, birthdate, pronouns, accountCreation, lastLogin);
+    
+        const novaLinha = `
+            <tr>
+                <td><img src="${user.image || 'productImage1.jpg'}" alt="user image" style="width: 40px; height: 40px; object-fit: cover;"></td>
+                <td>${user.username}</td>
+                <td>${user.role}</td>
+                <td>${user.email}</td>
+                <td>${user.status}</td>
+                <td>${user.accountCreation}</td>
+                <td>${user.lastLogin}</td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <button class="btn btn-sm btn-warning btnUpdateUser" style="width: 80px;">Update</button>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <button class="btn btn-sm btn-danger btnDeleteUser" style="width: 80px;">Delete</button>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <button class="btn btn-sm btn-primary btnActivateUser" style="width: 80px;">Activate</button>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <button class="btn btn-sm btn-danger btnSuspendUser" style="width: 80px;">Suspend</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>`;
+        
+        const editIndex = this.dataset.editLinha;
+        const tbody = document.getElementById('corpoTabelaUsers');
+        
+        if (editIndex !== undefined && editIndex !== '') {
+            tbody.rows[editIndex].outerHTML = novaLinha;
+            delete this.dataset.editLinha;
+        } else {
+            tbody.innerHTML += novaLinha;
+        }
+    
+        document.getElementById('user-inputImage').value = '';
+        document.getElementById('user-inputUsername').value = '';
+        document.getElementById('user-inputRoleSelect').value = 'Admin';
+        document.getElementById('user-inputEmail').value = '';
+        document.getElementById('user-inputCellphone').value = '';
+        document.getElementById('user-inputStatusSelect').value = 'Active';
+        document.getElementById('user-inputAddress').value = '';
+        document.getElementById('user-inputBirthdate').value = '';
+        document.getElementById('user-inputPronouns').value = '';
+        document.getElementById('user-inputAccountCreation').value = '';
+        document.getElementById('user-inputLastLogin').value = '';
+    
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('insertUserModal')).hide();
+    });
+
+    // ---- Script de UPDATE e DELETE de Users ----
+    document.getElementById('corpoTabelaUsers').addEventListener('click', function(e) {
+        const linha = e.target.closest('tr');
+
+        // DELETE
+        if (e.target.classList.contains('btnDeleteUser')) {
+            linha.remove();
+        }
+    
+        // UPDATE
+        if (e.target.classList.contains('btnUpdateUser')) {
+            const cells = linha.querySelectorAll('td');
+        
+            document.getElementById('user-inputImage').value = cells[0].querySelector('img').src;
+            document.getElementById('user-inputUsername').value = cells[1].textContent;
+            document.getElementById('user-inputRoleSelect').value = cells[2].textContent;
+            document.getElementById('user-inputEmail').value = cells[3].textContent;
+            document.getElementById('user-inputStatusSelect').value = cells[4].textContent.trim();
+            document.getElementById('user-inputAccountCreation').value = cells[5].textContent;
+            document.getElementById('user-inputLastLogin').value = cells[6].textContent;
+        
+            document.getElementById('btnSalvarUser').dataset.editLinha = Array.from(
+                document.getElementById('corpoTabelaUsers').rows
+            ).indexOf(linha);
+        
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('insertUserModal')).show();
+        }
+
+            // ACTIVATE
+            if (e.target.classList.contains('btnActivateUser')) {
+                linha.cells[4].textContent = 'Active';
+            }
+    
+            // SUSPEND
+        if (e.target.classList.contains('btnSuspendUser')) {
+            linha.cells[4].textContent = 'Suspended';
+        }
+    });
+
+    document.getElementById('insertUserModal').addEventListener('hidden.bs.modal', function () {
+        document.getElementById('btnSalvarUser').dataset.editLinha = '';
+        document.getElementById('user-inputImage').value = '';
+        document.getElementById('user-inputUsername').value = '';
+        document.getElementById('user-inputRoleSelect').value = 'Admin';
+        document.getElementById('user-inputEmail').value = '';
+        document.getElementById('user-inputCellphone').value = '';
+        document.getElementById('user-inputStatusSelect').value = 'Active';
+        document.getElementById('user-inputAddress').value = '';
+        document.getElementById('user-inputBirthdate').value = '';
+        document.getElementById('user-inputPronouns').value = '';
+        document.getElementById('user-inputAccountCreation').value = '';
+        document.getElementById('user-inputLastLogin').value = '';
+    });
+
+    // ---- Script de filtragem de Users ----
+    function filtrarTabelaUsers() {
+        const search = document.getElementById('searchUsersInput').value.toLowerCase();
+        const role = document.getElementById('filterRole').value.toLowerCase();
+        const status = document.getElementById('filterStatus').value.toLowerCase();
+        const accountCreationMin = document.getElementById('filterAccountCreationDateMin').value;
+        const accountCreationMax = document.getElementById('filterAccountCreationDateMax').value;
+                                                    
+        const linhas = document.querySelectorAll('#corpoTabelaUsers tr');
+                                                    
+        linhas.forEach(function(linha) {
+            const username = linha.cells[1]?.textContent.toLowerCase() || '';
+            const roleCell = linha.cells[2]?.textContent.toLowerCase() || '';
+            const statusCell = linha.cells[4]?.textContent.toLowerCase() || '';
+            const accountCreation = linha.cells[5]?.textContent || '';
+        
+            const match =
+                username.includes(search) &&
+                (role === '' || roleCell.includes(role)) &&
+                (status === '' || statusCell.includes(status)) &&
+                (accountCreationMin === '' || accountCreation >= accountCreationMin) &&
+                (accountCreationMax === '' || accountCreation <= accountCreationMax);
+        
+            linha.style.display = match ? '' : 'none';
+        });
+    }
+
+    document.getElementById('btnLimparFiltrosUsers').addEventListener('click', function () {
+        document.getElementById('searchUsersInput').value = '';
+        document.getElementById('filterRole').value = '';
+        document.getElementById('filterStatus').value = '';
+        document.getElementById('filterAccountCreationDateMin').value = '';
+        document.getElementById('filterAccountCreationDateMax').value = '';
+    
+        filtrarTabelaUsers();
+    });
+
+    ['searchUsersInput', 'filterRole', 'filterStatus',
+     'filterAccountCreationDateMin', 'filterAccountCreationDateMax']
+        .forEach(id => document.getElementById(id).addEventListener('input', filtrarTabelaUsers));
+
+    // ---- Script que adiciona/atualiza produtos ----
+    document.getElementById('btnSalvarProduct').addEventListener('click', function () {
+        const image = document.getElementById('inputImage').value;
+        const color = document.getElementById('inputColor').value;
+        const productName = document.getElementById('inputProductName').value;
+        const category = document.getElementById('inputCategorySelect').value;
+        const price = document.getElementById('inputPrice').value;
+        const sales = document.getElementById('inputSales').value;
+        const revenue = document.getElementById('inputRevenue').value;
+        
+
+        if (!productName || !category || !price || !sales || !revenue) {
+            alert('Fill all fields!');
+            return;
+        }
+    
+        
+        const product = new Produto(image, color, productName, category, '', price, '', '', sales, revenue);
+
+        const novaLinha = `
+            <tr>
+                <td><img src="${product.image || 'productImage1.jpg'}" alt="product image" style="width: 40px; height: 40px; object-fit: cover;"></td>
+                <td><div style="width: 40px; height: 40px; background-color: ${product.color};"></div></td>
+                <td>${product.productName}</td>
+                <td>${product.category}</td>
+                <td>-</td>
+                <td>${product.price}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>${product.sales}</td>
+                <td>${product.revenue}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning btnUpdateProduct">Update</button>
+                    <button class="btn btn-sm btn-danger btnDeleteProduct">Delete</button>
+                </td>
+            </tr>`;
+        
+        const editIndex = this.dataset.editLinha;
+        const tbody = document.getElementById('corpoTabelaProduct');
+        
+        if (editIndex !== undefined && editIndex !== '') {
+            // UPDATE - substitui a linha existente
+            tbody.rows[editIndex].outerHTML = novaLinha;
+            delete this.dataset.editLinha;
+        } else {
+            // INSERT - adiciona nova linha
+            tbody.innerHTML += novaLinha;
+        }
+          
+        document.getElementById('inputImage').value = '';
+        document.getElementById('inputProductName').value = '';
+        document.getElementById('inputCategorySelect').value = '';
+        document.getElementById('inputPrice').value = '';
+        document.getElementById('inputSales').value = '';
+        document.getElementById('inputRevenue').value = '';
+    
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('insertProductModal')).hide();
+    });
+
+    // ---- Script de UPDATE e DELETE de Produtos ----
+    document.getElementById('corpoTabelaProduct').addEventListener('click', function(e) {
+        const linha = e.target.closest('tr');
+
+        // DELETE
+        if (e.target.classList.contains('btnDeleteProduct')) {
+            linha.remove();
+        }
+    
+        // UPDATE - abre o modal preenchido com os dados da linha
+        if (e.target.classList.contains('btnUpdateProduct')) {
+            const cells = linha.querySelectorAll('td');
+            const colorDiv = cells[1].querySelector('div');
+            const cor = colorDiv ? colorDiv.style.backgroundColor : 'rgb(0,0,0)';
+
+            document.getElementById('inputImage').value = cells[0].querySelector('img').src;
+            document.getElementById('inputColor').value = rgbToHex(cor);
+            document.getElementById('inputProductName').value = cells[2].textContent.trim();
+            document.getElementById('inputCategorySelect').value = cells[3].textContent.trim();
+            document.getElementById('inputPrice').value = cells[5].textContent.replace('€','').trim();
+            document.getElementById('inputSales').value = cells[8].textContent.trim();
+            document.getElementById('inputRevenue').value = cells[9].textContent.replace('€','').trim();
+        
+            // Guarda referência à linha para atualizar depois
+            document.getElementById('btnSalvarProduct').dataset.editLinha = Array.from(
+                document.getElementById('corpoTabelaProduct').rows
+            ).indexOf(linha);
+        
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('insertProductModal')).show();
+        }
+    });
+
+    // Converte RGB para HEX
+    function rgbToHex(rgb) {
+        const result = rgb.match(/\d+/g);
+        if (!result) return '#000000';
+        return '#' + result.slice(0, 3).map(x => {
+            const hex = parseInt(x).toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+        }).join('');
+    }
+
+    // *IMPORTANTE* Limpa o dataset de edição e os campos do modal quando ele for fechado
+    document.getElementById('insertProductModal').addEventListener('hidden.bs.modal', function () {
+        document.getElementById('btnSalvarProduct').dataset.editLinha = '';
+        document.getElementById('inputImage').value = '';
+        document.getElementById('inputColor').value = '#000000';
+        document.getElementById('inputProductName').value = '';
+        document.getElementById('inputCategorySelect').value = '';
+        document.getElementById('inputPrice').value = '';
+        document.getElementById('inputSales').value = '';
+        document.getElementById('inputRevenue').value = '';
+    });
+
+    // ---- Script de filtragem de Produtos ----
+    function filtrarTabela() {
+        const search = document.getElementById('searchProduct').value.toLowerCase();
+        const category = document.getElementById('filterCategory').value.toLowerCase();
+        const priceMin = parseFloat(document.getElementById('filterPriceMin').value) || 0;
+        const priceMax = parseFloat(document.getElementById('filterPriceMax').value) || Infinity;
+        const salesMin = parseFloat(document.getElementById('filterSalesMin').value) || 0;
+        const salesMax = parseFloat(document.getElementById('filterSalesMax').value) || Infinity;
+        const revenueMin = parseFloat(document.getElementById('filterRevenueMin').value) || 0;
+        const revenueMax = parseFloat(document.getElementById('filterRevenueMax').value) || Infinity;
+    
+        const linhas = document.querySelectorAll('#corpoTabelaProduct tr');
+    
+        linhas.forEach(function(linha) {
+            const productName = linha.cells[2]?.textContent.toLowerCase() || '';
+            const cat = linha.cells[3]?.textContent.toLowerCase() || '';
+            const price = parseFloat(linha.cells[5]?.textContent.replace('€', '')) || 0;
+            const sales = parseFloat(linha.cells[8]?.textContent) || 0;
+            const revenue = parseFloat(linha.cells[9]?.textContent.replace('€', '')) || 0;
+        
+            const match =
+                productName.includes(search) &&
+                (category === '' || cat.includes(category)) &&
+                price >= priceMin && price <= priceMax &&
+                sales >= salesMin && sales <= salesMax &&
+                revenue >= revenueMin && revenue <= revenueMax;
+        
+            linha.style.display = match ? '' : 'none';
+        });
+    }
+
+    document.getElementById('btnLimparFiltros').addEventListener('click', function () {
+        document.getElementById('searchProduct').value = '';
+        document.getElementById('filterCategory').value = '';
+        document.getElementById('filterPriceMin').value = '';
+        document.getElementById('filterPriceMax').value = '';
+        document.getElementById('filterSalesMin').value = '';
+        document.getElementById('filterSalesMax').value = '';
+        document.getElementById('filterRevenueMin').value = '';
+        document.getElementById('filterRevenueMax').value = '';
+    
+        filtrarTabela();
+    });
+
+    ['searchProduct', 'filterCategory', 'filterPriceMin', 'filterPriceMax',
+     'filterSalesMin', 'filterSalesMax', 'filterRevenueMin', 'filterRevenueMax']
+        .forEach(id => document.getElementById(id).addEventListener('input', filtrarTabela));
+
+    // Script que adiciona/atualiza posts
+    document.getElementById('btnSalvarPost').addEventListener('click', function () {
+        const image = document.getElementById('post-inputImage').value;
+        const text = document.getElementById('post-inputText').value;
+        const username = document.getElementById('post-inputUsername').value;
+        const date = document.getElementById('post-inputDate').value;
+        const likeCount = document.getElementById('post-inputLikeCount').value;
+    
+        if (!text || !username || !date || !likeCount) {
+            alert('Fill all fields!');
+            return;
+        }
+
+        const post = new Post(null, username, date, text, image, likeCount);
+
+        const novaLinha = `
+            <tr>
+                <td><img src="${post.image_post || 'productImage1.jpg'}" alt="post image" style="width: 40px; height: 40px; object-fit: cover;"></td>
+                <td>${post.text_post}</td>
+                <td>${post.id_utilizador}</td>
+                <td>${post.dt_postagem}</td>
+                <td>${post.like_count}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning btnUpdatePost">Update</button>
+                    <button class="btn btn-sm btn-danger btnDeletePost">Delete</button>
+                </td>
+            </tr>`;
+
+        const editIndex = this.dataset.editLinha;
+        const tbody = document.getElementById('corpoTabelaPosts');
+        
+        if (editIndex !== undefined && editIndex !== '') {
+            // UPDATE - substitui a linha existente
+            tbody.rows[editIndex].outerHTML = novaLinha;
+            delete this.dataset.editLinha;
+        } else {
+            // INSERT - adiciona nova linha
+            tbody.innerHTML += novaLinha;
+        }
+          
+        document.getElementById('post-inputImage').value = '';
+        document.getElementById('post-inputText').value = '';
+        document.getElementById('post-inputUsername').value = '';
+        document.getElementById('post-inputDate').value = '';
+        document.getElementById('post-inputLikeCount').value = '';
+    
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('insertPostModal')).hide();
+    });
+
+    // ---- Script de UPDATE e DELETE de Posts ----
+    document.getElementById('corpoTabelaPosts').addEventListener('click', function(e) {
+        const linha = e.target.closest('tr');
+
+        // DELETE
+        if (e.target.classList.contains('btnDeletePost')) {
+            linha.remove();
+        }
+
+        // UPDATE
+        if (e.target.classList.contains('btnUpdatePost')) {
+            const cells = linha.querySelectorAll('td');
+
+            document.getElementById('post-inputImage').value = cells[0].querySelector('img').src;
+            document.getElementById('post-inputText').value = cells[1].textContent;
+            document.getElementById('post-inputUsername').value = cells[2].textContent;
+            document.getElementById('post-inputDate').value = cells[3].textContent;
+            document.getElementById('post-inputLikeCount').value = cells[4].textContent;
+
+            document.getElementById('btnSalvarPost').dataset.editLinha = Array.from(
+                document.getElementById('corpoTabelaPosts').rows
+            ).indexOf(linha);
+
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('insertPostModal')).show();
+        }
+    });
+
+    document.getElementById('insertPostModal').addEventListener('hidden.bs.modal', function () {
+        document.getElementById('btnSalvarPost').dataset.editLinha = '';
+        document.getElementById('post-inputImage').value = '';
+        document.getElementById('post-inputText').value = '';
+        document.getElementById('post-inputUsername').value = '';
+        document.getElementById('post-inputDate').value = '';
+        document.getElementById('post-inputLikeCount').value = '';
+    });
+</script>
+
 </body>
 </html>
