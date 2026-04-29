@@ -12,6 +12,7 @@ CREATE TABLE utilizadores (
     morada VARCHAR(255) NOT NULL,
     dt_nascimento DATE NOT NULL,
     pronomes VARCHAR(20)
+    --isAdmin BOOLEAN NOT NULL
 );
 
 INSERT INTO utilizadores (username, email, telefone, password, morada, dt_nascimento, pronomes) VALUES

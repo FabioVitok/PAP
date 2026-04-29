@@ -19,5 +19,6 @@ INSERT INTO estados(nome_estado ,cor_estado) VALUES
 ('Conta Apagada', 'R'), -- Red
 ('Conta Banida', 'DR'), -- DarkRed
 ('Conta Suspensa', 'Y'), -- Yellow
-('Conta Ativa', 'G'); -- Green
+('Conta Ativa', 'G'), -- Green
+('Conta Inativa', 'G'); -- Orange
 
