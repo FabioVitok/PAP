@@ -70,7 +70,7 @@ INNER JOIN produtos AS p ON cp.id_produto = p.id
 INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
 GROUP BY p.id;
 
--- Query para ver os pordutos mais vendidos (CARRINHOS)
+-- Query para ver os produtos mais vendidos
 SELECT p.nome, SUM(cp.quantidade) AS total_vendido
 FROM carrinho_produtos AS cp
 INNER JOIN produtos AS p ON cp.id_produto = p.id
@@ -99,10 +99,28 @@ LEFT JOIN comentarios AS c ON po.id = c.id_post
 WHERE c.id_post IS NULL;
 
 
--- Query para contar utilizadores inativos
-SELECT COUNT(*)
-FROM utilizadores AS u
-LEFT JOIN estado_contas AS ec ON u.id = ec.id_utilizador
-WHERE ec.id_estado = 10;
+-- Query para ver os utilizadores inativos
+SELECT ec.id_utilizador, ec.data_alteracao AS ultima_alteracao, ec.id_estado
+FROM estado_contas AS ec
+WHERE ec.id_estado = 10
+AND ec.data_alteracao = (
+SELECT MAX(sub.data_alteracao)
+FROM estado_contas AS sub
+WHERE sub.id_utilizador = ec.id_utilizador
+) GROUP BY ec.id_utilizador, ec.data_alteracao, ec.id_estado;
 
-blah
+
+-- Query para ver quantos utilizadores existem por faixa Etária
+SELECT 
+CASE
+        WHEN FLOOR(DATEDIFF(CURRENT_DATE, dt_nascimento) / 365.25) < 18 THEN 'Adolescentes 13-17'
+        WHEN FLOOR(DATEDIFF(CURRENT_DATE, dt_nascimento) / 365.25) BETWEEN 18 AND 30 THEN 'Jovens Adultos 18-29'
+        WHEN FLOOR(DATEDIFF(CURRENT_DATE, dt_nascimento) / 365.25) BETWEEN 31 AND 50 THEN 'Adultos 30-59'
+        ELSE 'Sénior 60+'
+END AS FaixaEtaria,
+COUNT(*) AS total_utilizadores
+FROM utilizadores 
+GROUP BY FaixaEtaria;
+
+
+

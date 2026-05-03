@@ -14,6 +14,30 @@ CREATE TABLE utilizadores (
     pronomes VARCHAR(20)
 );
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 INSERT INTO utilizadores (username, email, telefone, password, morada, dt_nascimento, pronomes) VALUES
 ('ricardo95','frederico24@example.org','+351922391890','Avv9PLCp$5','Av do Arboreto, 50, 0642-990 Setúbal','1971-04-19','elu/delu'),
 ('kevim49','leonorreis@example.net','+351929518195','K^6YyFUjl(','Largo Rita Abreu, 32, 0138-963 Barreiro','1997-02-11','ele/dele'),
@@ -133,3 +157,7 @@ INSERT INTO utilizadores (username, email, telefone, password, morada, dt_nascim
 ('kfaria','marianafernandes@example.org','+351934951264','%hiy0vW+p5','Praça Rodrigues, S/N, 1036-276 Odivelas','1975-04-29','ela/dela'),
 ('alvaro64','francisca50@example.com','+351933267657','+_3S_z(@*U','Travessa de Fonseca, 34, 2629-961 Portimão','2004-09-12','ele/dele'),
 ('lucas39','mafalda50@example.net','+351963119577','*e8KWqc)zh','R. Kelly Matias, 41, 8738-870 Olhão','1995-10-18','elu/delu');
+
+
+INSERT INTO utilizadores (username, email, telefone, password, morada, dt_nascimento, pronomes) VALUES
+('luca39','mafalda50@exmple.net','+35196319577','*e8KWqc)zh','R. Kelly Matias, 41, 8738-870 Olhão','2010-10-18','elu/delu');
