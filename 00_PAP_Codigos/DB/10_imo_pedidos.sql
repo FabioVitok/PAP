@@ -5,18 +5,19 @@ DROP TABLE IF EXISTS pedidos;
 CREATE TABLE pedidos (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_carrinho INT(11) UNSIGNED NOT NULL UNIQUE,
+    dt_compra DATETIME NOT NULL,
     FOREIGN KEY (id_carrinho) REFERENCES carrinhos(id)
 );
 
-INSERT INTO pedidos(id_carrinho) VALUES
-(1),
-(2),
-(3),
-(4),
-(5),
-(6),
-(7),
-(8),
-(9),
-(10);
+INSERT INTO pedidos(id_carrinho, dt_compra) VALUES
+(3, '2024-03-01 10:00:00'),
+(7, '2024-04-01 10:05:00'),
+(4, '2024-04-03 12:00:00'),
+(5, '2024-04-25 14:00:00'),
+(8, '2024-04-27 12:30:00'),
+(19, '2024-05-25 14:30:00'),
+(20, '2024-06-01 10:00:00'),
+(21, '2024-06-01 10:05:00'),
+(22, '2024-06-02 11:15:00'),
+(24, '2024-06-03 12:01:00');
 

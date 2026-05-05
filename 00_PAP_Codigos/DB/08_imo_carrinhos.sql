@@ -28,5 +28,11 @@ INSERT INTO carrinhos(id_utilizador, custo_total) VALUES
 (16, 0.00),
 (17, 0.00),
 (18, 0.00),
-(19, 0.00),
-(20, 0.00);
+(19, 0.00);
+
+INSERT INTO carrinhos(id_utilizador, custo_total) VALUES
+(3, 0.00),
+(4, 0.00),
+(5, 0.00),
+(7, 0.00),
+(8, 0.00);
