@@ -12,9 +12,9 @@ CREATE TABLE posts (
 );
 
 INSERT INTO posts (id_utilizador, dt_postagem, texto_post) VALUES
-(1, '2024-06-01 10:00:00', 'Adoro os produtos desta loja!'),
-(2, '2024-06-02 12:30:00', 'A entrega foi super rápida, recomendo!'),
-(3, '2024-06-03 15:45:00', 'Os preços são ótimos e a qualidade é excelente.'),
-(1, '2024-06-04 09:20:00', 'Comprei uma camisola e estou muito satisfeita!'),
-(2, '2024-06-05 14:10:00', 'O atendimento ao cliente foi muito eficiente.'),
-(3, '2024-06-06 18:25:00', 'Adorei a variedade de produtos disponíveis.');
+(1, '2024-06-01 10:00:00', 'Guys as calças novas ficam bue bem com new rocks'),
+(2, '2024-06-02 12:30:00', 'Jojo inspired Outfit!'),
+(3, '2024-06-03 15:45:00', 'Alguem vai ao moda lisboa ano que vem?'),
+(1, '2024-06-04 09:20:00', 'Mala diy que comprei com uns patches extra que fiz'),
+(2, '2024-06-05 14:10:00', 'Haul do que comprei na promoção da imoral'),
+(3, '2024-06-06 18:25:00', 'Get ready with me para ir ao sonic blast');
