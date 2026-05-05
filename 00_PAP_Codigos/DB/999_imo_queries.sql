@@ -73,7 +73,7 @@ SELECT u.id, u.username, u.email
 FROM utilizadores AS u
 LEFT JOIN carrinhos AS c ON u.id = c.id_utilizador
 LEFT JOIN pedidos AS p ON c.id = p.id_carrinho
-WHERE p.id_carrinho IS NULL;
+WHERE p.id_carrinho IS NULL AND is_admin = false;
 
 
 -- 5 Funções de agregação
@@ -150,12 +150,12 @@ INNER JOIN pedidos AS p ON c.id = p.id_carrinho
 GROUP BY u.id
 HAVING total_compras > 1;
 
--- Query para ver os utilizadores com mais de 5 seguidores
+-- Query para ver os utilizadores com mais de 10 seguidores
 SELECT u.id, u.username, COUNT(f.id_seguidor) AS total_seguidores
 FROM utilizadores AS u
 INNER JOIN followship AS f ON u.id = f.id_seguido
 GROUP BY u.id
-HAVING total_seguidores > 5;
+HAVING total_seguidores > 10;
 
 -- 2 calculo de médias
 

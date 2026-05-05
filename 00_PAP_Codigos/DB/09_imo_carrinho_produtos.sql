@@ -8,7 +8,6 @@ CREATE TABLE carrinho_produtos (
     id_produto INT(11) UNSIGNED NOT NULL,
     quantidade INT NOT NULL,
     dt_adicao DATETIME NOT NULL,
-    dt_retiro DATETIME NULL, -- Vazio se nao foi cancelado -- WOOOOOOOOOOOOOOOOW
     FOREIGN KEY (id_carrinho) REFERENCES carrinhos(id),
     FOREIGN KEY (id_produto) REFERENCES produtos(id)
 );
@@ -40,6 +39,6 @@ INSERT INTO carrinho_produtos(id_carrinho, id_produto, quantidade, dt_adicao) VA
 (22, 4, 1, '2024-06-02 11:15:00'),
 (23, 5, 2, '2024-06-03 12:00:00'),
 (24, 14, 2, '2024-06-03 12:01:00'),
-(20, 6, 1, '2024-06-27 12:30:00'),
+(20, 6, 1, '2024-06-04 12:30:00'),
 (21, 7, 1, '2024-07-04 13:00:00');
 
