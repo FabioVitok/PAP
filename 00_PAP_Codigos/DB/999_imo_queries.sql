@@ -101,14 +101,8 @@ WHERE c.id_post IS NULL;
 
 -- Query para contar utilizadores inativos
 SELECT COUNT(*)
-FROM estado_contas 
-WHERE data_alteracao = (SELECT MAX(data_alteracao)
-FROM estado_contas AS ec
-LEFT JOIN utilizadores AS u ON u.id = ec.id_utilizador
-);
+FROM utilizadores AS u
+LEFT JOIN estado_contas AS ec ON u.id = ec.id_utilizador
+WHERE ec.id_estado = 10;
 
-SELECT u.id, MAX(data_alteracao)
-FROM estado_contas AS ec
-LEFT JOIN utilizadores AS u ON u.id = ec.id_utilizador
-HAVING(ec.id_estado = 10)
-GROUP BY u.id;
+blah

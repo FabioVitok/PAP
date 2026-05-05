@@ -1,4 +1,5 @@
 <?php
+session_start();
 //IMPORTS
 require "../app/controllers/WebController.php";
 require "../app/controllers/AuthController.php";
@@ -17,37 +18,42 @@ if ($uri === '/' || $uri === '/index' || $uri === '/home') {
 } else if ($uri === '/login' && $method === 'GET') {
   (new WebController())->login();
 } else if ($uri === '/login' && $method === 'POST') {
-  // Apanhar os dados do formulário
-
-  //var_dump($email, $password);
-
   (new AuthController())->loginWeb();
-} else if ($uri === '/about') {
-  (new WebController())->about();
-}
 
-// Signup routes 
-elseif($uri === '/signup' && $method === 'GET') {
+} elseif ($uri === '/signup' && $method === 'GET') {
   (new WebController())->signup();
 } elseif ($uri === '/signup' && $method === 'POST') {
   try {
     (new AuthController())->signupWeb();
-    echo "User registered successfully!";
   } catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+    $_SESSION['error'] = $e->getMessage();
+    // Redirecionar de volta para a página de signup GET
+    header("Location: /signup");
+    exit();
   }
-}
+  (new AuthController())->verifyEmailForm($token);
 
-elseif($uri === '/send-email/test' && $method === 'GET') {
-  var_dump('/send-email/test');
+} else if ($uri === '/about') {
+  (new WebController())->about();
 
+} elseif ($uri === '/send-email/test' && $method === 'GET') {
   $html = file_get_contents(__DIR__ . '/views/emails/welcome.php');
-
   (new Mailer())->send(
     "37595@esjaloures.org",
     "Test Email",
     $html
   );
+
+} elseif ($uri === "/verify-email" && $method === "GET") {
+  $token = $_GET['token'] ?? '';
+
+  (new AuthController())->verifyEmailForm($token);
+}
+
+//Erros pages
+elseif ($uri === '/bad-request') {
+  (new WebController())->badRequest();
+
 } else {
   http_response_code(404);
   echo "404 Not Found";
