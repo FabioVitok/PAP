@@ -1,33 +1,54 @@
 <?php
 
-require_once __DIR__ . '/../models/User.php';
-require_once __DIR__ . '/../config/Database.php';
-
-class EmailVerificationDAO
-{
-    // IMPORTANT!: isto podia estar numa classe parent dao
+class EmailVerificationDAO {
     private $conn;
-    public function __construct()
-    {
-        $this->conn = (new DataBase())->connect();
+
+    public function __construct() {
+        // Conectar à base de dados
+        $this->conn = (new Database())->connect();
     }
 
-    public function createForUser($userId, $ttlSeconds = 300)
-    {
-        // 1) IMPORTANTE!: gerar token único e seguro pode ser discutido posteriormente na PAP
-        $token = bin2hex(random_bytes(32) . round(microtime(true) * 1000));
-
-        // 2) sha256 é uma função de hash unidirecional de encriptação.
+    public function createForUser($userId, $ttlSeconds = 300) {
+        $token = bin2hex(random_bytes(32) . round(microtime(true)) * 1000000);
         $tokenHash = hash('sha256', $token);
 
         $sql = "
             INSERT INTO email_verifications (user_id, token_hash, expires_at, used_at, created_at)
             VALUES (?, ?, DATE_ADD(NOW(), INTERVAL ? SECOND), NULL, NOW())
         ";
-
+    
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$userId, $tokenHash, $ttlSeconds]);
-
+    
         return $token;
+    }
+
+    public function validateToken($token) {
+        $tokenHash = hash('sha256', $token);
+
+        $sql = "
+            SELECT user_id
+            FROM email_verifications
+            WHERE token_hash = ?
+                AND used_at IS NULL
+                AND expires_at > NOW()
+            ORDER BY id DESC
+            LIMIT 1
+        ";
+    
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$tokenHash]);
+    
+        $userId = $stmt->fetchColumn();
+
+        return $userId ? (int)$userId : false;
+    }
+    
+    public function markUsed(string $token): void
+    {
+        $tokenHash = hash('sha256', $token);
+    
+        $stmt = $this->conn->prepare("UPDATE email_verifications SET used_at = NOW() WHERE token_hash = ?");
+        $stmt->execute([$tokenHash]);
     }
 }

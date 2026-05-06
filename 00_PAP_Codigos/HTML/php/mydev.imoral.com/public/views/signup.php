@@ -1,37 +1,61 @@
 <?php include __DIR__ . "/../includes/header.php"; ?>
 
-// Verifica se existe uma mensagem de erro na sessão e exibe-a
 <?php if(isset($_SESSION['error'])): ?>
     <div class="alert alert-danger" role="alert">
         <?= $_SESSION['error']; ?>
     </div>
-    // Limpa a mensagem de erro da sessão
     <?php unset($_SESSION['error']); ?>
 <?php endif; ?>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-12 col-sm-10 col-md-6 col-lg-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h4 class="mb-3">Sign up</h4>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imoral - Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-black">
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-5 col-lg-4">
+                <div class="card bg-black text-white" style="border: 2px solid white;">
+                    <div class="card-body p-5">
 
-                    <form method="POST" action="/signup">
-                        <input name="username" value="Albertina" class="form-control mb-2" placeholder="Username" required>
-                        <input name="email" value="albertina@example.com" type="email" class="form-control mb-2" placeholder="Email" required>
-                        <input name="password" value="password123" type="password" class="form-control mb-3" placeholder="Password"
-                            required>
+                        <!-- Logo -->
+                        <div class="text-center mb-4">
+                            <img src="Images/imoral_logo1.png" alt="logo_imoral" class="mb-3" style="width: 200px;">
+                            <h2 class="card-title">Sign Up</h2>
+                        </div>
 
-                        <button class="btn btn-primary w-100">Criar conta</button>
-                    </form>
+                        <form method="POST" action="/signup">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" id="name" class="form-control bg-black text-white border-light" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" class="form-control bg-black text-white border-light" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" class="form-control bg-black text-white border-light" required>
+                            </div>
 
-                    <div class="text-center mt-3">
-                        <a href="/login" class="text-decoration-none">Já tenho conta</a>
+                            <button type="submit" class="btn btn-outline-light w-100 mt-3">Sign Up</button>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            Já tem uma conta?
+                            <a class="text-decoration-none" href="/login"> Faça login aqui.</a>
+                        </div>
+
+                        <div id="mensagem" class="mt-3 text-center"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/signup.js"></script>
+</body>
 <?php include __DIR__ . "/../includes/footer.php"; ?>
