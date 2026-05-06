@@ -1,7 +1,8 @@
-<?php 
+<?php
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception as MailException;
+
 
 final class Mailer
 {

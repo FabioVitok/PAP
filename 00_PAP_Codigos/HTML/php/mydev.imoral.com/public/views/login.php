@@ -1,4 +1,5 @@
 <?php include __DIR__ . "/../includes/header.php"; ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,22 +19,22 @@
                             <h2 class="card-title">Login</h2>
                         </div>
 
-                        <form id="loginForm">
+                        <form method="POST" action="/login">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" id="email" class="form-control bg-black text-white border-light" required>
+                                <input type="email" id="email" name="email" class="form-control bg-black text-white border-light" required>
                             </div>
-
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" class="form-control bg-black text-white border-light" required>
+                                <input type="password" id="password" name="password" class="form-control bg-black text-white border-light" required>
                             </div>
 
                             <button type="submit" class="btn btn-outline-light w-100 mt-3">Entrar</button>
                         </form>
 
                         <div class="text-center mt-3">
-                            <a class="text-decoration-none" href="/signup">Não tem uma conta? Registre-se aqui.</a>
+                            Não tem uma conta?
+                            <a class="text-decoration-none" href="/signup"> Registre-se aqui.</a>
                         </div>
 
                         <div id="mensagem" class="mt-3 text-center"></div>
