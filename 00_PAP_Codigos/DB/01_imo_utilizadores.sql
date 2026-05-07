@@ -14,7 +14,10 @@ CREATE TABLE utilizadores (
     dt_criação DATETIME NOT NULL,
     pronomes VARCHAR(20),
     is_admin BOOLEAN NOT NULL,
-    ultimo_login DATETIME NOT NULL
+    ultimo_login DATETIME NOT NULL,
+    is_verified TINYINT(1) NOT NULL DEFAULT 0,
+    verified_at DATETIME NULL
+ 
     
 );
 
@@ -28,7 +31,7 @@ INSERT INTO utilizadores (username, email, imageId, telefone, password, morada, 
 ('Neocaridina','aquarios@gmail.com', 7,'+351920954523','(%a*B3Qp!%','Praça Esteves, 55, 1907-642 Silves','2007-01-17', '2024-01-01', 'ele/dele',false,'2024-06-01 10:00:00' ),
 ('Scott Pilgrim','scott.pilgrim@icloud.com', 8, '+351961542229','R*d9yhunTQ','Alameda Garcia de Orta ao Parque das Nações, 7, 7521-734 Mealhada','1999-07-30', '2024-01-01', 'ele/dele',false,'2024-06-01 10:00:00' ),
 ('afonso21','afonso21@gmail.com', 9, '+351917044566','Al2We2oAQ@','Avenida Marques, 597, 8475-049 Caniço','1973-12-01', '2024-01-01', 'elu/delu',false,'2024-06-01 10:00:00' ),
-('Michael.Jackson','michael.jacson1@hotmail.com', 10, '+351917984566','Al2We2oAQ@','Avenida Marques, 597, 8475-049 Caniço','1963-12-01', '2024-01-01','ele/dele',false,'2024-06-01 10:00:00' );
+('Michael.Jhon','michael.jacson1@hotmail.com', 10, '+351917984566','Al2We2oAQ@','Avenida Marques, 597, 8475-049 Caniço','1963-12-01', '2024-01-01','ele/dele',false,'2024-06-01 10:00:00' );
 
 INSERT INTO utilizadores (username, email, imageId, telefone, password, morada, dt_nascimento, dt_criação, pronomes, is_admin, ultimo_login) VALUES
 ('NunosAgitar','nuninho@icloud.com', 11, '+351918531317','4KX32t#7$&','R. Maestro Ivo Cruz, 82, 8078-371 Alcobaça','2006-01-22', '2024-01-01', 'ele/dele',false,'2024-06-01 10:00:00' ),
