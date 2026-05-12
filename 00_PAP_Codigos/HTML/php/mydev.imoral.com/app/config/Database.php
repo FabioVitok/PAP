@@ -3,7 +3,7 @@
 class Database
 {
   private $host = 'localhost';
-  private $db_name = 'mydevfriendslist';
+  private $db_name = 'imo_system';
   private $username = 'root';
   private $password = '';
  

@@ -16,6 +16,8 @@ $uri = str_replace("mydev.imoral.com/public", "", $uri);
 
 $method = $_SERVER['REQUEST_METHOD'];
 
+var_dump($_SESSION);
+
 if($uri === '/' || $uri === '/index' || $uri === '/home') {
     (new WebController())->index();
 }
@@ -78,7 +80,10 @@ elseif($uri === '/signup' && $method === 'POST') {
 
         var_dump($e);
         var_dump($e->getMessage());
-        $_SESSION['flash_error'] = $e->getMessage();
+        $_SESSION['toast'] = [
+            'type' => 'error',
+            'message' => $e->getMessage()
+        ];
         header("Location: /signup");
         exit();
     }
@@ -97,30 +102,52 @@ elseif($uri === '/verify-email' && $method === 'POST') {
     } catch (Exception $e) {
         var_dump($e);
         var_dump($e->getMessage());
-        $_SESSION['flash_error'] = $e->getMessage();
+        $_SESSION['toast'] = [
+            'type' => 'error',
+            'message' => $e->getMessage()
+        ];
         header("Location: /verify-email");
         exit();
     }
 }
 
 elseif($uri === '/users' && $method === 'GET') {
-    var_dump('Entrar na página users');
-}
-
-elseif($uri === '/send-email/test' && $method === 'GET') {
-    var_dump('/send-email/test');
-
-    $html = file_get_contents(__DIR__ . "/views/emails/welcome.php");
-
-    (new Mailer()) -> send(
-        "37611@ejaloures.org",
-        "Test Email",
-        $html
-    );
+    try{
+        (new UserController())->getUsers();
+    } catch (Exception $e) {
+        $_SESSION['toast'] = [
+            'type' => 'error',
+            'message' => $e->getMessage()
+        ];
+        header("Location: /users");
+        exit();
+    }
 }
 
 elseif(preg_match('#^/users\/(\d+)$#', $uri, $m) && $method === 'GET') {
     (new UserController())->profile($m[1]);
+}
+
+elseif(preg_match('#^/users\/(\d+)/update$#', $uri, $m) && $method === 'POST') {
+    try{
+        (new UserController())->update($m[1]);
+
+        $_SESSION['toast'] = [
+            'type' => 'success',
+            'message' => 'Perfil atualizado com sucesso!'
+        ];
+        header("Location: /users/{$m[1]}");
+        exit();
+    } catch (Exception $e) {
+        var_dump($e);
+        var_dump($e->getMessage());
+        $_SESSION['toast'] = [
+            'type' => 'error',
+            'message' => $e->getMessage()
+        ];
+        header("Location: /users/{$m[1]}");
+        exit();
+    }
 }
 
 // Rota das páginas de erro

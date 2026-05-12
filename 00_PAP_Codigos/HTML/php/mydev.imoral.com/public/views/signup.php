@@ -28,16 +28,16 @@
 
                         <form method="POST" action="/signup">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" id="name" class="form-control bg-black text-white border-light" required>
+                                <label for="name" class="form-label">Username</label>
+                                <input type="text" id="username" name="username" class="form-control bg-black text-white border-light" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" id="email" class="form-control bg-black text-white border-light" required>
+                                <input type="email" id="email" name="email" class="form-control bg-black text-white border-light" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" class="form-control bg-black text-white border-light" required>
+                                <input type="password" id="password" name="password" class="form-control bg-black text-white border-light" required>
                             </div>
 
                             <button type="submit" class="btn btn-outline-light w-100 mt-3">Sign Up</button>
