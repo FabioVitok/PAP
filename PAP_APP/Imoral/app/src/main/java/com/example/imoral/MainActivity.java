@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         produtos.add(new Acessorio(4, "Eyelet Kerchief", "preto", "m", R.drawable.eyeletkerchief,25, 0.50, 15.99 , 7.00));
         produtos.add(new Acessorio(5, "Lace Belt", "preto", "Tamanho unico", R.drawable.lacebelt,25, 0.70, 15.99 , 7.00));
         produtos.add(new Roupa(6, "Pierced Shirt", "preto", "m", R.drawable.piercedshirt,25, 34.00, 35.99 , 20.00));
+        produtos.add(new Acessorio(1, "Eyelet Lace Bag", "preto", "Tamanho Unico", R.drawable.eyeletbag, 25, 0.60, 27.99 , 12.00));
+        produtos.add(new Roupa(2, "Flared Distressed Jeans", "preto", "m", R.drawable.flaredjeans,25, 0.90, 29.99 , 15.00));
+        produtos.add(new Roupa(3, "Pierced Shoulder Off", "preto", "m", R.drawable.piercedshoulder,25, 0.60, 25.99 , 13.00));
+        produtos.add(new Acessorio(4, "Eyelet Kerchief", "preto", "m", R.drawable.eyeletkerchief,25, 0.50, 15.99 , 7.00));
+        produtos.add(new Acessorio(5, "Lace Belt", "preto", "Tamanho unico", R.drawable.lacebelt,25, 0.70, 15.99 , 7.00));
+        produtos.add(new Roupa(6, "Pierced Shirt", "preto", "m", R.drawable.piercedshirt,25, 34.00, 35.99 , 20.00));
 
         // RecyclerView — 2 colunas + scroll automático
         RecyclerView rv = findViewById(R.id.rvProducts);
