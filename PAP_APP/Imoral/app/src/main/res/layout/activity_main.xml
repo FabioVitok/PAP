@@ -25,7 +25,12 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             app:srcCompat="@drawable/logo1" />
+
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333" />
 
     <!-- LISTA SCROLLABLE (ocupa espaço restante) -->
     <androidx.recyclerview.widget.RecyclerView
@@ -42,6 +47,10 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333" />
     <!-- FOOTER FIXO NO FUNDO -->
     <LinearLayout
         android:id="@+id/footer"
@@ -53,8 +62,13 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <!-- Coloca aqui os botões/conteúdo do footer -->
-
+        <ImageButton
+            android:id="@+id/imageButtonHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@color/black"
+            app:srcCompat="@drawable/home_24" />
     </LinearLayout>
 
 </LinearLayout>
