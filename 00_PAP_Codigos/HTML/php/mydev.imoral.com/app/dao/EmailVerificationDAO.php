@@ -51,4 +51,37 @@ class EmailVerificationDAO {
         $stmt = $this->conn->prepare("UPDATE email_verifications SET used_at = NOW() WHERE token_hash = ?");
         $stmt->execute([$tokenHash]);
     }
+
+    public function getVerificationsByUserId($userId): array {
+        $sql = "
+            SELECT 
+                email_verifications.id,
+                email_verifications.user_id,
+                email_verifications.token_hash,
+                email_verifications.expires_at,
+                email_verifications.used_at,
+                email_verifications.created_at
+            FROM email_verifications
+            WHERE user_id = ?;
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$userId]);
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ 
+        return $rows;
+    }
+
+    public function countVerifications() {
+        $sql = "
+            SELECT COUNT(*) 
+            FROM email_verifications
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return (int)$stmt->fetchColumn();
+    }
 }

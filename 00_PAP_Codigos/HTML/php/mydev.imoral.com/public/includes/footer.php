@@ -1,9 +1,9 @@
-<footer class="bg-dark text-white mt-5">
+<footer class=" navbar-expand-lg navbar-dark bg-black mt-5">
     <div class="container py-4">
         <div class="row align-items-center">
         
             <div class="col-md-6 mb-2 mb-md-0">
-                <strong>MyDevFriendsList</strong>
+                <strong class="text-white">imoral</strong>
                 <div class="text-white-50 small">
                     <?= date("Y") ?> &copy; Todos os direitos reservados.
                 </div>
@@ -11,7 +11,8 @@
  
             <div class="col-md-6 text-md-end">
                 <a class="text-white text-decoration-none me-3" href="/dashboard">Dashboard</a>
-                <a class="text-white text-decoration-none me-3" href="/FriendsList">FriendsList</a>
+                <a class="text-white text-decoration-none me-3" href="/home">Home</a>
+                </a>
                 <?php if (!AuthMiddlewareWeb::isLogin()): ?>
                 <a class="text-white text-decoration-none" href="/login">Login</a>
                 <?php else: ?>

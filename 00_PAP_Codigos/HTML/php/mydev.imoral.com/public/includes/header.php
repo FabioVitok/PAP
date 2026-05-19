@@ -13,11 +13,10 @@
     <nav id="home" class="navbar navbar-expand-lg navbar-dark bg-black py-3">
                 <div class="container-fluid">
                     <!-- Logo -->
-                    <a class="navbar-brand" href="/index.php">
+                    <a class="navbar-brand" href="/home">
                         <img src="/Images/imoral_logo1_transp.png"
                         alt="imoral_logo" 
                         width="100" 
-                        height="100" 
                         style="height:30px; object-fit:cover;"
                         class="d-inline-block align-text-top">
                     </a>
@@ -28,21 +27,33 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="navbar-brand" href="/index.php">Home</a>
+                                <a class="navbar-brand" href="/home">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/pagina_em_construção.php">Customization</a>
+                                <a class="nav-link" href="/pagina_em_construção">Customization</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/site_apresentacao_pap.php#sobre">About us</a>
+                                <a class="nav-link" href="/home#sobre">About us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/contact.php">Contact us</a>
+                                <a class="nav-link" href="/contact">Contact us</a>
                             </li>
                             <li class="nav-item">
                                 <?php if (AuthMiddlewareWeb::isLogin()): ?>
                                     <a class="nav-link" href="/users/<?= $_SESSION['token']['id']; ?>">
-                                        <?= $_SESSION['token']['email']; ?>
+                                        <img src="/Images/user_icon.png"
+                                        alt="user_avatar" 
+                                        width="40" 
+                                        style="height:30px; object-fit:cover;"
+                                        class="d-inline-block align-text-top">
+                                    </a>
+                                <?php else: ?>
+                                    <a class="nav-link" href="/login">
+                                    <img src="/Images/user_icon.png"
+                                        alt="user_avatar" 
+                                        width="40" 
+                                        style="height:30px; object-fit:cover;"
+                                        class="d-inline-block align-text-top">
                                     </a>
                                 <?php endif; ?>
                             </li>

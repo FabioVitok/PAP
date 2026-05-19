@@ -11,16 +11,8 @@ class WebController {
         $this->view('home');
     }
 
-    /*public function paginaPrivada() {
-        $this->view('private');
-    }*/
-
     public function login() {
         $this->view('login');
-    }
-
-    public function loginWeb() {
-        
     }
 
     public function signup() {
@@ -31,6 +23,9 @@ class WebController {
         $this->view('users');
     }
 
+    public function dashboard() {
+        $this->view('dashboard');
+    }
     public function badRequest() {
         $this->view('errors/400');
     }

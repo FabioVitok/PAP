@@ -53,4 +53,35 @@ class UserController
     public function getUsers() {
         $users = (new UserDAO())->getUsersDao();
     }
+
+    public function getAllUsers($userId) {
+        try {
+            $users = (new UserDAO())->arrayUsersDAO();
+            $emailsVerification = (new EmailVerificationDAO())->getVerificationsByUserId($userId);
+            $countUsers = (new UserDAO())->countUsers();
+            $countEmailsVerification = (new EmailVerificationDAO())->countVerifications();
+
+            $dataResponse = [
+                'success' => true,
+                'message' => "Operação realizada com sucesso",
+                'data'    => [
+                    'users' => $users,
+                    'emails_verification' => $emailsVerification,
+                    'num_users' => $countUsers,
+                    'num_emails' => $countEmailsVerification
+                ]
+            ];
+
+            Utils::jsonResponse($dataResponse, 200);
+
+       }catch(Exception $e) {
+        $dataResponse = [
+            'success' => false,
+            'message' => $e->getMessage(),
+            'data'    => []
+        ];
+
+        Utils::jsonResponse($dataResponse, 401);
+       }
+    }
 }

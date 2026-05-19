@@ -147,4 +147,48 @@ class UserDAO {
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$passwordHash, $userId]);
     }
+
+    public function arrayUsersDAO() {
+    $sql = "
+        SELECT
+            utilizadores.id,
+            utilizadores.username,
+            utilizadores.email,
+            utilizadores.image_id,
+            utilizadores.telefone,
+            utilizadores.password,
+            utilizadores.morada,
+            utilizadores.dt_nascimento,
+            utilizadores.dt_criacao,
+            utilizadores.pronomes,
+            utilizadores.is_admin,
+            utilizadores.ultimo_login,
+            utilizadores.is_verified,
+            utilizadores.verified_at,
+            utilizadores.created_at,
+            utilizadores.updated_at,
+            utilizadores.deleted_at 
+        FROM utilizadores;
+    ";
+ 
+    $stmt = $this->conn->prepare($sql);
+ 
+    $stmt->execute();
+ 
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ 
+    return $rows;
+  }
+
+  public function countUsers(){
+    $sql = "
+        SELECT COUNT(*) as num_users 
+        FROM utilizadores;
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    return (int)$stmt->fetchColumn();
+  }
+
 }

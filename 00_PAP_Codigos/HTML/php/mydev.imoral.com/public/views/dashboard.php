@@ -1,3 +1,15 @@
+
+<?php if(isset($_SESSION['toast'])): ?>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast show" role="alert">
+            <div class="toast-body <?= $_SESSION['toast']['type'] === 'error' ? 'bg-danger' : 'bg-success' ?> text-white">
+                <?= htmlspecialchars($_SESSION['toast']['message']) ?>
+            </div>
+        </div>
+    </div>
+    <?php unset($_SESSION['toast']); ?>
+<?php endif; ?>
+
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
@@ -1777,6 +1789,7 @@
             </div>  
         </div>
         <!-- end-conteudo -->
+        <?php include __DIR__ . "/../includes/footer.php"; ?>
     </div>
 </div>
 

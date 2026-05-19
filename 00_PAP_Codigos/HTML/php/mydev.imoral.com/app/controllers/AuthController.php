@@ -1,12 +1,14 @@
 <?php
 require_once __DIR__ . '/../dao/UserDAO.php';
 require_once __DIR__ . '/../dao/EmailVerificationDAO.php';
+require_once __DIR__ . '/../config/jwtConfig.php'; 
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+class AuthController{
  
-class AuthController
-{
- 
-  private function view($name, $data = [])
-  {
+  private function view($name, $data = []){
     extract($data, EXTR_SKIP);
    
     require __DIR__ . '/../../public/views/' . $name . '.php';
@@ -175,5 +177,57 @@ class AuthController
     
     header("Location: /");
     exit;
+  }
+
+  public function loginApi() {
+    try{
+      $email = trim($_POST['email']) ?? '';
+ 
+      $password = trim($_POST['password']) ?? '';
+      // Se não houver email ou password, mostrar erro
+      // é preciso lançar exceção para o index.php apanhar e mostrar o erro via flash message
+      if (empty($email) || empty($password)) {
+        throw new Exception("Email e password são obrigatórios");
+      }
+ 
+      $user = (new UserDAO())->findByEmail($email);
+ 
+      if (! $user || ! password_verify($password, $user->getPassword())) {
+        throw new Exception("Email ou password errados");
+      }
+ 
+      $data = [
+        'id' => $user->getId(),
+        'role' => $user->isAdmin()
+      ];
+
+      $payload = jwtConfig::getConfig($data);
+ 
+      $jwt = JWT::encode($payload, jwtConfig::getSignature(), "HS256");
+ 
+      $dataResponse = [
+        'success' => true,
+        'message' => "Login efetuado com sucesso",
+        'data'    => [
+          'jwt' => $jwt,
+          'user' => [
+            'id' => $user->getId(),
+            'is_admin' => $user->isAdmin(),
+            'username' => $user->getUsername(),
+          ]
+        ]
+      ];
+ 
+      Utils::jsonResponse($dataResponse, 200);
+ 
+    } catch(Exception $e) {
+      $dataResponse = [
+        'success' => false,
+        'message' => $e->getMessage(),
+        'data'    => []
+      ];
+ 
+      Utils::jsonResponse($dataResponse, 401);
+    }
   }
 }

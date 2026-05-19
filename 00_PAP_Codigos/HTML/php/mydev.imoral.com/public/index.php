@@ -10,13 +10,16 @@ require_once __DIR__ . "/../app/controllers/UserController.php";
 require_once __DIR__ . "/../app/services/Mailer.php";
 require_once __DIR__ . "/../app/mddleware/AuthMiddlewareWeb.php";
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $uri = str_replace("mydev.imoral.com/public", "", $uri);
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 if($uri === '/' || $uri === '/index' || $uri === '/home') {
     (new WebController())->index();
@@ -32,17 +35,6 @@ elseif($uri === '/pagina-privada' && $method === 'GET') {
         die("Aceder à página privada");
     }
 }
-
-elseif($uri === '/pagina-privada-admin' && $method === 'GET') {
-    $isAdmin = AuthMiddlewareWeb::isAdmin();
-
-    if(!$isAdmin) {
-        die("Acesso negado.");
-    } else {
-        die("Aceder à página privada");
-    }
-}
-
 
 elseif($uri === '/login' && $method === 'GET') {
     if(AuthMiddlewareWeb::isLogin()) {
@@ -147,6 +139,19 @@ elseif(preg_match('#^/users\/(\d+)/update$#', $uri, $m) && $method === 'POST') {
         ];
         header("Location: /users/{$m[1]}");
         exit();
+    }
+}
+
+elseif($uri === '/dashboard' && $method === 'GET') {
+    if(!AuthMiddlewareWeb::isAdmin()) {
+        $_SESSION['toast'] = [
+            'type' => 'error',
+            'message' => 'Acesso negado. Apenas administradores podem acessar o dashboard.'
+        ];
+        header("Location: /home");
+        exit;
+    } else {
+        (new WebController())->dashboard();
     }
 }
 
