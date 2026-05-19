@@ -1,3 +1,13 @@
+<?php
+
+require_once __DIR__ . '/../../app/config/Database.php';
+require_once __DIR__ . '/../../app/dao/UserDAO.php';
+
+$userDAO = new UserDAO();
+$users = $userDAO->arrayUsersDAO();
+
+$camposvisiveis = ['image_id', 'id', 'username', 'email', 'is_admin', 'created_at'];
+?>
 
 <?php if(isset($_SESSION['toast'])): ?>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -1013,8 +1023,61 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
+
+
                                                         </tbody>
                                                     </table>
+
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h5 class="card-title mb-0">Users</h5>
+                                                        </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <?php foreach($camposvisiveis as $campo): ?>
+                                                                            <th><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $campo))) ?></th>
+                                                                        <?php endforeach; ?>
+                                                                        <th>Actions</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php foreach($users as $row): ?>
+                                                                    <tr>
+                                                                            <?php foreach($camposvisiveis as $campo): ?>
+                                                                                <td>
+                                                                                <?php if ($campo === 'is_admin'): ?>
+                                                                                    <?= $row[$campo] == 1 ? 'Admin' : 'User' ?>
+                                                                                <?php else: ?>
+                                                                                    <?= htmlspecialchars($row[$campo]) ?>
+                                                                                <?php endif; ?>
+                                                                                </td>
+                                                                            <?php endforeach; ?>
+                                                                                <td>                                                                    <td>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6 d-flex">
+                                                                                            <button class="btn btn-sm btn-warning btnUpdateUser" style="width: 80px;">Update</button>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 d-flex">
+                                                                                            <button class="btn btn-sm btn-danger btnDeleteUser" style="width: 80px;">Delete</button>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 d-flex">
+                                                                                            <button class="btn btn-sm btn-primary btnActivateUser" style="width: 80px;">Activate</button>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 d-flex">
+                                                                                            <button class="btn btn-sm btn-danger btnSuspendUser" style="width: 80px;">Suspend</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                    </tr>
+                                                                    <?php endforeach; ?>
+                                                                                
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1789,8 +1852,9 @@
             </div>  
         </div>
         <!-- end-conteudo -->
-        <?php include __DIR__ . "/../includes/footer.php"; ?>
+        
     </div>
+    <?php include __DIR__ . "/../includes/footer.php"; ?>
 </div>
 
 <!-- Bootstrap JS -->

@@ -1,8 +1,8 @@
 USE imo_system;
 
-DROP TABLE IF EXISTS estado_contas;
+DROP TABLE IF EXISTS estado_utilizadores;
 
-CREATE TABLE estado_contas (
+CREATE TABLE estado_utilizadores (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_utilizador INT(11) UNSIGNED NOT NULL,
     id_estado INT(11) UNSIGNED NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE estado_contas (
     FOREIGN KEY (id_estado) REFERENCES estados(id)
 );
 
-INSERT INTO estado_contas(id_utilizador, id_estado, data_alteracao) VALUES
+INSERT INTO estado_utilizadores(id_utilizador, id_estado, data_alteracao) VALUES
 (1, 6, '2024-06-01'),
 (2, 6, '2024-06-02'),
 (3, 7, '2024-06-03'),

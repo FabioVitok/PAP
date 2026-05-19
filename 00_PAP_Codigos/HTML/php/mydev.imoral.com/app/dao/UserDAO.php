@@ -116,8 +116,7 @@ class UserDAO {
             $users[] = $this->rowToUser($row);
 
         }
-        var_dump("Users:");
-        var_dump($users);
+        
         return $users;
     }
 
