@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
+    android:id="@+id/main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:fillViewport="false">
+    android:orientation="vertical"
+    android:background="#000000">
+
+    <!-- HEADER FIXO NO TOPO -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#000000"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <ImageView
+            android:id="@+id/imoral_logo"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/logo1" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333"/>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        android:fillViewport="false">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="#000000"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
-
-            <ImageView
-                android:id="@+id/imoral_logo"
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/logo1"
-                />
-        </LinearLayout>
-
-        <!-- DIVIDER -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#333333" />
-
-        <!-- PRODUCT TITLE -->
         <TextView
             android:id="@+id/NomeProduto"
             android:layout_width="match_parent"
@@ -78,7 +83,6 @@
                 android:layout_margin="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_manage"
-                android:tint="#FFFFFF"
                 android:contentDescription="Ajustar brilho" />
 
             <!-- Share icon (bottom right) -->
@@ -90,7 +94,6 @@
                 android:layout_margin="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_share"
-                android:tint="#FFFFFF"
                 android:contentDescription="Partilhar" />
 
         </FrameLayout>
@@ -169,7 +172,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/blackbutton_background"
                 app:backgroundTint="@null"
-                 />
+                />
 
 
             <!-- Favorite / Heart Button -->
@@ -179,12 +182,9 @@
                 android:layout_height="44dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/btn_star_big_off"
-                android:tint="#FFFFFF"
                 android:contentDescription="Adicionar aos favoritos" />
 
         </LinearLayout>
-
-        <!-- DIVIDER -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -221,8 +221,35 @@
                 android:textSize="13sp"
                 android:lineSpacingMultiplier="1.5" />
 
-        </LinearLayout>
+            </LinearLayout>
 
+        </LinearLayout>
+    </ScrollView>
+
+
+    <!-- FOOTER FIXO NO FUNDO -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333" />
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#000000"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <ImageButton
+            android:id="@+id/imageButtonHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@color/black"
+            app:srcCompat="@drawable/home_24" />
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>
