@@ -29,4 +29,12 @@ class AuthMiddlewareWeb
         return false;
     }
 
+        public static function canEditProduct($productId) 
+    {
+        if(self::isLogin() && self::isAdmin()) {
+            return true;
+        } 
+        
+        return false;
+    }
 } 
