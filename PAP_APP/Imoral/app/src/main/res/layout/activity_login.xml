@@ -1,84 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:padding="24dp"
     tools:context=".SignupActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
         android:layout_marginTop="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="30dp"
+        app:srcCompat="@drawable/logo1"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="24sp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            app:srcCompat="@drawable/logo1"
-            />
+    <EditText
+        android:id="@+id/editTextEmailAdress"
+        android:layout_width="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:paddingStart="20dp"
+        android:hint="Email"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/blackbutton_background"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <EditText
-            android:id="@+id/editTextEmailAdress"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="12dp"
-            android:paddingStart="20dp"
-            android:hint="Email"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:background="@drawable/blackbutton_background"
-            />
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:paddingStart="20dp"
+        android:hint="Password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="textPassword"
+        android:background="@drawable/blackbutton_background"
+        app:layout_constraintTop_toBottomOf="@id/editTextEmailAdress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="12dp"
-            android:paddingStart="20dp"
-            android:hint="Password"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:background="@drawable/blackbutton_background"
-            />
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:background="@drawable/blackbutton_background"
+        android:text="Log In"
+        app:backgroundTint="@null"
+        app:layout_constraintTop_toBottomOf="@id/editTextPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="25dp"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:background="@drawable/blackbutton_background"
-            android:text="Log In"
-            app:backgroundTint="@null"/>
+    <TextView
+        android:id="@+id/naoTemContaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:text="@string/nao_tem_conta_text"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/buttonLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
-        <Button
-            android:id="@+id/buttonToSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:background="@color/black"
-            android:text="Não tem conta? Crie uma"
-            app:backgroundTint="@null"/>
-
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

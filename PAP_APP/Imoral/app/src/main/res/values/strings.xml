@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Imoral</string>
+    <string name="nao_tem_conta_text">Não tem conta? Regista-te! </string>
+    <string name="ja_tem_conta_text">Já tem Conta? Entra!</string>
 </resources>

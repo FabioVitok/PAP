@@ -32,7 +32,7 @@
         android:layout_height="1dp"
         android:background="#333333" />
 
-    <!-- LISTA SCROLLABLE (ocupa espaço restante) -->
+    <!-- LISTA SCROLLABLE -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProducts"
         android:layout_width="match_parent"
@@ -44,6 +44,7 @@
         android:paddingEnd="8dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2" />
 
@@ -66,9 +67,40 @@
             android:id="@+id/imageButtonHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:srcCompat="@drawable/vectorised_1779189831059" />
+        <ImageButton
+            android:id="@+id/imageButtonHome2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@color/black"
             app:srcCompat="@drawable/home_24" />
+        <ImageButton
+            android:id="@+id/imageButtonHome3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@color/black"
+            app:srcCompat="@drawable/home_24" />
+
+        <ImageButton
+            android:id="@+id/imageButtonHome4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@color/black"
+            app:srcCompat="@drawable/home_24" />
+
+        <ImageButton
+            android:id="@+id/imageButtonHome5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@color/black"
+            app:srcCompat="@drawable/home_24" />
+
+
     </LinearLayout>
 
 </LinearLayout>
