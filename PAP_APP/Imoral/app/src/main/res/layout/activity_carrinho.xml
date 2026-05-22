@@ -33,16 +33,73 @@
         android:background="#333333" />
 
 
+    <TextView
+        android:id="@+id/totalCarrinho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:paddingStart="30dp"
+        android:textSize="25sp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:text="Carrinho (0)" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rvCarrinho"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingTop="4dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:overScrollMode="never"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333" />
+
+    <LinearLayout
+        android:id="@+id/comprarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#000000"
+        android:gravity="end"
+        android:paddingTop="10dp"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/tvProdutoPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="0,00€"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:paddingBottom="8dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@drawable/blackbutton_background"
+            android:text="Comprar (6)"
+            android:textColor="@color/white"
+            app:backgroundTint="@null"
+            />
+
+    </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"
