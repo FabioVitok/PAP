@@ -188,3 +188,7 @@ GROUP BY p.id
 -- Média de preço dos produtos
 SELECT ROUND(AVG(preco_venda), 2) AS media_preco_produtos
 FROM produtos;
+
+SELECT nome, image
+FROM produtos
+GROUP BY nome;
