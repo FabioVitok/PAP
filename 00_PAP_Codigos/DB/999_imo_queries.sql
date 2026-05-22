@@ -107,12 +107,20 @@ COUNT(*) AS total_utilizadores
 FROM utilizadores 
 GROUP BY FaixaEtaria;
 
--- Query para ver a receita de cada tamanho de cada produto 
-SELECT p.nome, p.tamanho, SUM(p.preco_venda * cp.quantidade) AS receita
+-- Query para ver as receitas de cada tamanho de cada produto 
+SELECT SUM(p.preco_venda * cp.quantidade) AS receita
 FROM carrinho_produtos AS cp
 INNER JOIN produtos AS p ON cp.id_produto = p.id
 INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
 GROUP BY p.id;
+
+-- Query para ver a receita de cada produto 
+SELECT SUM(p.preco_venda * cp.quantidade) AS receita
+FROM carrinho_produtos AS cp
+INNER JOIN produtos AS p ON cp.id_produto = p.id
+INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
+WHERE p.id = 1
+GROUP BY p.id
 
 -- Query para ver os produtos mais vendidos
 SELECT p.nome, SUM(cp.quantidade) AS total_vendido
@@ -121,6 +129,14 @@ INNER JOIN produtos AS p ON cp.id_produto = p.id
 INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
 GROUP BY p.nome
 ORDER BY total_vendido DESC;
+
+-- Query para ver venda de cada produto
+SELECT SUM(cp.quantidade) AS total_vendido
+FROM carrinho_produtos AS cp
+INNER JOIN produtos AS p ON cp.id_produto = p.id
+INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
+WHERE p.id = 1
+GROUP BY p.id;
 
 -- Query para ver os utilizadores inativos
 SELECT ec.id_utilizador, ec.data_alteracao AS ultima_alteracao

@@ -15,13 +15,19 @@
 <?php
 require_once __DIR__ . '/../../app/config/Database.php';
 require_once __DIR__ . '/../../app/dao/UserDAO.php';
+require_once __DIR__ . '/../../app/dao/ProductDAO.php';
 
 $userDAO = new UserDAO();
 $users = $userDAO->arrayUsersDAO(); 
 
 $camposvisiveis = ['image_id', 'id', 'username', 'email', 'is_admin', 'created_at'];
-
 $camposEditaveis = ['username', 'email'];
+
+$productDAO = new ProductDAO();
+$products = $productDAO->arrayProductsDAO();
+
+$camposvisiveisProdutos = ['image', 'id', 'nome', 'tipo', 'cor', 'preco_venda', 'preco_custo', 'stock', 'sales', 'revenue'];
+$camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_venda', 'preco_custo', 'stock'];
 ?>
 
 <?php if(isset($_SESSION['toast'])): ?>
@@ -1185,6 +1191,64 @@ $camposEditaveis = ['username', 'email'];
                                                         <tbody id="corpoTabelaProduct">
                                                         </tbody>
                                                     </table>
+
+                                                     <div class="card">
+                                                        <div class="card-header">
+                                                            <h5 class="card-title mb-0">Users</h5>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <?php foreach($camposvisiveisProdutos as $campo): ?>
+                                                                                <th><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $campo))) ?></th>
+                                                                            <?php endforeach; ?>
+                                                                            <th>Actions</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="corpoTabelaProductsDB">
+                                                                        <?php foreach($products as $row): ?>
+                                                                        <tr>
+                                                                            <?php foreach($camposvisiveisProdutos as $campo): 
+                                                                                    $sales = $productDAO->productsSales($row['id']);
+                                                                                    $revenue = $productDAO->productsRevenue($row['id']); ?> 
+                                                                                <?php if ($campo === 'sales'): ?>
+                                                                                    <td><?= htmlspecialchars((string)$sales) ?></td>
+                                                                                <?php elseif ($campo === 'revenue'): ?>
+                                                                                    <td><?= htmlspecialchars((string)$revenue) ?></td>
+                                                                                <?php elseif(in_array($campo, $camposEditaveisProdutos)): ?>
+                                                                                    <td data-campo="<?= htmlspecialchars($campo) ?>"
+                                                                                        data-id="<?= (int)$row['id'] ?>">
+                                                                                        <?= htmlspecialchars($row[$campo]) ?>
+                                                                                    </td>  
+                                                                                <?php else: ?>
+                                                                                    <td><?= htmlspecialchars($row[$campo]) ?></td>
+                                                                                <?php endif; ?>
+                                                                            <?php endforeach; ?>
+                                                                            <td>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6 d-flex">
+                                                                                        <button class="btn btn-sm btn-warning btnUpdateUser" data-bs-toggle="modal" data-bs-target="#editUserModal-<?= $row['id'] ?>" style="width: 80px;"> Update </button>
+                                                                                    </div>
+                                                                                    <div class="col-md-6 d-flex">
+                                                                                        <button class="btn btn-sm btn-danger btnDeleteUser" style="width: 80px;">Delete</button>
+                                                                                    </div>
+                                                                                    <div class="col-md-6 d-flex">
+                                                                                        <button class="btn btn-sm btn-primary btnActivateUser" style="width: 80px;">Activate</button>
+                                                                                    </div>
+                                                                                    <div class="col-md-6 d-flex">
+                                                                                        <button class="btn btn-sm btn-danger btnSuspendUser" style="width: 80px;">Suspend</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php endforeach; ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

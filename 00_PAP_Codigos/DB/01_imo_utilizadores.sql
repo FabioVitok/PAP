@@ -45,3 +45,6 @@ INSERT INTO utilizadores (username, email, image_id, telefone, password, morada,
 ('amaralmaria','maralmaria@hotmail.com',18,'+351969797144','a@ST*9Wwn_','Av das Sereias, 10, 5983-288 Ponta Delgada','1979-04-23','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00'),
 ('JPEGMAFIA','ppeggy@gmail.com',19,'+351914180238','(RbbOcdp3k','Alameda de Sá, 40, 6483-066 Rebordosa','1991-03-19','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00'),
 ('Correia','correia.jonas@icloud.com',20,'+351925787176','D&b7BJyePa','Praça de Cardoso, 69, 7914-450 Trofa','1997-05-22','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00');
+
+INSERT INTO utilizadores (username, email, image_id, telefone, password, morada, dt_nascimento, dt_criacao, pronomes, is_admin, ultimo_login, is_verified, verified_at, created_at, updated_at) VALUES
+('12345','12345@gmail.com',23,'+351912345678','password','Rua Exemplo, 123, 1234-567 Cidade','1990-01-01','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00');

@@ -7,6 +7,7 @@ class Product {
     private float $peso;
     private string $tipo;
     private ?string $cor;
+    private string $image;
     private float $preco_venda;
     private float $preco_custo;
     private int $stock;
@@ -18,6 +19,7 @@ class Product {
         float $peso = 0.0,
         string $tipo = '',
         ?string $cor = null,
+        string $image = '',
         float $preco_venda = 0.0,
         float $preco_custo = 0.0,
         int $stock = 0
@@ -28,6 +30,7 @@ class Product {
         $this->peso = $peso;
         $this->tipo = $tipo;
         $this->cor = $cor;
+        $this->image = $image;
         $this->preco_venda = $preco_venda;
         $this->preco_custo = $preco_custo;
         $this->stock = $stock;
@@ -50,6 +53,9 @@ class Product {
 
     public function getCor(): ?string { return $this->cor; }
     public function setCor(?string $cor): void { $this->cor = $cor; }
+
+    public function getImage(): string { return $this->image; }
+    public function setImage(string $image): void { $this->image = $image; }
 
     public function getPrecoVenda(): float { return $this->preco_venda; }
     public function setPrecoVenda(float $preco_venda): void { $this->preco_venda = $preco_venda; }

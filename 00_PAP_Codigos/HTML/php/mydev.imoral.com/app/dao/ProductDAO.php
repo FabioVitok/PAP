@@ -19,6 +19,7 @@ class ProductDAO {
             peso:          (float)$row['peso'],
             tipo:          $row['tipo'],
             cor:           $row['cor'] ?? null,
+            image:         $row['image'] ?? '',
             preco_venda:  (float)$row['preco_venda'],
             preco_custo:  (float)$row['preco_custo'],
             stock:          (int)$row['stock']
@@ -92,6 +93,7 @@ class ProductDAO {
             produtos.peso,
             produtos.tipo,
             produtos.cor,
+            produtos.image,
             produtos.preco_venda,
             produtos.preco_custo,
             produtos.stock
@@ -118,4 +120,33 @@ class ProductDAO {
     return (int)$stmt->fetchColumn();
   }
 
+  public function productsRevenue($productId): int {
+    $sql = "
+        SELECT SUM(p.preco_venda * cp.quantidade) AS receita
+        FROM carrinho_produtos AS cp
+        INNER JOIN produtos AS p ON cp.id_produto = p.id
+        INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
+        WHERE p.id = ?
+        GROUP BY p.id
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$productId]);
+    return (int)$stmt->fetchColumn();
+  }
+
+  public function productsSales($productId): int {
+    $sql = "
+        SELECT SUM(cp.quantidade) AS total_vendido
+        FROM carrinho_produtos AS cp
+        INNER JOIN produtos AS p ON cp.id_produto = p.id
+        INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
+        WHERE p.id = ?
+        GROUP BY p.id
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$productId]);
+    return (int)$stmt->fetchColumn();
+  }
 }
