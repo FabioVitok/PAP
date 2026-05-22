@@ -180,10 +180,28 @@ class AuthController{
   }
 
   public function loginApi() {
-    try{
-      $email = trim($_POST['email']) ?? '';
- 
-      $password = trim($_POST['password']) ?? '';
+    try {
+      $body = json_decode(file_get_contents('php://input'), true);
+
+      // DEBUG - remove depois
+      error_log("POST: " . print_r($_POST, true));
+      error_log("BODY: " . print_r($body, true));
+      error_log("RAW: " . file_get_contents('php://input'));
+
+      var_dump([
+          'post' => $_POST,
+          'body' => $body,
+          'raw'  => file_get_contents('php://input')
+      ]);
+      exit;
+    //try{
+      $body = json_decode(file_get_contents('php://input'), true);
+
+      $email    = trim($body['email'] ?? $_POST['email'] ?? '');
+      $password = trim($body['password'] ?? $_POST['password'] ?? '');
+      //$email = trim($_POST['email']) ?? '';
+      //$password = trim($_POST['password']) ?? '';
+
       // Se não houver email ou password, mostrar erro
       // é preciso lançar exceção para o index.php apanhar e mostrar o erro via flash message
       if (empty($email) || empty($password)) {
