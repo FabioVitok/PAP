@@ -55,7 +55,28 @@ class ProductController
         $products = (new ProductDAO())->getProductsDao();
     }
 
-    public function getAllProductsByName($userId) {
-        $products = (new ProductDAO())->getAllProductsByName($userId);
+    public function getAllProductsByName() {
+        try {
+            $products = (new ProductDAO())->getAllProductsByName();
+
+            $dataResponse = [
+                'success' => true,
+                'message' => "Operação realizada com sucesso",
+                'data'    => [
+                    'products' => $products
+                ]
+            ];
+
+            Utils::jsonResponse($dataResponse, 200);
+
+       }catch(Exception $e) {
+        $dataResponse = [
+            'success' => false,
+            'message' => $e->getMessage(),
+            'data'    => []
+        ];
+
+        Utils::jsonResponse($dataResponse, 401);
+       }
     }
 }

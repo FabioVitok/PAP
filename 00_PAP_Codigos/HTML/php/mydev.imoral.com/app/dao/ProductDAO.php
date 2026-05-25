@@ -150,7 +150,7 @@ class ProductDAO {
     return (int)$stmt->fetchColumn();
   }
 
-  public function getAllProductsByName($userId): array {
+  public function getAllProductsByName(): array {
     $sql = "
     SELECT nome, preco_venda, image
     FROM produtos
@@ -161,7 +161,6 @@ class ProductDAO {
     $stmt->execute();
 
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     return $rows;
   }
 }
