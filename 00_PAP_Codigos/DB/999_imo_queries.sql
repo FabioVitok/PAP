@@ -189,6 +189,6 @@ GROUP BY p.id
 SELECT ROUND(AVG(preco_venda), 2) AS media_preco_produtos
 FROM produtos;
 
-SELECT nome, image
+SELECT nome, preco_venda, image
 FROM produtos
-GROUP BY nome;
+GROUP BY nome, preco_venda, image;
