@@ -18,7 +18,7 @@ public class Entrega
         this.metodoEnvio = metodoEnvio;
         this.entregadora = entregadora;
         this.estadoEntrega = estadoEntrega;
-        this.peso = this.pedido.getCarrinho().pesoTotal();
+        //this.peso = this.pedido.getCarrinho().pesoTotal();
     }
     
     public Pedido getPedido() 
