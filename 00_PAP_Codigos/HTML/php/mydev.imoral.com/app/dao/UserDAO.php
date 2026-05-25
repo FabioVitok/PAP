@@ -33,22 +33,44 @@ class UserDAO {
         );
     }
 
-    public function findById($userId): User|false {
+    public function findUserById($userId){
         $sql = "
-            SELECT * 
+            SELECT 
+                utilizadores.id,
+                utilizadores.username,
+                utilizadores.email,
+                utilizadores.image_id,
+                utilizadores.telefone,
+                utilizadores.password,
+                utilizadores.morada,
+                utilizadores.dt_nascimento,
+                utilizadores.dt_criacao,
+                utilizadores.pronomes,
+                utilizadores.is_admin,
+                utilizadores.ultimo_login,
+                utilizadores.is_verified,
+                utilizadores.verified_at,
+                utilizadores.created_at,
+                utilizadores.updated_at,
+                utilizadores.deleted_at
             FROM utilizadores 
-            WHERE id = :id
+            WHERE id = ?
             AND is_verified = 1
             AND verified_at IS NOT NULL
             LIMIT 1
         ";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':id', $userId);
+        $stmt->bindParam(1, $userId, PDO::PARAM_INT);
         $stmt->execute();
-
+    
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row ? $this->rowToUser($row) : false;
+    
+        if(!$row) {
+            return false;
+        }
+    
+        return $row;
     }
 
     public function findByEmail($email): User|false {

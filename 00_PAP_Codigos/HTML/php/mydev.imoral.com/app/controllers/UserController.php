@@ -12,7 +12,7 @@ class UserController
     }
 
     public function profile($userId) {
-        $user = (new UserDAO())->findById($userId);
+        $user = (new UserDAO())->findUserById($userId);
         if(!$user) {
             die("Utilizador não encontrado.");
         }
@@ -20,7 +20,7 @@ class UserController
     }
 
     public function update($userId) {
-        $user = (new UserDAO())->findById($userId);
+        $user = (new UserDAO())->findUserById($userId);
 
         if(!$user) {
             die("Utilizador não encontrado.");
@@ -76,6 +76,35 @@ class UserController
             Utils::jsonResponse($dataResponse, 200);
 
        }catch(Exception $e) {
+        $dataResponse = [
+            'success' => false,
+            'message' => $e->getMessage(),
+            'data'    => []
+        ];
+
+        Utils::jsonResponse($dataResponse, 401);
+       }
+    }
+
+    public function findUserById($userId) {
+        
+        try{
+        $user = (new UserDAO())->findUserById($userId);
+
+        if(!$user) {
+            throw new Exception("Utilizador não encontrado.");
+        }
+
+        $dataResponse = [
+            'success' => true,
+            'message' => "Operação realizada com sucesso",
+            'data'    => [
+                'user' => $user
+            ]
+        ];
+
+        Utils::jsonResponse($dataResponse, 200);
+        } catch(Exception $e) {
         $dataResponse = [
             'success' => false,
             'message' => $e->getMessage(),

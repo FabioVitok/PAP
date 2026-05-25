@@ -192,3 +192,25 @@ FROM produtos;
 SELECT nome, preco_venda, image
 FROM produtos
 GROUP BY nome, preco_venda, image;
+
+SELECT 
+        carrinho_produtos.id,
+        carrinho_produtos.id_carrinho,
+        carrinho_produtos.id_produto,
+        carrinho_produtos.quantidade,
+        carrinho_produtos.dt_adicao,
+        produtos.id,
+        produtos.nome,
+        produtos.tamanho,
+        produtos.preco_venda
+FROM carrinho_produtos
+INNER JOIN produtos ON carrinho_produtos.id_produto = produtos.id
+INNER JOIN carrinhos ON carrinho_produtos.id_carrinho = carrinhos.id
+INNER JOIN utilizadores ON carrinhos.id_utilizador = utilizadores.id
+WHERE carrinhos.id_utilizador = 4;
+
+DELETE carrinho_produtos 
+FROM carrinho_produtos
+INNER JOIN carrinhos ON carrinho_produtos.id_carrinho = carrinhos.id
+WHERE carrinho_produtos.id = ? 
+AND carrinhos.id_utilizador = ?;

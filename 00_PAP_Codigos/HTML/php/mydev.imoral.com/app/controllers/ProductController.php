@@ -79,4 +79,32 @@ class ProductController
         Utils::jsonResponse($dataResponse, 401);
        }
     }
+
+    public function findProductById($productId) {
+        try{
+        $product = (new ProductDAO())->findProductById($productId);
+
+        if(!$product) {
+            throw new Exception("Produto não encontrado.");
+        }
+
+        $dataResponse = [
+            'success' => true,
+            'message' => "Operação realizada com sucesso",
+            'data'    => [
+                'product' => $product
+            ]
+        ];
+
+        Utils::jsonResponse($dataResponse, 200);
+        } catch(Exception $e) {
+        $dataResponse = [
+            'success' => false,
+            'message' => $e->getMessage(),
+            'data'    => []
+        ];
+
+        Utils::jsonResponse($dataResponse, 401);
+       }
+    }
 }

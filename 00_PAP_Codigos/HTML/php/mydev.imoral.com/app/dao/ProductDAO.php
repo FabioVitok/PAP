@@ -26,20 +26,34 @@ class ProductDAO {
         );
     }
 
-    public function findById($productId): Product|false {
+    public function findProductById($productId){
         $sql = "
-            SELECT * 
+            SELECT 
+                produtos.id,
+                produtos.nome,
+                produtos.tamanho,
+                produtos.peso,
+                produtos.tipo,
+                produtos.cor,
+                produtos.preco_venda,
+                produtos.preco_custo,
+                produtos.stock
             FROM produtos 
-            WHERE id = :id
+            WHERE id = ?
             LIMIT 1
         ";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':id', $productId);
+        $stmt->bindParam(1, $productId, PDO::PARAM_INT);
         $stmt->execute();
-
+    
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row ? $this->rowToProduct($row) : false;
+    
+        if(!$row) {
+            return false;
+        }
+    
+        return $row;
     }
 
     public function getProductsDao(): array {
