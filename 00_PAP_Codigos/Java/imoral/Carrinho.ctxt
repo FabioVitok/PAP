@@ -5,5 +5,5 @@ comment1.target=Carrinho(int,\ Utilizador)
 comment2.params=
 comment2.target=Utilizador\ getUser()
 comment3.params=
-comment3.target=double\ pesoTotal()
+comment3.target=java.util.ArrayList\ getProdutosCarrinho()
 numComments=4

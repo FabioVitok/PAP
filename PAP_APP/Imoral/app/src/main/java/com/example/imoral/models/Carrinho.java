@@ -1,34 +1,39 @@
 package com.example.imoral.models;
-import java.util.HashMap;
+import java.util.ArrayList;
 public class Carrinho
 {
     private int id;
     private Utilizador user;
     private double custoTotal;
-    HashMap<String, ProdutoCarrinho> produtos;
-     
+    ArrayList<ProdutoCarrinho> produtosCarrinho = new ArrayList<>();
+
     public Carrinho(int id, Utilizador user)
     {
         this.id = id;
         this.user = user;
-        this.produtos = new HashMap<>();
+        this.produtosCarrinho = new ArrayList<>();
     }
- 
+
     public Utilizador getUser()
     {
         return this.user;
     }
-    
+
+    public ArrayList<ProdutoCarrinho> getProdutosCarrinho() {
+        return this.produtosCarrinho;
+    }
+
     // Metodo para calcular o peso do carrinho ignorando se o produto está selecionado ou não
-    public double pesoTotal()
+    /*public double pesoTotal()
     {
         double pesoTotal = 0;
-        for(String key : this.produtos.keySet()){
-            double pesoProduto = this.produtos.get(key).getProduto().getPeso();
-            int quantidadeProduto = this.produtos.get(key).getQuantidade();
+        for(String key : this.produtosCarrinho.keySet()){
+            double pesoProduto = this.produtosCarrinho.get(key).getProduto().getPeso();
+            int quantidadeProduto = this.produtosCarrinho.get(key).getQuantidade();
             pesoTotal = pesoTotal + (pesoProduto * quantidadeProduto);
         }
-        
+
         return pesoTotal;
     }
+    */
 }
