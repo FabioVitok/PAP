@@ -55,4 +55,7 @@ class ProductController
         $products = (new ProductDAO())->getProductsDao();
     }
 
+    public function getAllProductsByName($userId) {
+        $products = (new ProductDAO())->getAllProductsByName($userId);
+    }
 }

@@ -35,7 +35,7 @@ else if ($uri === "/login" && $method === 'POST') {
 else if ($uri === "/home" && $method === 'GET') {
   $dataToken = AuthMiddlewareApi::check();
 
-  $users = (new UserController())->getAllUsers($dataToken->id);
+  $products = (new ProductController())->getAllProductsByName($dataToken->id);
 }
 
 // Rota não encontrada

@@ -1,6 +1,6 @@
 <?php 
 
-require_once __DIR__ . "/../config/JwtConfig.php";
+require_once __DIR__ . "/../config/jwtConfig.php";
  
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

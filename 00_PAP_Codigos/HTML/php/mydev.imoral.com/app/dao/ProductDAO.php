@@ -149,4 +149,19 @@ class ProductDAO {
     $stmt->execute([$productId]);
     return (int)$stmt->fetchColumn();
   }
+
+  public function getAllProductsByName($userId): array {
+    $sql = "
+    SELECT nome, preco_venda, image
+    FROM produtos
+    GROUP BY nome, preco_venda, image;
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $rows;
+  }
 }

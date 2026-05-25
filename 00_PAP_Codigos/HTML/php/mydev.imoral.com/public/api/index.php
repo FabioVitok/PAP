@@ -4,6 +4,7 @@ require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/../../app/utils/Utils.php';
 require_once __DIR__.'/../../app/controllers/AuthController.php';
 require_once __DIR__.'/../../app/controllers/UserController.php';
+require_once __DIR__ . '/../../app/controllers/ProductController.php';
 require_once __DIR__.'/../../app/mddleware/AuthMiddlewareApi.php';
 
 use Firebase\JWT\JWT;
@@ -35,7 +36,7 @@ else if ($uri === "/login" && $method === 'POST') {
 else if ($uri === "/home" && $method === 'GET') {
   $dataToken = AuthMiddlewareApi::check();
 
-  $users = (new UserController())->getAllUsers($dataToken->id);
+  $products = (new ProductController())->getAllProductsByName($dataToken->id);
 }
 
 // Rota não encontrada
