@@ -2,11 +2,7 @@ package com.example.imoral;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.imoral.models.Acessorio;
@@ -17,8 +13,9 @@ import com.example.imoral.models.Roupa;
 import com.example.imoral.models.Utilizador;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import adapters.CarrinhoAdapter;
 
 public class CarrinhoActivity extends AppCompatActivity {
 

@@ -29,7 +29,7 @@ public class Utilizador
         return this.id;
     }
     
-    public String getNome()
+    public String getUsername()
     {
         return this.nome;
     }

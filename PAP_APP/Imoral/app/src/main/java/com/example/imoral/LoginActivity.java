@@ -1,6 +1,7 @@
 package com.example.imoral;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -10,7 +11,9 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -19,11 +22,29 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.imoral.models.LoginResponse;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import utils.ApiConfig;
+
 public class LoginActivity extends AppCompatActivity {
 
     String naoTemContaText;
-
     TextView naoTemContaTextView;
+    EditText editTextEmail, editTextPassword;
+    Button buttonLogin;
+    private final OkHttpClient client = new OkHttpClient();
+    private final Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +58,12 @@ public class LoginActivity extends AppCompatActivity {
    });
         naoTemContaText = getString(R.string.nao_tem_conta_text);
         naoTemContaTextView = findViewById(R.id.naoTemContaTextView);
+        buttonLogin = findViewById(R.id.buttonLogin);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
 
+        buttonLogin.setOnClickListener(v -> fazerLogin());
         updateTextViewSpannable();
-
-        loginListener();
 
     }
 
@@ -86,13 +109,70 @@ public class LoginActivity extends AppCompatActivity {
         return clickableSpan;
     }
 
-    public void loginListener() {
-        Button buttonLogin = findViewById(R.id.buttonLogin);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+    private void fazerLogin() {
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            editTextEmail.setError("Email obrigatório");
+            return;
+        }
+
+        if (password.isEmpty()) {
+            editTextPassword.setError("Password obrigatória");
+            return;
+        }
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("email", email)
+                .add("password", password)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(ApiConfig.LOGIN_URL)
+                .post(formBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Toast.makeText(LoginActivity.this, "Erro: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String responseBody = response.body() != null ? response.body().string() : "";
+                String statusCode = String.valueOf(response.code());
+                try {
+                    LoginResponse loginResponse = gson.fromJson(responseBody, LoginResponse.class);
+
+                    runOnUiThread(() -> {
+                        Toast.makeText(LoginActivity.this, "Code: " + statusCode + "\n" + loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        if (response.isSuccessful() && loginResponse != null && loginResponse.isSuccess()) {
+                            SharedPreferences prefs = getSharedPreferences("app_session", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("jwt", loginResponse.getData().getJwt());
+                            editor.putInt("user_id", loginResponse.getData().getUser().getId());
+                            editor.putString("username", loginResponse.getData().getUser().getUsername());
+                            editor.putString("email", loginResponse.getData().getUser().getEmail());
+                            editor.apply();
+
+                            Toast.makeText(LoginActivity.this, "Login com sucesso", Toast.LENGTH_SHORT).show();
+
+                            // Exemplo: navegar para MainActivity
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } catch (Exception e) {
+                    Toast.makeText(LoginActivity.this, "\"Erro ao processar resposta:\\n\" + responseBody", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.imoral;
+package adapters;
 
 public class PostAdapter {
 }
