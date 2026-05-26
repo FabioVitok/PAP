@@ -11,14 +11,14 @@ CREATE TABLE utilizadores (
     password VARCHAR(255) NOT NULL,
     morada VARCHAR(255) NOT NULL DEFAULT '',
     dt_nascimento DATE NULL,
-    dt_criacao DATETIME NOT NULL,
+    dt_criacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     pronomes VARCHAR(20),
-    is_admin BOOLEAN NOT NULL,
+    is_admin BOOLEAN NOT NULL DEFAULT FALSE,
     ultimo_login DATETIME NULL,
     is_verified TINYINT(1) NOT NULL DEFAULT 0,
     verified_at DATETIME NULL,
-    created_at DATETIME NOT NULL,
-    updated_at DATETIME NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at DATETIME NULL
 );
 
@@ -48,3 +48,6 @@ INSERT INTO utilizadores (username, email, image_id, telefone, password, morada,
 
 INSERT INTO utilizadores (username, email, image_id, telefone, password, morada, dt_nascimento, dt_criacao, pronomes, is_admin, ultimo_login, is_verified, verified_at, created_at, updated_at) VALUES
 ('12345','12345@gmail.com',23,'+351912345678','password','Rua Exemplo, 123, 1234-567 Cidade','1990-01-01','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00');
+
+INSERT INTO utilizadores (username, email, password) VALUES 
+('12345', '12345@gmail.com', 'password');
