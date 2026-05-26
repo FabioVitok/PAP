@@ -21,13 +21,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.imoral.api.ApiService;
-import com.example.imoral.models.SignupResponse;
-
-import network.RetrofitClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
     String jaTemContaText;
@@ -54,47 +47,11 @@ public class SignupActivity extends AppCompatActivity {
         jaTemContaTextView = findViewById(R.id.jaTemContaTextView);
         buttonLogin = findViewById(R.id.buttonSignup);
 
-        buttonLogin.setOnClickListener(v -> {
             String username = editTextUser.getText().toString().trim();
             String email = editTextEmailAdress.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
             String passwordComfirm =  editTextComfirmPassword.getText().toString().trim();
 
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordComfirm.isEmpty()) {
-                Toast.makeText(SignupActivity.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (!password.equals(passwordComfirm)){
-                Toast.makeText(SignupActivity.this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            ApiService api = RetrofitClient.getInstance().create(ApiService.class);
-            api.signup(username,email,password,passwordComfirm).enqueue(new Callback<SignupResponse>() {
-                @Override
-                public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
-                    if(response.isSuccessful() && response.body() != null) {
-                        SignupResponse signupResponse = response.body();
-                        if (signupResponse.isSuccess()) {
-                            Toast.makeText(SignupActivity.this, signupResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                            //Volta para a Mainactivity
-                            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(SignupActivity.this, "Erro" + signupResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                         }
-                        } else {
-                            Toast.makeText(SignupActivity.this, "Erro na resposta do servidor", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                @Override
-                public void onFailure(Call<SignupResponse> call, Throwable t) {
-                    Toast.makeText(SignupActivity.this, "Falha na conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
 
         updateTextViewSpannable();
 
