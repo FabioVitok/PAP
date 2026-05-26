@@ -232,4 +232,56 @@ class AuthController{
       Utils::jsonResponse($dataResponse, 401);
     }
   }
+
+  public function signupApi() {
+    try {
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            throw new Exception('Método não permitido');
+        }
+ 
+        if (count($_POST) != 4) {
+            throw new Exception('Dados insuficientes');
+        }
+ 
+        if (!isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password'])) {
+            throw new Exception('Dados insuficientes. Todos os campos são obrigatórios');
+        }
+ 
+        $email           = trim($_POST['email']);
+        $username        = trim($_POST['username']);
+        $password        = trim($_POST['password']);
+        $confirmPassword = trim($_POST['confirm_password']);
+ 
+        if ($username === '' || $email === '' || $password === '' || $confirmPassword === '') {
+            throw new Exception('Todos os campos são obrigatórios');
+        }
+ 
+        if ($password !== $confirmPassword) {
+            throw new Exception('As passwords não coincidem');
+        }
+
+        $userDAO = new UserDAO();
+
+        if ($userDAO->findByEmail($email)) {
+            throw new Exception('Erro ao criar conta: Email já existe');
+        }
+
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+        // para passar a password sem o fluxo de verificação por email
+        $userId = $userDAO->createPending($username, $email);
+        $userDAO->setPasswordAndVerify($userId, $passwordHash);
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Conta criada com sucesso. Já podes fazer login.',
+        ]);
+
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage(),
+        ]);
+    }
+}
 }

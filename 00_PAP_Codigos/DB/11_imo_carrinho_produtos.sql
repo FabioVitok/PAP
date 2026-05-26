@@ -7,7 +7,7 @@ CREATE TABLE carrinho_produtos (
     id_carrinho INT(11) UNSIGNED NOT NULL,
     id_produto INT(11) UNSIGNED NOT NULL,
     quantidade INT NOT NULL,
-    dt_adicao DATETIME NOT NULL,
+    dt_adicao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_carrinho) REFERENCES carrinhos(id),
     FOREIGN KEY (id_produto) REFERENCES produtos(id)
 );

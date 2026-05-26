@@ -21,6 +21,31 @@ class CarrinhoProdutosDAO {
         );
     }
 
+    public function findCarrinhoProdutoById($id) {
+    $sql = "
+        SELECT
+            carrinho_produtos.id,
+            carrinho_produtos.id_carrinho,
+            carrinho_produtos.id_produto,
+            carrinho_produtos.quantidade,
+            carrinho_produtos.dt_adicao
+        FROM carrinho_produtos
+        WHERE carrinho_produtos.id = ?;
+    ";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if(!$row) {
+        return false;
+    }
+
+    return $this->rowToCarrinhoProdutos($row);
+}
+
     public function findCarrinhoProdutosByUserId($userId){
         $sql = "
             SELECT 
@@ -69,6 +94,24 @@ class CarrinhoProdutosDAO {
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
         return $rows;
+    }
+
+    public function createCarrinhoProduto(CarrinhoProdutos $carrinhoProduto) {
+        $sql = "
+            INSERT INTO carrinho_produtos (id_carrinho, id_produto, quantidade, dt_adicao)
+            VALUES (?, ?, ?, NOW());
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            $carrinhoProduto->getIdCarrinho(),
+            $carrinhoProduto->getIdProduto(),
+            $carrinhoProduto->getQuantidade()
+        ]);
+
+        $id = $this->conn->lastInsertId();
+
+        return $this->findCarrinhoProdutoById($id);
     }
 
     public function deleteCarrinhoProduto($carrinhoProdutoId, $userId) {

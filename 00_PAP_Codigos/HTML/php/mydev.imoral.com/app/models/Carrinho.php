@@ -1,6 +1,6 @@
 <?php
 
-class CarrinhoProdutos {
+class Carrinho {
 private int $id;
 private string $id_utilizador;
 private float $custo_total;
