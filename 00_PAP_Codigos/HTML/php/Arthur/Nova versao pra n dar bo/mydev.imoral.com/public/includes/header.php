@@ -14,7 +14,7 @@
                 <div class="container-fluid">
                     <!-- Logo -->
                     <a class="navbar-brand" href="/home">
-                        <img src="/Images/imoral_logo1_transp.png"
+                        <img src="/assets/images/imoral_logo1_transp.png"
                         alt="imoral_logo" 
                         width="100" 
                         style="height:30px; object-fit:cover;"
