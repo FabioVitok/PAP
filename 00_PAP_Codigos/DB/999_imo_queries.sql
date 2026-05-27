@@ -214,3 +214,5 @@ FROM carrinho_produtos
 INNER JOIN carrinhos ON carrinho_produtos.id_carrinho = carrinhos.id
 WHERE carrinho_produtos.id = ? 
 AND carrinhos.id_utilizador = ?;
+
+SHOW CREATE TABLE utilizadores;
