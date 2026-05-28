@@ -1,4 +1,4 @@
-package com.example.imoral.models;
+package com.example.imoral.models.Login;
 public class LoginRequest {
     private String email;
     private String password;

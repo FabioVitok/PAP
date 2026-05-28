@@ -1,47 +1,98 @@
 package com.example.imoral;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.imoral.models.Acessorio;
+import com.example.imoral.models.Home.HomeResponse;
 import com.example.imoral.models.Produto;
+import com.example.imoral.models.ProdutoPai;
 import com.example.imoral.models.Roupa;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.ProdutoAdapter;
+import com.example.imoral.adapters.ProdutoAdapter;
+import com.google.gson.Gson;
 
+import org.json.JSONObject;
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import utils.ApiConfig;
 public class MainActivity extends AppCompatActivity {
+
+
+    private final OkHttpClient client = new OkHttpClient();
+    private final Gson gson = new Gson();
+
+    private ProdutoAdapter produtoAdapter;
+    private RecyclerView rvProdutos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Lista de produtos
-        List<Produto> produtos = new ArrayList<>();
-        produtos.add(new Acessorio(1, "Eyelet Lace Bag", "preto", "Tamanho Unico", R.drawable.eyeletbag, 25, 0.60, 27.99 , 12.00));
-        produtos.add(new Roupa(2, "Flared Distressed Jeans", "preto", "m", R.drawable.flaredjeans,25, 0.90, 29.99 , 15.00));
-        produtos.add(new Roupa(3, "Pierced Shoulder Off", "preto", "m", R.drawable.piercedshoulder,25, 0.60, 25.99 , 13.00));
-        produtos.add(new Acessorio(4, "Eyelet Kerchief", "preto", "m", R.drawable.eyeletkerchief,25, 0.50, 15.99 , 7.00));
-        produtos.add(new Acessorio(5, "Lace Belt", "preto", "Tamanho unico", R.drawable.lacebelt,25, 0.70, 15.99 , 7.00));
-        produtos.add(new Roupa(6, "Pierced Shirt", "preto", "m", R.drawable.piercedshirt,25, 34.00, 35.99 , 20.00));
-        produtos.add(new Acessorio(1, "Eyelet Lace Bag", "preto", "Tamanho Unico", R.drawable.eyeletbag, 25, 0.60, 27.99 , 12.00));
-        produtos.add(new Roupa(2, "Flared Distressed Jeans", "preto", "m", R.drawable.flaredjeans,25, 0.90, 29.99 , 15.00));
-        produtos.add(new Roupa(3, "Pierced Shoulder Off", "preto", "m", R.drawable.piercedshoulder,25, 0.60, 25.99 , 13.00));
-        produtos.add(new Acessorio(4, "Eyelet Kerchief", "preto", "m", R.drawable.eyeletkerchief,25, 0.50, 15.99 , 7.00));
-        produtos.add(new Acessorio(5, "Lace Belt", "preto", "Tamanho unico", R.drawable.lacebelt,25, 0.70, 15.99 , 7.00));
-        produtos.add(new Roupa(6, "Pierced Shirt", "preto", "m", R.drawable.piercedshirt,25, 34.00, 35.99 , 20.00));
 
-        // RecyclerView — 2 colunas + scroll automático
-        RecyclerView rv = findViewById(R.id.rvProducts);
-        rv.setLayoutManager(new GridLayoutManager(this, 2));
-        rv.setAdapter(new ProdutoAdapter(produtos, produto -> {
-            // Ação ao clicar num produto
-            // ex: abrir o detalhe do produto
-        }));
+       this.rvProdutos = findViewById(R.id.rvProducts);
+        setupProdutosList();
+        CarregarProdutos();
+
+    }
+
+    private void setupProdutosList() {
+        produtoAdapter = new ProdutoAdapter();
+        rvProdutos.setLayoutManager(new GridLayoutManager(this, 2));
+        rvProdutos.setAdapter(produtoAdapter);
+    }
+    private void CarregarProdutos() {
+        List<ProdutoPai> produtos = new ArrayList<>();
+        SharedPreferences prefs = getSharedPreferences("app_session", MODE_PRIVATE);
+        String jwt = prefs.getString("jwt", null);
+
+        Request request = new Request.Builder()
+                .url(ApiConfig.HOME_URL)
+                .get()
+                .addHeader("Authorization", "Bearer " + jwt)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Erro: "+ e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                    String responseBody = response.body() != null ? response.body().string() : "";
+
+                    try{
+                        HomeResponse homeResponse = gson.fromJson(responseBody, HomeResponse.class);
+
+                        if (homeResponse != null && homeResponse.isSuccess()) {
+                            List<ProdutoPai> produtos = homeResponse.getData().getProdutos();
+                            runOnUiThread(() -> {
+                                produtoAdapter.submitList(produtos);
+                            });
+                        } else {
+                            runOnUiThread(() -> Toast.makeText(MainActivity.this, "Resposta inválida", Toast.LENGTH_SHORT).show());
+                        }
+
+                    } catch (Exception e) {
+                        runOnUiThread(() -> Toast.makeText(MainActivity.this, "Erro ao converter JSON:\n" + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    }
+            }
+        });
     }
 }

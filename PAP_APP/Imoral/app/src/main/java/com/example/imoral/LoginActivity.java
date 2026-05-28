@@ -22,10 +22,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.imoral.models.LoginResponse;
+import com.example.imoral.models.Login.LoginResponse;
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
 import java.io.IOException;
 
 import okhttp3.Call;

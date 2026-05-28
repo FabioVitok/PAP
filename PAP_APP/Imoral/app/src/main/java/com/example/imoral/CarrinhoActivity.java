@@ -15,7 +15,7 @@ import com.example.imoral.models.Utilizador;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.CarrinhoAdapter;
+import com.example.imoral.adapters.CarrinhoAdapter;
 
 public class CarrinhoActivity extends AppCompatActivity {
 

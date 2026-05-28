@@ -1,4 +1,6 @@
-package com.example.imoral.models;
+package com.example.imoral.models.Login;
+
+import com.example.imoral.models.Utilizador;
 
 public class LoginData {
     private Utilizador user;

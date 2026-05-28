@@ -1,4 +1,4 @@
-package com.example.imoral.models;
+package com.example.imoral.models.Login;
 
 public class LoginResponse {
     private boolean success;
