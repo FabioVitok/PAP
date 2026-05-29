@@ -5,7 +5,7 @@ class User {
     private int $id;
     private string $username;
     private string $email;
-    private ?int $image_id;
+    private ?string $image;
     private ?string $telefone;
     private string $password;
     private string $morada;
@@ -24,7 +24,7 @@ class User {
         int $id = 0,
         string $username = '',
         string $email = '',
-        ?int $image_id = null,
+        ?string $image = null,
         ?string $telefone = null,
         string $password = '',
         string $morada = '',
@@ -42,7 +42,7 @@ class User {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
-        $this->image_id = $image_id;
+        $this->image = $image;
         $this->telefone = $telefone;
         $this->password = $password;
         $this->morada = $morada;
@@ -67,8 +67,8 @@ class User {
     public function getEmail(): string { return $this->email; }
     public function setEmail(string $email): void { $this->email = $email; }
 
-    public function getImageId(): ?int { return $this->image_id; }
-    public function setImageId(?int $image_id): void { $this->image_id = $image_id; }
+    public function getImage(): ?string { return $this->image; }
+    public function setImage(?string $image): void { $this->image = $image; }
 
     public function getTelefone(): ?string { return $this->telefone; }
     public function setTelefone(?string $telefone): void { $this->telefone = $telefone; }

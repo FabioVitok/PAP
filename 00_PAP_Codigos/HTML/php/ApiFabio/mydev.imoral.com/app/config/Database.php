@@ -5,7 +5,7 @@ class Database
   private $host = 'localhost';
   private $db_name = 'imo_system';
   private $username = 'root';
-  private $password = '';
+  private $password = '1234';
  
   public function connect()
   {

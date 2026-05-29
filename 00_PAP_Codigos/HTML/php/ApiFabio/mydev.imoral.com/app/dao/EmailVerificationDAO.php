@@ -5,11 +5,11 @@ class EmailVerificationDAO {
 
     public function __construct() {
         // Conectar à base de dados
-        $this->conn = DatabaseSingle::connect();
+        $this->conn = (new Database())->connect();
     }
 
     public function createForUser($userId, $ttlSeconds = 300) {
-        $token = bin2hex(random_bytes(32) . round(microtime(true)) * 1000000);
+        $token = bin2hex(random_bytes(32)); // . round(microtime(true)) * 1000000);
         $tokenHash = hash('sha256', $token);
 
         $sql = "
