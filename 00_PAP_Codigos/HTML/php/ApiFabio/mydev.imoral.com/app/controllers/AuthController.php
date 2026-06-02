@@ -1,9 +1,10 @@
 <?php
+
+require_once __DIR__ . '/../services/UploadService.php';
 require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../dao/EmailVerificationDAO.php';
 require_once __DIR__ . '/../config/jwtConfig.php'; 
-require_once __DIR__ . '/../config/DatabaseSingle.php'; 
-require_once __DIR__ . '/../services/Mailer.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -34,13 +35,13 @@ class AuthController{
     var_dump($user->getPassword());
 
     if(password_verify($password, $user->getPassword())) {
-      var_dump("Password correta");
 
       $_SESSION['token'] = [
-        'id' => $user->getId(),
-        'username' => $user->getUsername(),
-        'email' => $user->getEmail(),
-        'is_admin' => $user->isAdmin()
+          'id' => $user->getId(),
+          'username' => $user->getUsername(),
+          'email' => $user->getEmail(),
+          'is_admin' => $user->isAdmin(),
+          'image' => $user->getImage()
       ];
 
       $_SESSION['toast'] = [
@@ -63,9 +64,6 @@ class AuthController{
   }
  
   public function signupWeb() {
-    /**
-     * @TODO Validar se existe user logado
-     */
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
@@ -80,13 +78,19 @@ class AuthController{
  
     // Verificar se email já existe
     $user = (new UserDAO())->findByEmail($email);
- 
-    var_dump($user);
+
     if($user) {
       throw new Exception("Email já existe");
     }
-    // User no estado pendente
-    $userId = (new UserDAO())->createPending($username, $email);
+
+    $userDAO = new UserDAO();
+    $userId = $userDAO->createPending($username, $email, null);
+
+    $caminhoImagem = null;
+    if (!empty($_FILES['image']['name'])) {
+        $caminhoImagem = (new UploadService())->upload($_FILES['image'], $userId);
+        $userDAO->updateImage($userId, $caminhoImagem);
+    }
    
     // Criar token de verificação
     $verDAO = new EmailVerificationDAO();
@@ -235,77 +239,55 @@ class AuthController{
     }
   }
 
-  public function signupApi(): void
-  {
-
-    $pdo = DatabaseSingle::connect();
-
-    $pdo->beginTransaction();
-
+  public function signupApi() {
     try {
-      $username = trim($_POST['username'] ?? '');
-      $email    = trim($_POST['email'] ?? '');
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            throw new Exception('Método não permitido');
+        }
+ 
+        if (count($_POST) != 4) {
+            throw new Exception('Dados insuficientes');
+        }
+ 
+        if (!isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password'])) {
+            throw new Exception('Dados insuficientes. Todos os campos são obrigatórios');
+        }
+ 
+        $email           = trim($_POST['email']);
+        $username        = trim($_POST['username']);
+        $password        = trim($_POST['password']);
+        $confirmPassword = trim($_POST['confirm_password']);
+ 
+        if ($username === '' || $email === '' || $password === '' || $confirmPassword === '') {
+            throw new Exception('Todos os campos são obrigatórios');
+        }
+ 
+        if ($password !== $confirmPassword) {
+            throw new Exception('As passwords não coincidem');
+        }
 
-      if ($username === '' || $email === '') {
-        throw new Exception("Username e email são obrigatórios.");
-      }
+        $userDAO = new UserDAO();
 
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        throw new Exception("Email inválido.");
-      }
+        if ($userDAO->findByEmail($email)) {
+            throw new Exception('Erro ao criar conta: Email já existe');
+        }
 
-      $userDao = new UserDAO();
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-      if ($userDao->findByEmail($email)) {
-        throw new Exception("Já existe conta com este email.");
-      }
+        // para passar a password sem o fluxo de verificação por email
+        $userId = $userDAO->createPending($username, $email);
+        $userDAO->setPasswordAndVerify($userId, $passwordHash);
 
-      $userId = $userDao->createPending($username, $email);
+        echo json_encode([
+            'success' => true,
+            'message' => 'Conta criada com sucesso. Já podes fazer login.',
+        ]);
 
-      $verDao = new EmailVerificationDAO();
-      $token  = $verDao->createForUser($userId, 300);
-
-      // 3) baseUrl dinâmico (vhosts)
-      $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-      $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
-      $baseUrl = $scheme . '://' . $host;
-
-      // 4) link para clicar no email
-      $link = $baseUrl . "/verify-email?token=" . urlencode($token);
-
-      // 5) envia email via Mailer (PHPMailer/Mailtrap)
-      $subject = "Verifica o teu email (expira em 5 min)";
-      $html = "
-          <div style='font-family: Arial, sans-serif;'>
-            <h2>Olá, " . htmlspecialchars($username) . "!</h2>
-            <p>Para ativares a tua conta e definires a tua password, clica no link abaixo (válido por <b>5 minutos</b>):</p>
-            <p><a href='{$link}'>{$link}</a></p>
-            <p>Se o link expirar, faz signup novamente (ou pede reenvio do link).</p>
-          </div>
-        ";
-
-      (new Mailer())->send($email, $subject, $html);
-
-      $responseData = [
-        'success' => true,
-        'message' => 'Signup realizado com sucesso',
-        'data' => [],
-      ];
-      
-      $pdo->commit();
-
-      Utils::jsonResponse($responseData, 200);
-
-    } catch(Exception $e) {
-    $pdo->rollback();
-
-    $responseData = [
-        'success' => false,
-        'message' => $e->getMessage(), // <-- mostra o erro real
-        'data' => [],
-    ];
-
-    Utils::jsonResponse($responseData, 400); 
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage(),
+        ]);
     }
-  }
+}
 }

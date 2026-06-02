@@ -46,6 +46,7 @@ FROM carrinho_produtos AS cp
 INNER JOIN produtos AS p ON cp.id_produto = p.id AND cp.id_carrinho = carrinhos.id)
 WHERE carrinhos.id IN (SELECT id_carrinho FROM carrinho_produtos);  
 
+
 -- Query para saber a receita de produtos por categoria
 SELECT p.tipo, SUM(p.preco_venda * cp.quantidade) AS receita
 FROM carrinho_produtos AS cp

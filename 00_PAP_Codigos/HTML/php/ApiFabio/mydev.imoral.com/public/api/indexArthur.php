@@ -35,6 +35,11 @@ else if ($uri === "/login" && $method === 'POST') {
     (new AuthController())->loginApi();
 }
 
+else if ($uri === "/signup" && $method === 'POST') {
+    (new AuthController())->signupApi();
+ 
+}
+
 else if ($uri === "/home" && $method === 'GET') {
   AuthMiddlewareApi::check();
 
@@ -62,11 +67,10 @@ else if (preg_match('#^\/carrinho_produtos\/(\d+)$#', $uri, $matches) && $method
     (new CarrinhoProdutosController())->findCarrinhoProdutosByUserId($userId);
 }
 
-else if (preg_match('#^\/carrinho_produtos\/(\d+)$#', $uri, $matches) && $method === 'GET') {
-    $userId = $matches[1];
+else if ($uri === "/carrinho_produtos" && $method === 'POST') {
     AuthMiddlewareApi::check();
 
-    (new CarrinhoProdutosController())->findCarrinhoProdutosByUserId($userId);
+    (new CarrinhoProdutosController())->createCarrinhoProduto();
 }
 
 else if (preg_match('#^\/carrinho_produtos\/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
