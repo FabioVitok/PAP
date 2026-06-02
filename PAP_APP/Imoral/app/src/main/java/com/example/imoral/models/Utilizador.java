@@ -4,19 +4,19 @@ public class Utilizador
     private int id;
     private String nome;
     private String email;
-    private int imagemId;
+    private String image;
     private String role;
     private String telefone;
     private String password;
     private String morada;
     private String dtNascimento;
     
-    public Utilizador(int id, String nome, String email, int imagemId, String role, String telefone, String password, String morada, String dtNascimento )
+    public Utilizador(int id, String nome, String email, String image, String role, String telefone, String password, String morada, String dtNascimento )
     {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.imagemId = imagemId;
+        this.image = image;
         this.role = role;
         this.telefone = telefone;
         this.password = password;
@@ -49,14 +49,14 @@ public class Utilizador
         this.email = email;
     }
     
-    public int getImagemId()
+    public String getImage()
     {
-        return this.imagemId;
+        return this.image;
     }
     
-    public void setImagemId(int imagemId)
+    public void setImagemId(String image)
     {
-        this.imagemId = imagemId;
+        this.image = image;
     }
     
     public String getRole() 

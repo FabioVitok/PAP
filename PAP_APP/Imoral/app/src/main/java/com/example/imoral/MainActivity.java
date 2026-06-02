@@ -1,7 +1,10 @@
 package com.example.imoral;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ProdutoAdapter produtoAdapter;
     private RecyclerView rvProdutos;
+    private ImageButton imageButtonForum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
        this.rvProdutos = findViewById(R.id.rvProducts);
         setupProdutosList();
         CarregarProdutos();
+
+        imageButtonForum = findViewById(R.id.imageButtonForum);
+        imageButtonForum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ForumActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

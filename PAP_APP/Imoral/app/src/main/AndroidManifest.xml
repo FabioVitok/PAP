@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Imoral">
         <activity
+            android:name=".ForumActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProdutosActivity"
             android:exported="false" />
         <activity

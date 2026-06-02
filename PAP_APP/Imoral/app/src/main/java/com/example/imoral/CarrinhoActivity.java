@@ -41,7 +41,7 @@ public class CarrinhoActivity extends AppCompatActivity {
 
         new ProdutoCarrinho(produtos.get(1),2);
 
-        Carrinho carro = new Carrinho(1, new Utilizador(1, "josé", "er@gmail", 3, "User", "967140012", "Fabios", "Vialonga", "Hoje"));
+        Carrinho carro = new Carrinho(1, new Utilizador(1, "josé", "er@gmail", "3", "User", "967140012", "Fabios", "Vialonga", "Hoje"));
         ProdutoCarrinho p1 = new ProdutoCarrinho(new Roupa(2, "Flared Distressed Jeans", "preto", "m", R.drawable.flaredjeans, 25, 0.90, 29.99, 15.00), 4);
         carro.getProdutosCarrinho().add(p1);
 
