@@ -99,7 +99,8 @@ class CarrinhoProdutosDAO {
     public function createCarrinhoProduto(CarrinhoProdutos $carrinhoProduto) {
         $sql = "
             INSERT INTO carrinho_produtos (id_carrinho, id_produto, quantidade, dt_adicao)
-            VALUES (?, ?, ?, NOW());
+            VALUES (?, ?, ?, NOW())
+            ON DUPLICATE KEY UPDATE quantidade = quantidade + VALUES(quantidade);
         ";
 
         $stmt = $this->conn->prepare($sql);

@@ -16,7 +16,7 @@
 
                         <!-- Logo -->
                         <div class="text-center mb-4">
-                            <img src="Images/imoral_logo1.png" alt="logo_imoral" class="mb-3" style="width: 200px;">
+                            <img src="assets/images/imoral_logo1.png" alt="logo_imoral" class="mb-3" style="width: 200px;">
                             <h2 class="card-title">Sign Up</h2>
                         </div>
 
@@ -53,6 +53,5 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/signup.js"></script>
 </body>
 <?php include __DIR__ . "/../includes/footer.php"; ?>

@@ -1,11 +1,13 @@
 <?php
 
-class CarrinhoProdutos {
-    private int $id;
-    private string $id_carrinho;
-    private string $id_produto;
-    private int $quantidade;
-    private string $dt_adicao;
+require_once __DIR__ . '/BaseModel.php';
+
+class CarrinhoProdutos extends BaseModel {
+    protected $id;
+    protected $id_carrinho;
+    protected $id_produto;
+    protected $quantidade;
+    protected $dt_adicao;
 
     public function __construct(
         int $id = 0,

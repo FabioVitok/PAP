@@ -86,8 +86,7 @@ class UserController
        }
     }
 
-    public function findUserById($userId) {
-        
+    public function findUserById($userId) {  
         try{
         $user = (new UserDAO())->findUserById($userId);
 
@@ -113,5 +112,34 @@ class UserController
 
         Utils::jsonResponse($dataResponse, 401);
        }
+    }
+
+    public function userProfileApi($userId){
+        try{
+            $user = (new UserDAO())->findUserById($userId);
+
+            if(!$user) {
+                throw new Exception("Utilizador não encontrado.");
+            }
+
+            
+            $dataResponse = [
+                'success' => true,
+                'message' => "Operação realizada com sucesso",
+                'data'    => [
+                    'user' => $user
+                ]
+            ];
+
+            Utils::jsonResponse($dataResponse, 200);
+        } catch(Exception $e) {
+            $dataResponse = [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data'    => []
+            ];
+
+            Utils::jsonResponse($dataResponse, 401);
+        }
     }
 }

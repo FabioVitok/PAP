@@ -1,9 +1,11 @@
 <?php
 
-class Carrinho {
-private int $id;
-private string $id_utilizador;
-private float $custo_total;
+require_once __DIR__ . '/BaseModel.php';
+
+class Carrinho extends BaseModel {
+protected int $id;
+protected string $id_utilizador;
+protected float $custo_total;
 
 public function __construct(
     int $id = 0,

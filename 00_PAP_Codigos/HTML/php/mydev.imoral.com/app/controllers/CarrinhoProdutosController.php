@@ -79,7 +79,7 @@ class CarrinhoProdutosController
                 'success' => true,
                 'message' => "Produto adicionado com sucesso ao carrinho",
                 'data'    => [
-                    'carrinho_produto' => $createdCarrinhoProduto
+                    'carrinho_produto' => $createdCarrinhoProduto->toArray()
                 ]
             ];
             Utils::jsonResponse($dataResponse, 201);

@@ -20,7 +20,7 @@ require_once __DIR__ . '/../../app/dao/ProductDAO.php';
 $userDAO = new UserDAO();
 $users = $userDAO->arrayUsersDAO(); 
 
-$camposvisiveis = ['image_id', 'id', 'username', 'email', 'is_admin', 'created_at'];
+$camposvisiveis = ['image', 'id', 'username', 'email', 'is_admin', 'created_at'];
 $camposEditaveis = ['username', 'email'];
 
 $productDAO = new ProductDAO();
@@ -180,7 +180,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
         <!-- end-topbar -->
         <!-- Conteúdo principal -->
         <div id="mainPage" class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin-left: 300px;">
-            <div class="tab-content">
+            <div class="tab-content" id="mainTabContent">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel" style="margin-left: 70px;">
                     <h1 class="text-center mt-5">Dashboard</h1>
                     <p class="text-center">Here you can manage the main aspects of your business.</p>
@@ -910,6 +910,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
                                                                     </thead>
                                                                     <tbody id="corpoTabelaUsersDB">
                                                                         <?php foreach($users as $row): ?>
+                                                                        <?php if ($row['deleted_at'] === NULL): ?>
                                                                         <tr>
                                                                             <?php foreach($camposvisiveis as $campo): ?>
                                                                                 <?php if ($campo === 'is_admin'): ?>
@@ -940,6 +941,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
+                                                                        <?php endif; ?>
                                                                         <?php endforeach; ?>
                                                                     </tbody>
                                                                 </table>
@@ -1171,30 +1173,9 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
                                                           </div>
                                                         </div>
                                                     </div>
-                                                    <!-- Tabela -->
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Image</th>
-                                                                <th>Color</th>
-                                                                <th>Product</th>
-                                                                <th>Category</th>
-                                                                <th>Size</th>
-                                                                <th>Price</th>
-                                                                <th>Manufac. Cost</th>
-                                                                <th>Stock</th>
-                                                                <th>Sales</th>
-                                                                <th>Revenue</th>
-                                                                <th>Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="corpoTabelaProduct">
-                                                        </tbody>
-                                                    </table>
-
                                                      <div class="card">
                                                         <div class="card-header">
-                                                            <h5 class="card-title mb-0">Users</h5>
+                                                            <h5 class="card-title mb-0">Products</h5>
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="table-responsive">
@@ -1229,7 +1210,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
                                                                             <td>
                                                                                 <div class="row">
                                                                                     <div class="col-md-6 d-flex">
-                                                                                        <button class="btn btn-sm btn-warning btnUpdateUser" data-bs-toggle="modal" data-bs-target="#editUserModal-<?= $row['id'] ?>" style="width: 80px;"> Update </button>
+                                                                                        <button class="btn btn-sm btn-warning btnUpdateUser" data-bs-toggle="modal" data-bs-target="#editProductModal-<?= $row['id'] ?>" style="width: 80px;"> Update </button>
                                                                                     </div>
                                                                                     <div class="col-md-6 d-flex">
                                                                                         <button class="btn btn-sm btn-danger btnDeleteUser" style="width: 80px;">Delete</button>
@@ -1390,6 +1371,33 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
 </div>
 <?php endforeach; ?>
 
+<!-- Modal de update users -->
+<?php foreach($products as $row): ?>
+<div class="modal fade" id="editProductModal-<?= $row['id'] ?>" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar <?= htmlspecialchars($row['nome']) ?></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <!-- $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_venda', 'preco_custo', 'stock']; -->
+    <form method="post" id="formEditProduct-<?= $row['id'] ?>">
+        <div class="modal-body">
+          <input type="text" name="nome" value="<?= htmlspecialchars($row['nome']) ?>" class="form-control mb-2" placeholder="Nome" required>
+          <input type="text" name="tamanho" value="<?= htmlspecialchars($row['tamanho']) ?>" class="form-control mb-2" placeholder="Tamanho" required>
+          <input type="number" step="0.01" name="peso" value="<?= htmlspecialchars($row['peso']) ?>" class="form=controlmb-2" placeholder="Peso" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <?php if (AuthMiddlewareWeb::canEditProduct($row['id'])): ?>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          <?php endif; ?>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
 <!-- Modal de update de produto -->
 <div class="modal fade" id="insertProductModal" tabindex="-1">
     <div class="modal-dialog">
@@ -1724,7 +1732,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
             </tr>`;
         
         const editIndex = this.dataset.editLinha;
-        const tbody = document.getElementById('corpoTabelaProduct');
+        const tbody = document.getElementById('corpoTabelaProductsDB');
         
         if (editIndex !== undefined && editIndex !== '') {
             // UPDATE - substitui a linha existente
@@ -1746,7 +1754,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
     });
 
     // ---- Script de UPDATE e DELETE de Produtos ----
-    document.getElementById('corpoTabelaProduct').addEventListener('click', function(e) {
+    document.getElementById('corpoTabelaProductsDB').addEventListener('click', function(e) {
         const linha = e.target.closest('tr');
 
         // DELETE
@@ -1770,7 +1778,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
         
             // Guarda referência à linha para atualizar depois
             document.getElementById('btnSalvarProduct').dataset.editLinha = Array.from(
-                document.getElementById('corpoTabelaProduct').rows
+                document.getElementById('corpoTabelaProductsDB').rows
             ).indexOf(linha);
         
             bootstrap.Modal.getOrCreateInstance(document.getElementById('insertProductModal')).show();
@@ -1810,7 +1818,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
         const revenueMin = parseFloat(document.getElementById('filterRevenueMin').value) || 0;
         const revenueMax = parseFloat(document.getElementById('filterRevenueMax').value) || Infinity;
     
-        const linhas = document.querySelectorAll('#corpoTabelaProduct tr');
+        const linhas = document.querySelectorAll('#corpoTabelaProductsDB tr');
     
         linhas.forEach(function(linha) {
             const productName = linha.cells[2]?.textContent.toLowerCase() || '';
@@ -1956,6 +1964,37 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
             if (linha) {
                 linha.querySelector('[data-campo="username"]').textContent = usernameInput.value;
                 linha.querySelector('[data-campo="email"]').textContent = emailInput.value;
+            }
+        }
+        });
+    });
+
+    document.querySelectorAll('[id^="formEditProduct-"]').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault(); // impede o redirect normal
+
+        const productId = this.id.replace('formEditProduct-', '');
+        const formData = new FormData(this); // pega nos dados do form
+
+        const res = await fetch('/products/' + productId + '/update', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (res.ok) {
+            bootstrap.Modal.getInstance(
+                document.querySelector('.modal.show')
+            ).hide();
+            // Atualiza a linha da tabela
+            const nomeInput = form.querySelector('[name="nome"]');
+            const tamanhoInput = form.querySelector('[name="tamanho"]');
+            const pesoInput = form.querySelector('[name="peso"]');
+            const linha = document.querySelector(`[data-id="${productId}"]`)?.closest('tr');
+        
+            if (linha) {
+                linha.querySelector('[data-campo="nome"]').textContent = nomeInput.value;
+                linha.querySelector('[data-campo="tamanho"]').textContent = tamanhoInput.value;
+                linha.querySelector('[data-campo="peso"]').textContent = pesoInput.value;
             }
         }
         });

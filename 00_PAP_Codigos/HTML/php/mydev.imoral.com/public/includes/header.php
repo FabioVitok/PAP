@@ -14,7 +14,7 @@
                 <div class="container-fluid">
                     <!-- Logo -->
                     <a class="navbar-brand" href="/home">
-                        <img src="/Images/imoral_logo1_transp.png"
+                        <img src="assets/images/imoral_logo1_transp.png"
                         alt="imoral_logo" 
                         width="100" 
                         style="height:30px; object-fit:cover;"
@@ -40,16 +40,27 @@
                             </li>
                             <li class="nav-item">
                                 <?php if (AuthMiddlewareWeb::isLogin()): ?>
-                                    <a class="nav-link" href="/users/<?= $_SESSION['token']['id']; ?>">
-                                        <img src="/Images/user_icon.png"
-                                        alt="user_avatar" 
-                                        width="40" 
-                                        style="height:30px; object-fit:cover;"
-                                        class="d-inline-block align-text-top">
-                                    </a>
+                                    <?php if ($_SESSION['token']['image'] === NULL): ?>
+                                        <a class="nav-link" href="/users/<?= $_SESSION['token']['id']; ?>">
+                                            <img src="/<?= htmlspecialchars($_SESSION['token']['image']
+                                            ?? 'assets/images/users/user_icon.png') ?>" 
+                                            alt="user_avatar" 
+                                            width="40" 
+                                            style="height:30px; object-fit:cover;"
+                                            class="d-inline-block align-text-top"/>
+                                        </a>
+                                    <?php else: ?>
+                                        <a class="nav-link" href="/login">
+                                            <img src="assets/images/users/user_icon.png"
+                                            alt="user_avatar" 
+                                            width="40" 
+                                            style="height:30px; object-fit:cover;"
+                                            class="d-inline-block align-text-top">
+                                        </a>
+                                    <?php endif; ?>
                                 <?php else: ?>
                                     <a class="nav-link" href="/login">
-                                    <img src="/Images/user_icon.png"
+                                        <img src="assets/images/users/user_icon.png"
                                         alt="user_avatar" 
                                         width="40" 
                                         style="height:30px; object-fit:cover;"
