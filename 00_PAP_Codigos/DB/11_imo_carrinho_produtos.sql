@@ -9,7 +9,8 @@ CREATE TABLE carrinho_produtos (
     quantidade INT NOT NULL,
     dt_adicao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_carrinho) REFERENCES carrinhos(id),
-    FOREIGN KEY (id_produto) REFERENCES produtos(id)
+    FOREIGN KEY (id_produto) REFERENCES produtos(id),
+    UNIQUE KEY uq_carrinho_produto (id_carrinho, id_produto)
 );
 
 INSERT INTO carrinho_produtos(id_carrinho, id_produto, quantidade, dt_adicao) VALUES
@@ -29,8 +30,7 @@ INSERT INTO carrinho_produtos(id_carrinho, id_produto, quantidade, dt_adicao) VA
 (8, 7, 1, '2024-05-04 13:00:00'),
 (8, 8, 2, '2024-05-04 13:45:00'),
 (8, 13, 2, '2024-05-04 13:47:32'),
-(8, 9, 1, '2024-05-05 14:00:00'),
-(5, 9, 3, '2024-05-25 14:30:00');
+(8, 9, 1, '2024-05-05 14:00:00');
 
 INSERT INTO carrinho_produtos(id_carrinho, id_produto, quantidade, dt_adicao) VALUES
 (20, 1, 2, '2024-06-01 10:00:00'),

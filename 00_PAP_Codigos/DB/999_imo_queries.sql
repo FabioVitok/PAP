@@ -216,3 +216,23 @@ WHERE carrinho_produtos.id = ?
 AND carrinhos.id_utilizador = ?;
 
 SHOW CREATE TABLE utilizadores;
+
+SELECT 
+    u.id,
+    u.username,
+    u.image,
+    u.morada,
+    u.dt_nascimento,
+    u.dt_criacao,
+    u.pronomes,
+    u.ultimo_login,
+    COUNT(DISTINCT seguidores.id_seguidor) AS seguidores,
+    COUNT(DISTINCT seguindo.id_seguido)    AS seguindo
+        
+FROM utilizadores AS u
+LEFT JOIN followship seguidores ON seguidores.id_seguido = u.id
+LEFT JOIN followship seguindo   ON seguindo.id_seguidor = u.id
+WHERE u.id = 1
+  AND u.is_verified = 1
+  AND u.verified_at IS NOT NULL
+LIMIT 1;
