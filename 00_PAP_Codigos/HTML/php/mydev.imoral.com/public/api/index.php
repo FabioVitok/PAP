@@ -8,6 +8,7 @@ require_once __DIR__.'/../../app/controllers/UserController.php';
 require_once __DIR__ . '/../../app/controllers/ProductController.php';
 require_once __DIR__ . '/../../app/controllers/CarrinhoController.php';
 require_once __DIR__ . '/../../app/controllers/CarrinhoProdutosController.php';
+require_once __DIR__ . '/../../app/controllers/PedidoProdutosController.php';
 require_once __DIR__ .'/../../app/controllers/PostController.php';
 
 require_once __DIR__.'/../../app/mddleware/AuthMiddlewareApi.php';
@@ -81,6 +82,12 @@ else if (preg_match('#^\/carrinho_produtos\/(\d+)$#', $uri, $matches) && $method
     AuthMiddlewareApi::check();
 
     (new CarrinhoProdutosController())->deleteCarrinhoProduto($carrinhoProdutoId);
+}
+
+else if ($uri === "/pedido_produtos" && $method === 'POST') {
+    AuthMiddlewareApi::check();
+
+    (new PedidoProdutosController())->finalizarCompra();
 }
 
 else if ($uri === "/posts" && $method === 'POST') {
