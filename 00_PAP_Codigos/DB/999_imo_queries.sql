@@ -217,3 +217,63 @@ WHERE carrinho_produtos.id = ?
 AND carrinhos.id_utilizador = ?;
 
 SHOW CREATE TABLE utilizadores;
+
+ SELECT 
+                p.id,
+                p.id_utilizador,
+                u.username,
+                u.image,
+                p.dt_postagem,
+                p.texto_post,
+                p.like_count
+            FROM posts as p
+            INNER JOIN utilizadores as u ON p.id_utilizador = u.id
+            WHERE p.id = 1
+            LIMIT 1;
+
+                SELECT 
+            p.id,
+            p.id_utilizador,
+            u.username,
+            u.image,
+            p.dt_postagem,
+            p.texto_post,
+            p.like_count,
+            COUNT(c.id) as comment_count
+        FROM posts as p
+        INNER JOIN utilizadores as u ON p.id_utilizador = u.id
+        LEFT JOIN comentarios as c ON c.id_post = p.id
+        GROUP BY p.id;
+
+
+       SELECT 
+    c.id,
+    c.id_post,
+    c.id_utilizador,
+    u.username,
+    u.image,
+    c.dt_comentario,
+    c.texto_comentario,
+    c.like_count,
+    COUNT(r.id) as reply_count
+FROM comentarios as c
+INNER JOIN utilizadores as u ON c.id_utilizador = u.id
+LEFT JOIN comentarios as r ON r.id_comentario_pai = c.id
+WHERE c.id_post = ? AND c.id_comentario_pai IS NULL
+GROUP BY c.id
+ORDER BY c.dt_comentario ASC
+
+SELECT 
+            c.id,
+            c.id_post,
+            c.id_utilizador,
+            u.username,
+            u.image,
+            c.dt_comentario,
+            c.texto_comentario,
+            c.like_count
+        FROM comentarios as c
+        INNER JOIN utilizadores as u ON c.id_utilizador = u.id
+        WHERE c.id_comentario_pai = ?
+        GROUP BY c.id
+        ORDER BY c.dt_comentario ASC
