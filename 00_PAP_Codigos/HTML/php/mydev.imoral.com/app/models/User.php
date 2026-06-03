@@ -1,30 +1,32 @@
 <?php
 
-class User {
+require_once __DIR__ . '/BaseModel.php';
 
-    private int $id;
-    private string $username;
-    private string $email;
-    private ?int $image_id;
-    private ?string $telefone;
-    private string $password;
-    private string $morada;
-    private string $dt_nascimento;
-    private string $dt_criacao;
-    private ?string $pronomes;
-    private bool $is_admin;
-    private string $ultimo_login;
-    private bool $is_verified;
-    private ?string $verified_at;
-    private string $created_at;
-    private string $updated_at;
-    private ?string $deleted_at;
+class User extends BaseModel {
+
+    protected int $id;
+    protected string $username;
+    protected string $email;
+    protected ?string $image;
+    protected ?string $telefone;
+    protected string $password;
+    protected string $morada;
+    protected string $dt_nascimento;
+    protected string $dt_criacao;
+    protected ?string $pronomes;
+    protected bool $is_admin;
+    protected string $ultimo_login;
+    protected bool $is_verified;
+    protected ?string $verified_at;
+    protected string $created_at;
+    protected string $updated_at;
+    protected ?string $deleted_at;
 
     public function __construct(
         int $id = 0,
         string $username = '',
         string $email = '',
-        ?int $image_id = null,
+        ?string $image = null,
         ?string $telefone = null,
         string $password = '',
         string $morada = '',
@@ -42,7 +44,7 @@ class User {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
-        $this->image_id = $image_id;
+        $this->image = $image;
         $this->telefone = $telefone;
         $this->password = $password;
         $this->morada = $morada;
@@ -67,8 +69,8 @@ class User {
     public function getEmail(): string { return $this->email; }
     public function setEmail(string $email): void { $this->email = $email; }
 
-    public function getImageId(): ?int { return $this->image_id; }
-    public function setImageId(?int $image_id): void { $this->image_id = $image_id; }
+    public function getImage(): ?string { return $this->image; }
+    public function setImage(?string $image): void { $this->image = $image; }
 
     public function getTelefone(): ?string { return $this->telefone; }
     public function setTelefone(?string $telefone): void { $this->telefone = $telefone; }

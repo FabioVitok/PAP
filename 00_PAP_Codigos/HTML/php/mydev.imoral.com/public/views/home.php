@@ -11,7 +11,7 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="Images/carousel_image1.jpg" 
+                            <img src="assets/images/carousel_image1.jpg" 
                             class="d-block w-100" 
                             alt="primeiro slide"
                             style="object-fit:cover; object-position: 50% 40%; height: calc(100vh - 73px);">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="carousel-item flex-grow-1 h-100">
-                            <img src="Images/carousel_image2.jpg" 
+                            <img src="assets/images/carousel_image2.jpg" 
                             class="d-block w-100" 
                             alt="segundo slide"
                             style="object-fit:cover; object-position: 50% 40%; height: calc(100vh - 73px);">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="carousel-item flex-grow-1 h-100">
-                            <img src="Images/carousel_image3.jpg" 
+                            <img src="assets/images/carousel_image3.jpg" 
                             class="d-block w-100" 
                             alt="terceiro slide"
                             style="object-fit:cover; object-position: 50% 40%; height: calc(100vh - 73px);">
@@ -70,72 +70,72 @@
             <div class="container-fluid py-1 px-0" style="background-color: rgba(8, 11, 3)">
                 <div class="row g-0 justify-content-center">
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
                     <div class="col">
-                        <img src="Images/separador_background.jpeg" 
+                        <img src="assets/images/separador_background.jpeg" 
                         class="w-100 h-auto"
                         alt="primeira imagem">
                     </div>
@@ -146,35 +146,35 @@
             <div class="container-fluid p-0">
                 <div class="row g-0">
                     <div class="col-6 col-md position-relative text-center">
-                        <img src="Images/product_example2.jpeg" alt="primeira imagem"
+                        <img src="assets/images/product_example2.jpeg" alt="primeira imagem"
                             style="height: 300px; width: 100%; object-fit: cover; object-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <a class="btn btn-light" href="pagina_em_construção.html">T-SHIRTS</a>
                         </div>
                     </div>
                     <div class="col-6 col-md position-relative text-center">
-                        <img src="Images/product_example6.png" alt="segunda imagem"
+                        <img src="assets/images/product_example6.png" alt="segunda imagem"
                             style="height: 230px; width: auto; object-fit: cover; object-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <a class="btn btn-light" href="pagina_em_construção.html">LONG SLEEVES</a>
                         </div>
                     </div>
                     <div class="col-6 col-md position-relative text-center">
-                        <img src="Images/product_example3.jpeg" alt="terceira imagem"
+                        <img src="assets/images/product_example3.jpeg" alt="terceira imagem"
                             style="height: 300px; width: 100%; object-fit: cover; object-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <a class="btn btn-light" href="pagina_em_construção.html">PANTS</a>
                         </div>
                     </div>
                     <div class="col-6 col-md position-relative text-center">
-                        <img src="Images/product_example4.jpeg" alt="quarta imagem"
+                        <img src="assets/images/product_example4.jpeg" alt="quarta imagem"
                             style="height: 300px; width: 100%; object-fit: cover; object-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <a class="btn btn-light" href="pagina_em_construção.html">ACESSORIES</a>
                         </div>
                     </div>
                     <div class="col-6 col-md position-relative text-center">
-                        <img src="Images/product_example5.png" alt="quinta imagem"
+                        <img src="assets/images/product_example5.png" alt="quinta imagem"
                             style="height: 270px; width: auto; object-fit: cover; object-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <a class="btn btn-light" href="pagina_em_construção.html">CUSTOMIZATION</a>
@@ -199,7 +199,7 @@
                         </div>
                     </div>
                     <div class="col-5 p-0">
-                        <img src="Images/product_example.jpg" 
+                        <img src="assets/images/product_example.jpg" 
                         class="w-100"
                         alt="primeira imagem"
                         style="height: calc(100% - 140px); object-fit: cover;">
@@ -211,72 +211,72 @@
         <div class="container-fluid py-1 px-0" style="background-color: rgba(8, 11, 3)">
             <div class="row g-0 justify-content-center">
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
@@ -287,7 +287,7 @@
             <div id="sobre" class="container-fluid p-0">
                 <div class="row g-0">
                     <div class="col-5 p-0" style="height: calc(100vh - 290px);">
-                        <img src="Images/WhatsApp Image 2026-02-02 at 14.37.48.jpeg" 
+                        <img src="assets/images/WhatsApp Image 2026-02-02 at 14.37.48.jpeg" 
                         class="w-100"
                         alt="primeira imagem"
                         style="height: calc(100vh - 290px); object-fit: cover;">
@@ -317,7 +317,7 @@
             <div id="equipe" class="container-fluid d-flex flex-column justify-content-center p-0">
                 <div class="row justify-content-center g-0">
                      <div class="col-lg-4 justify-content-center text-center m-4">
-                        <img src="Images/Arthur_icon.png" 
+                        <img src="assets/images/Arthur_icon.png" 
                             class="rounded-circle"
                             alt="Arthur Mattos"
                             style="height: 100px; width: 100px; object-fit: cover;">
@@ -325,7 +325,7 @@
                         <a class="btn btn-secondary" href="#">View details »</a>
                     </div>
                     <div class="col-lg-4 justify-content-center text-center m-4"> 
-                        <img src="Images/Fabio_icon.jpeg" 
+                        <img src="assets/images/Fabio_icon.jpeg" 
                             class="rounded-circle"
                             alt="Fábio Vitoriano"
                             style="height: 100px; width: 100px; object-fit: cover;">
@@ -339,72 +339,72 @@
         <div class="container-fluid py-1 px-0" style="background-color: rgba(8, 11, 3)">
             <div class="row g-0 justify-content-center">
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
                 <div class="col">
-                    <img src="Images/separador_background.jpeg" 
+                    <img src="assets/images/separador_background.jpeg" 
                     class="w-100 h-auto"
                     alt="primeira imagem">
                 </div>
@@ -420,32 +420,32 @@
                     </div>
                 </div>
                 <div class="col-3 col-md-3 position-relative justify-content-center align-items-center text-center">
-                    <img src="Images/java_icon.png" 
+                    <img src="assets/images/java_icon.png" 
                     alt="Java icon"
                     style="height: 180px; width: 50%; object-fit: cover;  object-position: 100% 50%;">
                 </div>
                 <div class="col-3 col-md-3 position-relative justify-content-center align-items-center text-center  ">
-                    <img src="Images/mysql_icon.png" 
+                    <img src="assets/images/mysql_icon.png" 
                     alt="MySQL icon"
                     style="height: 180px; width: 50%; object-fit: cover;  object-position: 100% 50%;">
                 </div>
                 <div class="col-3 col-md-3 position-relative justify-content-center align-items-center text-center">
-                    <img src="Images/php_icon.png" 
+                    <img src="assets/images/php_icon.png" 
                     alt="PHP icon"
                     style="height: 180px; width: 50%; object-fit: cover; object-position: 100% 50%;">
                 </div>
                 <div class="col-3 col-md-3 position-relative justify-content-center align-items-center text-center">
-                    <img src="Images/html5_icon.png"
+                    <img src="assets/images/html5_icon.png"
                     alt="HTML5 icon"
                     style="height: 180px; width: 50%; object-fit: cover; object-position: 100% 50%;"> 
                 </div>
                 <div class="col-3 col-md-3 position-relative justify-content-center align-items-center text-center">
-                    <img src="Images/css_icon.png"
+                    <img src="assets/images/css_icon.png"
                     alt="CSS icon"
                     style="height:180px; width: 50%; object-fit: cover; object-position: 100% 50%;"> 
                 </div>
                 <div class="col-3 col-md-3 position-relative justify-content-center align-items-center text-center">
-                    <img src="Images/javascript_icon.png"
+                    <img src="assets/images/javascript_icon.png"
                     alt="JavaScript icon"
                     style="height: 180px; width: 50%; object-fit: cover; object-position: 100% 50%;"> 
                 </div>

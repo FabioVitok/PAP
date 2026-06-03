@@ -15,7 +15,7 @@
 
                         <!-- Logo -->
                         <div class="text-center mb-4">
-                            <img src="Images/imoral_logo1.png" alt="logo_imoral" class="mb-3" style="width: 200px;">
+                            <img src="assets/images/imoral_logo1.png" alt="logo_imoral" class="mb-3" style="width: 200px;">
                             <h2 class="card-title">Login</h2>
                         </div>
 

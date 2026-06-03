@@ -1,16 +1,18 @@
 <?php
 
-class Product {
-    private int $id;
-    private string $nome;
-    private string $tamanho;
-    private float $peso;
-    private string $tipo;
-    private ?string $cor;
-    private string $image;
-    private float $preco_venda;
-    private float $preco_custo;
-    private int $stock;
+require_once __DIR__ . '/BaseModel.php';
+
+class Product extends BaseModel {
+    protected int $id;
+    protected string $nome;
+    protected string $tamanho;
+    protected float $peso;
+    protected string $tipo;
+    protected ?string $cor;
+    protected string $image;
+    protected float $preco_venda;
+    protected float $preco_custo;
+    protected int $stock;
 
     public function __construct(
         int $id = 0,

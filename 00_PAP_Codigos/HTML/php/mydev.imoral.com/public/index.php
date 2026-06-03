@@ -142,6 +142,28 @@ elseif(preg_match('#^/users\/(\d+)/update$#', $uri, $m) && $method === 'POST') {
     }
 }
 
+elseif(preg_match('#^/products\/(\d+)/update$#', $uri, $m) && $method === 'POST') {
+    try{
+        (new ProductController())->update($m[1]);
+
+        $_SESSION['toast'] = [
+            'type' => 'success',
+            'message' => 'Produto atualizado com sucesso!'
+        ];
+        header("Location: /products/{$m[1]}");
+        exit();
+    } catch (Exception $e) {
+        var_dump($e);
+        var_dump($e->getMessage());
+        $_SESSION['toast'] = [
+            'type' => 'error',
+            'message' => $e->getMessage()
+        ];
+        header("Location: /products/{$m[1]}");
+        exit();
+    }
+}
+
 elseif($uri === '/dashboard' && $method === 'GET') {
     if(!AuthMiddlewareWeb::isAdmin()) {
         $_SESSION['toast'] = [

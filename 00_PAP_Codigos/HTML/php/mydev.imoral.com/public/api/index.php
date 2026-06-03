@@ -2,11 +2,15 @@
 require_once __DIR__.'/../../vendor/autoload.php';
 
 require_once __DIR__.'/../../app/utils/Utils.php';
+
 require_once __DIR__.'/../../app/controllers/AuthController.php';
 require_once __DIR__.'/../../app/controllers/UserController.php';
 require_once __DIR__ . '/../../app/controllers/ProductController.php';
 require_once __DIR__ . '/../../app/controllers/CarrinhoController.php';
 require_once __DIR__ . '/../../app/controllers/CarrinhoProdutosController.php';
+require_once __DIR__ . '/../../app/controllers/PedidoProdutosController.php';
+require_once __DIR__ .'/../../app/controllers/PostController.php';
+
 require_once __DIR__.'/../../app/mddleware/AuthMiddlewareApi.php';
 
 use Firebase\JWT\JWT;
@@ -78,6 +82,39 @@ else if (preg_match('#^\/carrinho_produtos\/(\d+)$#', $uri, $matches) && $method
     AuthMiddlewareApi::check();
 
     (new CarrinhoProdutosController())->deleteCarrinhoProduto($carrinhoProdutoId);
+}
+
+else if ($uri === "/pedido_produtos" && $method === 'POST') {
+    AuthMiddlewareApi::check();
+
+    (new PedidoProdutosController())->finalizarCompra();
+}
+
+else if ($uri === "/posts" && $method === 'POST') {
+    AuthMiddlewareApi::check();
+
+    (new PostController())->createPost();
+}
+
+else if (preg_match('/^\/posts\/(\d+)$/', $uri, $matches) && $method === 'DELETE') {
+    AuthMiddlewareApi::check();
+    
+    $postId = $matches[1];
+    (new PostController())->deletePost($postId);
+}
+
+else if (preg_match('/^\/posts\/(\d+)$/', $uri, $matches) && $method === 'PUT') {
+    AuthMiddlewareApi::check();
+
+    $postId = $matches[1];
+    (new PostController())->updatePost($postId);
+}
+
+else if (preg_match('#^\/posts\/(\d+)$#', $uri, $matches) && $method === 'GET') {
+    $postId = $matches[1];
+    AuthMiddlewareApi::check();
+
+    (new PostController())->findPostById($postId);
 }
 
 // Rota não encontrada

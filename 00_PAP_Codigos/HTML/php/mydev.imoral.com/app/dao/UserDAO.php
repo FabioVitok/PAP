@@ -16,7 +16,7 @@ class UserDAO {
             id:            (int)$row['id'],
             username:      $row['username'],
             email:         $row['email'],
-            image_id:       isset($row['image_id']) ? (int)$row['image_id'] : null,
+            image:         $row['image'] ?? null,
             telefone:      $row['telefone'] ?? null,
             password:      $row['password'],
             morada:        $row['morada'] ?? '',
@@ -39,7 +39,7 @@ class UserDAO {
                 utilizadores.id,
                 utilizadores.username,
                 utilizadores.email,
-                utilizadores.image_id,
+                utilizadores.image,
                 utilizadores.telefone,
                 utilizadores.password,
                 utilizadores.morada,
@@ -109,7 +109,7 @@ class UserDAO {
                 utilizadores.id,
                 utilizadores.username,
                 utilizadores.email,
-                utilizadores.image_id,
+                utilizadores.image,
                 utilizadores.telefone,
                 utilizadores.password,
                 utilizadores.morada,
@@ -136,22 +136,21 @@ class UserDAO {
 
         foreach($rows as $row) {
             $users[] = $this->rowToUser($row);
-
         }
         
         return $users;
     }
 
-    public function createPending($username, $email): int {
+    public function createPending($username, $email, ?string $image = null): int {
         $sql = "
             INSERT INTO utilizadores 
-                (username, email, password, is_admin, image_id, morada, dt_nascimento, dt_criacao, pronomes, ultimo_login, is_verified, verified_at, created_at, updated_at, deleted_at)
+                (username, email, password, is_admin, image, morada, dt_nascimento, dt_criacao, pronomes, ultimo_login, is_verified, verified_at, created_at, updated_at, deleted_at)
             VALUES 
-                (?, ?, '', 0, NULL, '', NULL, NOW(), NULL, NULL, 0, NULL, NOW(), NOW(), NULL)
+                (?, ?, '', 0, ?, '', NULL, NOW(), NULL, NULL, 0, NULL, NOW(), NOW(), NULL)
         ";
     
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$username, $email]);
+        $stmt->execute([$username, $email, $image]);
         return (int)$this->conn->lastInsertId();
     }
 
@@ -170,46 +169,89 @@ class UserDAO {
     }
 
     public function arrayUsersDAO() {
-    $sql = "
-        SELECT
-            utilizadores.id,
-            utilizadores.username,
-            utilizadores.email,
-            utilizadores.image_id,
-            utilizadores.telefone,
-            utilizadores.password,
-            utilizadores.morada,
-            utilizadores.dt_nascimento,
-            utilizadores.dt_criacao,
-            utilizadores.pronomes,
-            utilizadores.is_admin,
-            utilizadores.ultimo_login,
-            utilizadores.is_verified,
-            utilizadores.verified_at,
-            utilizadores.created_at,
-            utilizadores.updated_at,
-            utilizadores.deleted_at 
-        FROM utilizadores;
-    ";
- 
-    $stmt = $this->conn->prepare($sql);
- 
-    $stmt->execute();
- 
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
- 
-    return $rows;
-  }
+        $sql = "
+            SELECT
+                utilizadores.id,
+                utilizadores.username,
+                utilizadores.email,
+                utilizadores.image,
+                utilizadores.telefone,
+                utilizadores.password,
+                utilizadores.morada,
+                utilizadores.dt_nascimento,
+                utilizadores.dt_criacao,
+                utilizadores.pronomes,
+                utilizadores.is_admin,
+                utilizadores.ultimo_login,
+                utilizadores.is_verified,
+                utilizadores.verified_at,
+                utilizadores.created_at,
+                utilizadores.updated_at,
+                utilizadores.deleted_at 
+            FROM utilizadores;
+        ";
 
-  public function countUsers(){
-    $sql = "
-        SELECT COUNT(*) as num_users 
-        FROM utilizadores;
-    ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+    }
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute();
-    return (int)$stmt->fetchColumn();
-  }
+    public function countUsers(){
+        $sql = "
+            SELECT COUNT(*) as num_users 
+            FROM utilizadores;
+        ";
 
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
+    }
+
+    public function updateImage(int $userId, string $image): void {
+        $sql = "
+            UPDATE utilizadores 
+            SET image = ?, updated_at = NOW() 
+            WHERE id = ?
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$image, $userId]);
+    }
+
+    public function userProfile($userId){
+        $sql = "
+            SELECT 
+                u.id,
+                u.username,
+                u.image,
+                u.morada,
+                u.dt_nascimento,
+                u.dt_criacao,
+                u.pronomes,
+                u.ultimo_login,
+                COUNT(DISTINCT seguidores.id_seguidor) AS seguidores,
+                COUNT(DISTINCT seguindo.id_seguido)    AS seguindo
+                    
+            FROM utilizadores AS u
+            LEFT JOIN followship seguidores ON seguidores.id_seguido = u.id
+            LEFT JOIN followship seguindo   ON seguindo.id_seguidor = u.id
+            WHERE u.id = 1
+              AND u.is_verified = 1
+              AND u.verified_at IS NOT NULL
+            LIMIT 1;
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(1, $userId, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if(!$row) {
+            return false;
+        }
+    
+        return $row;
+    }
 }

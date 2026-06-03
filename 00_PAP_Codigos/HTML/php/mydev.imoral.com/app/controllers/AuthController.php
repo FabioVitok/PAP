@@ -1,5 +1,8 @@
 <?php
+
+require_once __DIR__ . '/../services/UploadService.php';
 require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../dao/EmailVerificationDAO.php';
 require_once __DIR__ . '/../config/jwtConfig.php'; 
 
@@ -32,13 +35,13 @@ class AuthController{
     var_dump($user->getPassword());
 
     if(password_verify($password, $user->getPassword())) {
-      var_dump("Password correta");
 
       $_SESSION['token'] = [
-        'id' => $user->getId(),
-        'username' => $user->getUsername(),
-        'email' => $user->getEmail(),
-        'is_admin' => $user->isAdmin()
+          'id' => $user->getId(),
+          'username' => $user->getUsername(),
+          'email' => $user->getEmail(),
+          'is_admin' => $user->isAdmin(),
+          'image' => $user->getImage()
       ];
 
       $_SESSION['toast'] = [
@@ -61,9 +64,6 @@ class AuthController{
   }
  
   public function signupWeb() {
-    /**
-     * @TODO Validar se existe user logado
-     */
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
@@ -78,13 +78,19 @@ class AuthController{
  
     // Verificar se email já existe
     $user = (new UserDAO())->findByEmail($email);
- 
-    var_dump($user);
+
     if($user) {
       throw new Exception("Email já existe");
     }
-    // User no estado pendente
-    $userId = (new UserDAO())->createPending($username, $email);
+
+    $userDAO = new UserDAO();
+    $userId = $userDAO->createPending($username, $email, null);
+
+    $caminhoImagem = null;
+    if (!empty($_FILES['image']['name'])) {
+        $caminhoImagem = (new UploadService())->upload($_FILES['image'], $userId);
+        $userDAO->updateImage($userId, $caminhoImagem);
+    }
    
     // Criar token de verificação
     $verDAO = new EmailVerificationDAO();

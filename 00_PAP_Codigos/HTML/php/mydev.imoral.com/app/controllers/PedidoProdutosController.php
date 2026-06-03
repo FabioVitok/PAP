@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../models/CarrinhoProdutos.php';
-require_once __DIR__ . '/../dao/CarrinhoProdutosDAO.php';
-require_once __DIR__ . '/../dao/CarrinhoDAO.php';
+require_once __DIR__ . '/../models/PedidoProdutos.php';
+require_once __DIR__ . '/../dao/PedidoProdutosDAO.php';
+require_once __DIR__ . '/../dao/PedidoDAO.php';
 require_once __DIR__ . '/../dao/ProductDAO.php';
  
-class CarrinhoProdutosController
+class PedidoProdutosController
 {
     private function view($name, $data = []){
         extract($data, EXTR_SKIP);
@@ -12,19 +12,19 @@ class CarrinhoProdutosController
         require __DIR__ . '/../../public/views/' . $name . '.php';
     }
 
-    public function findCarrinhoProdutosByUserId($userId) {
+    public function findPedidoProdutosByUserId($userId) {
         try{
-            $carrinhoProdutos = (new CarrinhoProdutosDAO())->findCarrinhoProdutosByUserId($userId);
+            $pedidoProdutos = (new PedidoProdutosDAO())->findPedidoProdutosByUserId($userId);
 
-             if(!$carrinhoProdutos) {
-                throw new Exception("CarrinhoProduto não encontrado.");
+             if(!$pedidoProdutos) {
+                throw new Exception("PedidoProduto não encontrado.");
             }
 
             $dataResponse = [
                 'success' => true,
                 'message' => "Operação realizada com sucesso",
                 'data'    => [
-                    'carrinho_produtos' => $carrinhoProdutos
+                    'pedido_produtos' => $pedidoProdutos
                 ]
             ];
 
@@ -41,7 +41,7 @@ class CarrinhoProdutosController
        }
     }
 
-    public function createCarrinhoProduto() {
+    public function createPedidoProduto() {
         try {
             $raw = file_get_contents("php://input");
             $data = json_decode($raw, true);
@@ -50,11 +50,11 @@ class CarrinhoProdutosController
                 throw new Exception("JSON invalido.");
             }
 
-            $id_carrinho = $data['id_carrinho'] ?? null;
+            $carrinho_id = $data['carrinho_id'] ?? null;
             $id_produto = $data['id_produto'] ?? null;
             $quantidade = $data['quantidade'] ?? null;
             
-            $carrinho = (new CarrinhoDAO())->findCarrinhoById($id_carrinho);
+            $carrinho = (new CarrinhoDAO())->findCarrinhoById($carrinho_id);
             if(!$carrinho) {
                 throw new Exception("Carrinho não encontrado.");
             }
@@ -69,7 +69,7 @@ class CarrinhoProdutosController
             }
 
             $carrinhoProduto = new CarrinhoProdutos();
-            $carrinhoProduto->setIdCarrinho($id_carrinho);
+            $carrinhoProduto->setIdCarrinho($carrinho_id);
             $carrinhoProduto->setIdProduto($id_produto);
             $carrinhoProduto->setQuantidade($quantidade);
 
@@ -94,31 +94,42 @@ class CarrinhoProdutosController
         }
     }
 
-    public function deleteCarrinhoProduto($carrinhoProdutoId) {
+    public function finalizarCompra() {
         try {
-            $user = AuthMiddlewareApi::getUser();
-            $result = (new CarrinhoProdutosDAO())->deleteCarrinhoProduto($carrinhoProdutoId, $user->id);
-    
-            if(!$result) {
-                throw new Exception("Erro ao deletar o produto do carrinho.");
+            $raw  = file_get_contents("php://input");
+            $data = json_decode($raw, true);
+
+            if (!is_array($data)) {
+                throw new Exception("JSON inválido.");
             }
-    
+
+            $carrinho_id = $data['carrinho_id'] ?? null;
+
+            if (!$carrinho_id) {
+                throw new Exception("carrinho_id é obrigatório.");
+            }
+
+            $idPedido = (new PedidoProdutosDAO())->finalizarCompra((int) $carrinho_id);
+
             $dataResponse = [
                 'success' => true,
-                'message' => "Produto deletado com sucesso do carrinho",
-                'data'    => []
+                'message' => "Compra finalizada com sucesso",
+                'data'    => [
+                    'id_pedido' => $idPedido
+                ]
             ];
-    
-            Utils::jsonResponse($dataResponse, 200);
-    
-        } catch(Exception $e) {
+
+            Utils::jsonResponse($dataResponse, 201);
+
+        } catch (Exception $e) {
             $dataResponse = [
                 'success' => false,
                 'message' => $e->getMessage(),
                 'data'    => []
             ];
-    
-            Utils::jsonResponse($dataResponse, 401);
+
+            Utils::jsonResponse($dataResponse, 400);
         }
     }
+
 }

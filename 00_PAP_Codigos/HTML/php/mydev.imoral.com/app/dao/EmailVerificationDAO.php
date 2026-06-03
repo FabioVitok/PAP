@@ -9,7 +9,7 @@ class EmailVerificationDAO {
     }
 
     public function createForUser($userId, $ttlSeconds = 300) {
-        $token = bin2hex(random_bytes(32) . round(microtime(true)) * 1000000);
+        $token = bin2hex(random_bytes(32)); // . round(microtime(true)) * 1000000);
         $tokenHash = hash('sha256', $token);
 
         $sql = "
