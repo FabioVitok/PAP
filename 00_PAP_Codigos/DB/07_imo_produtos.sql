@@ -1,60 +1,57 @@
 USE imo_system;
 
 DROP TABLE IF EXISTS produtos;
+DROP TABLE IF EXISTS produtos_pai;
 
-CREATE TABLE produtos (
+CREATE TABLE produtos_pai (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     tipo VARCHAR(30) NOT NULL,
     cor VARCHAR(30),
-    tamanho VARCHAR(10) NOT NULL,
     image VARCHAR(255),
-    stock SMALLINT UNSIGNED NOT NULL,
-    peso DECIMAL(5,2) UNSIGNED NOT NULL,
-    preco_venda DECIMAL(5,2) UNSIGNED NOT NULL,
-    preco_custo DECIMAL(5,2) UNSIGNED NOT NULL
-
+    preco_venda DECIMAL(5,2) UNSIGNED NOT NULL
 );
 
-INSERT INTO produtos(nome, tamanho, peso, tipo, cor, image, preco_venda, preco_custo, stock) VALUES
-('Pierced shoulder Off', "XS", '0.45' ,"Camisola", "Preto", "assets/images/products/pierced_shoulder_off.jpg", '15.00', '10.00', 10),
-('Pierced shoulder Off', "S", '0.50', "Camisola", "Preto", "assets/images/products/pierced_shoulder_off.jpg", '15.00', '10.10', 10),
-('Pierced shoulder Off', "M", '0.55', "Camisola", "Preto", "assets/images/products/pierced_shoulder_off.jpg", '15.00', '10.20', 10),
-('Pierced shoulder Off', "L", '0.60', "Camisola", "Preto", "assets/images/products/pierced_shoulder_off.jpg", '15.00', '10.30', 10),
-('Pierced shoulder Off', "XL", '0.65', "Camisola", "Preto", "assets/images/products/pierced_shoulder_off.jpg", '15.00', '10.40', 10),
-('Pierced shoulder Off', "XLL", '0.70', "Camisola", "Preto", "assets/images/products/pierced_shoulder_off.jpg", '15.00', '15.50', 10);
+CREATE TABLE produtos (
+    id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_produto_pai INT(11) UNSIGNED NOT NULL,
+    tamanho VARCHAR(10) NOT NULL,
+    stock SMALLINT UNSIGNED NOT NULL,
+    peso DECIMAL(5,2) UNSIGNED NOT NULL,
+    preco_custo DECIMAL(5,2) UNSIGNED NOT NULL,
+    FOREIGN KEY (id_produto_pai) REFERENCES produtos_pai(id)
+);
 
-INSERT INTO produtos(nome, tamanho, peso, tipo, cor, image, preco_venda, preco_custo, stock) VALUES
-('Flared distress Jeans', "36", '0.65', "Calças", "Preto", "assets/images/products/flared_distress_jeans.jpg", '29.99', '15.00', 10),
-('Flared distress Jeans', "38", '0.70', "Calças", "Preto", "assets/images/products/flared_distress_jeans.jpg", '29.99', '15.10', 10),
-('Flared distress Jeans', "40", '0.75', "Calças", "Preto", "assets/images/products/flared_distress_jeans.jpg", '29.99', '15.20', 10),
-('Flared distress Jeans', "42", '0.80', "Calças", "Preto", "assets/images/products/flared_distress_jeans.jpg", '29.99', '15.30', 10),
-('Flared distress Jeans', "44", '0.85', "Calças", "Preto", "assets/images/products/flared_distress_jeans.jpg", '29.99', '15.40', 10),
-('Flared distress Jeans', "46", '0.90', "Calças", "Preto", "assets/images/products/flared_distress_jeans.jpg", '29.99', '15.50', 10);
+-- produtos pai
+INSERT INTO produtos_pai (id, nome, tipo, cor, image, preco_venda) VALUES
+(1, 'Pierced shoulder Off', 'Camisola', 'Preto', 'assets/images/products/pierced_shoulder_off.jpg', 15.00),
+(2, 'Flared distress Jeans', 'Calças', 'Preto', 'assets/images/products/flared_distress_jeans.jpg', 29.99),
+(3, 'Distressed Scarf', 'Acessório', 'Preto', 'assets/images/products/distressed_scarf.jpg', 15.50),
+(4, 'Eyelet Lace Bag', 'Acessório', 'Preto', 'assets/images/products/eyelet_lace_bag.jpg', 25.99),
+(5, 'Snake Belt', 'Acessório', 'Preto', 'assets/images/products/snake_belt.jpg', 19.99),
+(6, 'Eyelet kerchief', 'Acessório', 'Preto', 'assets/images/products/eyelet_kerchief.jpg', 12.99);
 
-INSERT INTO produtos(nome, tamanho, peso, tipo, cor, image, preco_venda, preco_custo, stock) VALUES
-('Distressed Scarf', "Único", '0.20', "Acessório", "Preto", "assets/images/products/distressed_scarf.jpg", '15.50', '5.00', 10),
-('Eyelet Lace Bag', "Único", '0.20', "Acessório", "Preto", "assets/images/products/eyelet_lace_bag.jpg", '25.99', '15.00', 10),
-('Snake Belt', "Único", '0.15', "Acessório", "Preto", "assets/images/products/snake_belt.jpg", '19.99', '10.00', 10),
-('Eyelet kerchief', "Único", '0.10', "Acessório", "Preto", "assets/images/products/eyelet_kerchief.jpg", '12.99', '5.00', 10);
+-- pierced shoulder Off
+INSERT INTO produtos (id_produto_pai, tamanho, peso, preco_custo, stock) VALUES
+(1, 'XS', 0.45, 10.00, 10),
+(1, 'S',  0.50, 10.10, 10),
+(1, 'M',  0.55, 10.20, 10),
+(1, 'L',  0.60, 10.30, 10),
+(1, 'XL', 0.65, 10.40, 10),
+(1, 'XLL',0.70, 15.50, 10);
 
-INSERT INTO produtos(nome, tamanho, peso, tipo, cor, image, preco_venda, preco_custo, stock) VALUES
-('Pierced shoulder Off', "XS", '0.45' ,"Camisola", "Preto", "piercedshoulder", '15.00', '10.00', 10),
-('Pierced shoulder Off', "S", '0.50', "Camisola", "Preto", "piercedshoulder", '15.00', '10.10', 10),
-('Pierced shoulder Off', "M", '0.55', "Camisola", "Preto", "piercedshoulder", '15.00', '10.20', 10),
-('Pierced shoulder Off', "L", '0.60', "Camisola", "Preto", "piercedshoulder", '15.00', '10.30', 10),
-('Pierced shoulder Off', "XL", '0.65', "Camisola", "Preto", "piercedshoulder", '15.00', '10.40', 10),
-('Pierced shoulder Off', "XLL", '0.70', "Camisola", "Preto", "piercedshoulder", '15.00', '15.50', 10);
+-- flared distress Jeans
+INSERT INTO produtos (id_produto_pai, tamanho, peso, preco_custo, stock) VALUES
+(2, '36', 0.65, 15.00, 10),
+(2, '38', 0.70, 15.10, 10),
+(2, '40', 0.75, 15.20, 10),
+(2, '42', 0.80, 15.30, 10),
+(2, '44', 0.85, 15.40, 10),
+(2, '46', 0.90, 15.50, 10);
 
-INSERT INTO produtos(nome, tamanho, peso, tipo, cor, image, preco_venda, preco_custo, stock) VALUES
-('Flared distress Jeans', "36", '0.65',"Calças", "Preto", "flaredjeans", '29.99', '15.00', 10),
-('Flared distress Jeans', "38", '0.70', "Calças", "Preto", "flaredjeans", '29.99', '15.10', 10),
-('Flared distress Jeans', "40", '0.75', "Calças", "Preto", "flaredjeans", '29.99', '15.20', 10),
-('Flared distress Jeans', "42", '0.80', "Calças", "Preto", "flaredjeans", '29.99', '15.30', 10),
-('Flared distress Jeans', "44", '0.85', "Calças", "Preto", "flaredjeans", '29.99', '15.40', 10),
-('Flared distress Jeans', "46", '0.90', "Calças", "Preto", "flaredjeans", '29.99', '15.50', 10);
-
-INSERT INTO produtos(nome, tamanho, peso, tipo, cor, image, preco_venda, preco_custo, stock) VALUES
-('Eyelet Lace Bag', "Único", '0.20', "Acessório", "Preto", "eyeletbag", '25.99', '15.00', 10),
-('Snake Belt', "Único", '0.15', "Acessório", "Preto", "lacebelt", '19.99', '10.00', 10),
-('Eyelet kerchief', "Único", '0.10', "Acessório", "Preto", "eyeletkerchief", '12.99', '5.00', 10);
+-- acessórios
+INSERT INTO produtos (id_produto_pai, tamanho, peso, preco_custo, stock) VALUES
+(3, 'Único', 0.20, 5.00,  10),
+(4, 'Único', 0.20, 15.00, 10),
+(5, 'Único', 0.15, 10.00, 10),
+(6, 'Único', 0.10, 5.00,  10);
