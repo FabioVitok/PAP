@@ -49,7 +49,7 @@ else if ($uri === "/signup" && $method === 'POST') {
 else if ($uri === "/home" && $method === 'GET') {
   AuthMiddlewareApi::check();
 
-  $products = (new ProductController())->getAllProductsByName();
+  $products = (new ProductController())->getAllProductsPai();
 }
 
 else if (preg_match('#^\/products\/(\d+)$#', $uri, $matches) && $method === 'GET') {
@@ -57,6 +57,13 @@ else if (preg_match('#^\/products\/(\d+)$#', $uri, $matches) && $method === 'GET
     AuthMiddlewareApi::check();
 
     $product = (new ProductController())->findProductById($productId);
+}
+
+else if (preg_match('#^\/productspai\/(\d+)$#', $uri, $matches) && $method === 'GET') {
+    $productPaiId = $matches[1];
+    AuthMiddlewareApi::check();
+
+    $product = (new ProductController())->findProductPaiById($productPaiId);
 }
 
 else if (preg_match('#^\/users\/(\d+)$#', $uri, $matches) && $method === 'GET') {

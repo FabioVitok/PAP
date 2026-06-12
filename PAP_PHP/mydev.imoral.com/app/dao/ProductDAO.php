@@ -13,168 +13,95 @@ class ProductDAO {
 
     private function rowToProduct(array $row): Product {
         return new Product(
-            id:            (int)$row['id'],
-            nome:          $row['nome'],
-            tamanho:       $row['tamanho'],
-            peso:          (float)$row['peso'],
-            tipo:          $row['tipo'],
-            cor:           $row['cor'] ?? null,
-            image:         $row['image'] ?? '',
-            preco_venda:  (float)$row['preco_venda'],
-            preco_custo:  (float)$row['preco_custo'],
+            id:             (int)$row['id'],
+            id_produto_pai: (int)$row['id_produto_pai'],
+            tamanho:        $row['tamanho'],
+            peso:           (float)$row['peso'],
+            preco_custo:    (float)$row['preco_custo'],
             stock:          (int)$row['stock']
         );
     }
 
-    public function findProductById($productId){
-        $sql = "
-            SELECT 
-                produtos.id,
-                produtos.nome,
-                produtos.tamanho,
-                produtos.peso,
-                produtos.tipo,
-                produtos.cor,
-                produtos.preco_venda,
-                produtos.preco_custo,
-                produtos.stock
-            FROM produtos 
-            WHERE id = ?
-            LIMIT 1
-        ";
+    public function findById(int $id): Product|false {
+        $sql = "SELECT 
+                    id,
+                    id_produto_pai,
+                    tamanho,
+                    peso,
+                    preco_custo,
+                    stock
+                FROM produtos WHERE id = ? LIMIT 1";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(1, $productId, PDO::PARAM_INT);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
-    
+
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        if(!$row) {
-            return false;
-        }
-    
-        return $row;
+        if (!$row) return false;
+
+        return $this->rowToProduct($row);
     }
 
-    public function getProductsDao(): array {
-        $sql = "
-            SELECT 
-                produtos.id,
-                produtos.nome,
-                produtos.tamanho,
-                produtos.peso,
-                produtos.tipo,
-                produtos.cor,
-                produtos.preco_venda,
-                produtos.preco_custo,
-                produtos.stock
-            FROM produtos
-        ";
+    public function findByPaiId(int $id_produto_pai): array {
+        $sql = "SELECT 
+                    id,
+                    id_produto_pai,
+                    tamanho,
+                    peso,
+                    preco_custo,
+                    stock
+                FROM produtos WHERE id_produto_pai = ?";
 
         $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(1, $id_produto_pai, PDO::PARAM_INT);
         $stmt->execute();
 
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $products = [];
-
-        foreach($rows as $row) {
-            $products[] = $this->rowToProduct($row);
+        $variants = [];
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $variants[] = $this->rowToProduct($row);
         }
-
-        return $products;
+        return $variants;
     }
 
-
-    public function updateProduct($productId, $nome, $tamanho, $peso, $tipo, $cor, $preco_venda, $preco_custo, $stock): int {
+    public function updateProduct(int $id, string $tamanho, float $peso, float $preco_custo, int $stock): int {
         $sql = "
             UPDATE produtos 
-            SET nome = ?, tamanho = ?, peso = ?, tipo = ?, cor = ?, preco_venda = ?, preco_custo = ?, stock = ?, updated_at = NOW()
+            SET tamanho = ?, peso = ?, preco_custo = ?, stock = ?
             WHERE id = ?
         ";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$nome, $tamanho, $peso, $tipo, $cor, $preco_venda, $preco_custo, $stock, $productId]);
+        $stmt->execute([$tamanho, $peso, $preco_custo, $stock, $id]);
         return $stmt->rowCount();
     }
- 
-    public function arrayProductsDAO() {
-    $sql = "
-        SELECT
-            produtos.id,
-            produtos.nome,
-            produtos.tamanho,
-            produtos.peso,
-            produtos.tipo,
-            produtos.cor,
-            produtos.image,
-            produtos.preco_venda,
-            produtos.preco_custo,
-            produtos.stock
-        FROM produtos;
-    ";
- 
-    $stmt = $this->conn->prepare($sql);
- 
-    $stmt->execute();
- 
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
- 
-    return $rows;
-  }
 
-  public function countProducts(){
-    $sql = "
-        SELECT COUNT(*) as num_products 
-        FROM produtos;
-    ";
+    public function productsRevenue(int $productId): int {
+        $sql = "
+            SELECT SUM(pp.preco_venda * cp.quantidade) AS receita
+            FROM carrinho_produtos AS cp
+            INNER JOIN produtos AS p ON cp.id_produto = p.id
+            INNER JOIN produtos_pai AS pp ON p.id_produto_pai = pp.id
+            INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
+            WHERE p.id = ?
+            GROUP BY p.id
+        ";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute();
-    return (int)$stmt->fetchColumn();
-  }
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$productId]);
+        return (int)$stmt->fetchColumn();
+    }
 
-  public function productsRevenue($productId): int {
-    $sql = "
-        SELECT SUM(p.preco_venda * cp.quantidade) AS receita
-        FROM carrinho_produtos AS cp
-        INNER JOIN produtos AS p ON cp.id_produto = p.id
-        INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
-        WHERE p.id = ?
-        GROUP BY p.id
-    ";
+    public function productsSales(int $productId): int {
+        $sql = "
+            SELECT SUM(cp.quantidade) AS total_vendido
+            FROM carrinho_produtos AS cp
+            INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
+            WHERE cp.id_produto = ?
+            GROUP BY cp.id_produto
+        ";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute([$productId]);
-    return (int)$stmt->fetchColumn();
-  }
-
-  public function productsSales($productId): int {
-    $sql = "
-        SELECT SUM(cp.quantidade) AS total_vendido
-        FROM carrinho_produtos AS cp
-        INNER JOIN produtos AS p ON cp.id_produto = p.id
-        INNER JOIN pedidos AS pe ON cp.id_carrinho = pe.id_carrinho
-        WHERE p.id = ?
-        GROUP BY p.id
-    ";
-
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute([$productId]);
-    return (int)$stmt->fetchColumn();
-  }
-
-  public function getAllProductsByName(): array {
-    $sql = "
-    SELECT nome, preco_venda, image
-    FROM produtos
-    GROUP BY nome, preco_venda, image;
-    ";
-
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute();
-
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $rows;
-  }
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$productId]);
+        return (int)$stmt->fetchColumn();
+    }
 }

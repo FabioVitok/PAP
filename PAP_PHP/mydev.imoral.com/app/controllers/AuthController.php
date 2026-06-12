@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../services/UploadService.php';
+require_once __DIR__ . '/../services/Mailer.php';
 require_once __DIR__ . '/../dao/UserDAO.php';
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../dao/EmailVerificationDAO.php';
@@ -239,50 +240,75 @@ class AuthController{
     }
   }
 
-  public function signupApi() {
+public function signupApi() {
     try {
+        $raw = file_get_contents("php://input");
+        $data = json_decode($raw, true);
+
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             throw new Exception('Método não permitido');
         }
- 
-        if (count($_POST) != 4) {
+
+        if (!is_array($data) || count($data) < 4) {
             throw new Exception('Dados insuficientes');
         }
- 
-        if (!isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password'])) {
+
+        if (!isset($data['username'], $data['email'], $data['password'], $data['confirm_password'])) {
             throw new Exception('Dados insuficientes. Todos os campos são obrigatórios');
         }
- 
-        $email           = trim($_POST['email']);
-        $username        = trim($_POST['username']);
-        $password        = trim($_POST['password']);
-        $confirmPassword = trim($_POST['confirm_password']);
+
+        $email           = trim($data['email']);
+        $username        = trim($data['username']);
+        $password        = trim($data['password']);
+        $confirmPassword = trim($data['confirm_password']);
  
         if ($username === '' || $email === '' || $password === '' || $confirmPassword === '') {
             throw new Exception('Todos os campos são obrigatórios');
         }
+
+        // verificar se email já existe
+        $user = (new UserDAO())->findByEmail($email);
+ 
+        if($user) {
+          throw new Exception("Email já existe");
+        }
  
         if ($password !== $confirmPassword) {
-            throw new Exception('As passwords não coincidem');
+          throw new Exception('As passwords não coincidem');
         }
-
+ 
         $userDAO = new UserDAO();
+        $userId = $userDAO->createPending($username, $email, null);
+        $caminhoImagem = null;
 
-        if ($userDAO->findByEmail($email)) {
-            throw new Exception('Erro ao criar conta: Email já existe');
+        if (!empty($_FILES['image']['name'])) {
+            $caminhoImagem = (new UploadService())->upload($_FILES['image'], $userId);
+            $userDAO->updateImage($userId, $caminhoImagem);
         }
+ 
+        $verDAO = new EmailVerificationDAO();
+        $token = $verDAO->createForUser($userId, 300);
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $baseUrl = $scheme . '://' . $host;
+        $link = $baseUrl . "/verify-email?token=" . urlencode($token);
+        $subject = "Verifica o teu email (expira em 5 min)";
+        $html = "
+<div style='font-family: Arial, sans-serif;'>
+<h2>Olá, " . htmlspecialchars($username . $userId) . "!</h2>
+<p>Para ativares a tua conta e definires a tua password, clica no link abaixo (válido por <b>5 minutos</b>):</p>
+<p><a href='{$link}'>{$link}</a></p>
+<p>Se o link expirar, faz signup novamente (ou pede reenvio do link).</p>
+</div>
 
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-        // para passar a password sem o fluxo de verificação por email
-        $userId = $userDAO->createPending($username, $email);
-        $userDAO->setPasswordAndVerify($userId, $passwordHash);
-
+            ";
+ 
+        (new Mailer())->send($email, $subject, $html);
         echo json_encode([
             'success' => true,
             'message' => 'Conta criada com sucesso. Já podes fazer login.',
         ]);
-
+ 
     } catch (Exception $e) {
         echo json_encode([
             'success' => false,

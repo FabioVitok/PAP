@@ -17,7 +17,6 @@ class PostDAO {
         id_utilizador: (int)$row['id_utilizador'],
         dt_postagem:   $row['dt_postagem'],
         texto_post:    $row['texto_post'],
-        like_count:    (int)$row['like_count'],
         username:      $row['username'] ?? null,
         image:         $row['image'] ?? null,
         comment_count: (int)($row['comment_count'] ?? 0) 
@@ -33,9 +32,10 @@ class PostDAO {
             u.image,
             p.dt_postagem,
             p.texto_post,
-            p.like_count,
+            COUNT(pl.id) as like_count,
             COUNT(c.id) as comment_count
         FROM posts as p
+        INNER JOIN post_likes as pl ON pl.id_post = p.id
         INNER JOIN utilizadores as u ON p.id_utilizador = u.id
         LEFT JOIN comentarios as c ON c.id_post = p.id
         WHERE p.id = ?
@@ -66,9 +66,10 @@ class PostDAO {
             u.image,
             p.dt_postagem,
             p.texto_post,
-            p.like_count,
+            COUNT(pl.id) as like_count,
             COUNT(c.id) as comment_count
         FROM posts as p
+        INNER JOIN post_likes as pl ON pl.id_post = p.id
         INNER JOIN utilizadores as u ON p.id_utilizador = u.id
         LEFT JOIN comentarios as c ON c.id_post = p.id
         GROUP BY p.id
@@ -97,8 +98,9 @@ class PostDAO {
                 u.image,
                 p.dt_postagem,
                 p.texto_post,
-                p.like_count
+                COUNT(pl.id) as like_count,
             FROM posts as p
+            INNER JOIN post_likes as pl ON pl.id_post = p.id
             INNER JOIN utilizadores as u ON p.id_utilizador = u.id
         ";
 

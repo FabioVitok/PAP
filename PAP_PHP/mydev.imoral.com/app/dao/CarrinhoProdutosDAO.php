@@ -53,11 +53,12 @@ class CarrinhoProdutosDAO {
                 carrinho_produtos.id_carrinho AS id_carrinho,
                 carrinho_produtos.id_produto AS id_produto,
                 carrinho_produtos.quantidade,
-                produtos.nome,
+                produtos_pai.nome,
                 produtos.tamanho,
-                produtos.preco_venda
+                produtos_pai.preco_venda
             FROM carrinho_produtos
             INNER JOIN produtos ON carrinho_produtos.id_produto = produtos.id
+            INNER JOIN produtos_pai ON produtos.id_produto_pai = produtos_pai.id
             INNER JOIN carrinhos ON carrinho_produtos.id_carrinho = carrinhos.id
             INNER JOIN utilizadores ON carrinhos.id_utilizador = utilizadores.id
             WHERE carrinhos.id_utilizador = ?;
