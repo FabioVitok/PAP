@@ -7,6 +7,9 @@ CREATE TABLE posts (
     id_utilizador INT(11) UNSIGNED NOT NULL,
     dt_postagem DATETIME NOT NULL,
     texto_post VARCHAR(1000) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL DEFAULT NULL,
     FOREIGN KEY (id_utilizador) REFERENCES utilizadores(id)
 );
 

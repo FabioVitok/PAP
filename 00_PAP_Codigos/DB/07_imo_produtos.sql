@@ -23,14 +23,14 @@ CREATE TABLE produtos (
 );
 
 -- produtos pai
-INSERT INTO produtos_pai (id, nome, tipo, cor, image, preco_venda) VALUES
-(1, 'Pierced shoulder Off', 'Camisola', 'Preto', 'assets/images/products/piercedshoulder.png', 20.00),
-(2, 'Flared distress Jeans', 'Calças', 'Preto', 'assets/images/products/flaredjeans.png', 29.99),
-(3, 'Distressed Scarf', 'Acessório', 'Preto', 'assets/images/products/distressed_scarf.jpg', 15.50),
-(4, 'Eyelet Lace Bag', 'Acessório', 'Preto', 'assets/images/products/eyeletbag.png', 25.99),
-(5, 'Snake Belt', 'Acessório', 'Preto', 'assets/images/products/lacebelt.png', 19.99),
-(6, 'Eyelet kerchief', 'Acessório', 'Preto', 'assets/images/products/eyelet_kerchief.png', 12.99),
-(7, 'pierced shirt', 'Camisola', 'Preto', 'assets/images/products/piercedshirt.png', 15.00);
+INSERT INTO produtos_pai (nome, tipo, cor, image, preco_venda) VALUES
+('Pierced shoulder Off', 'Camisola', 'Preto', 'assets/images/products/piercedshoulder.png', 20.00),
+('Flared distress Jeans', 'Calças', 'Preto', 'assets/images/products/flaredjeans.png', 29.99),
+('Distressed Scarf', 'Acessório', 'Preto', 'assets/images/products/distressed_scarf.jpg', 15.50),
+('Eyelet Lace Bag', 'Acessório', 'Preto', 'assets/images/products/eyeletbag.png', 25.99),
+('Snake Belt', 'Acessório', 'Preto', 'assets/images/products/lacebelt.png', 19.99),
+('Eyelet kerchief', 'Acessório', 'Preto', 'assets/images/products/eyelet_kerchief.png', 12.99),
+('Pierced shirt', 'Camisola', 'Preto', 'assets/images/products/piercedshirt.png', 15.00);
 
 -- pierced shoulder Off
 INSERT INTO produtos (id_produto_pai, tamanho, peso, preco_custo, stock) VALUES

@@ -20,7 +20,7 @@ require_once __DIR__ . '/../../app/dao/ProductDAO.php';
 $userDAO = new UserDAO();
 $users = $userDAO->arrayUsersDAO(); 
 
-$camposvisiveis = ['image_id', 'id', 'username', 'email', 'is_admin', 'created_at'];
+$camposvisiveis = ['image', 'id', 'username', 'email', 'is_admin', 'created_at'];
 $camposEditaveis = ['username', 'email'];
 
 $productDAO = new ProductDAO();
@@ -180,7 +180,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
         <!-- end-topbar -->
         <!-- Conteúdo principal -->
         <div id="mainPage" class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="margin-left: 300px;">
-            <div class="tab-content">
+            <div class="tab-content" id="mainTabContent">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel" style="margin-left: 70px;">
                     <h1 class="text-center mt-5">Dashboard</h1>
                     <p class="text-center">Here you can manage the main aspects of your business.</p>
@@ -1732,7 +1732,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
             </tr>`;
         
         const editIndex = this.dataset.editLinha;
-        const tbody = document.getElementById('corpoTabelaProduct');
+        const tbody = document.getElementById('corpoTabelaProductsDB');
         
         if (editIndex !== undefined && editIndex !== '') {
             // UPDATE - substitui a linha existente
@@ -1754,7 +1754,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
     });
 
     // ---- Script de UPDATE e DELETE de Produtos ----
-    document.getElementById('corpoTabelaProduct').addEventListener('click', function(e) {
+    document.getElementById('corpoTabelaProductsDB').addEventListener('click', function(e) {
         const linha = e.target.closest('tr');
 
         // DELETE
@@ -1778,7 +1778,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
         
             // Guarda referência à linha para atualizar depois
             document.getElementById('btnSalvarProduct').dataset.editLinha = Array.from(
-                document.getElementById('corpoTabelaProduct').rows
+                document.getElementById('corpoTabelaProductsDB').rows
             ).indexOf(linha);
         
             bootstrap.Modal.getOrCreateInstance(document.getElementById('insertProductModal')).show();
@@ -1818,7 +1818,7 @@ $camposEditaveisProdutos = ['nome', 'tamanho', 'peso', 'tipo', 'cor', 'preco_ven
         const revenueMin = parseFloat(document.getElementById('filterRevenueMin').value) || 0;
         const revenueMax = parseFloat(document.getElementById('filterRevenueMax').value) || Infinity;
     
-        const linhas = document.querySelectorAll('#corpoTabelaProduct tr');
+        const linhas = document.querySelectorAll('#corpoTabelaProductsDB tr');
     
         linhas.forEach(function(linha) {
             const productName = linha.cells[2]?.textContent.toLowerCase() || '';
