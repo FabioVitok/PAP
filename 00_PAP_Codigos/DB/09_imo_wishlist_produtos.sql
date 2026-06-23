@@ -5,12 +5,13 @@ DROP TABLE IF EXISTS wishlist_produtos;
 CREATE TABLE wishlist_produtos (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_wishlist INT(11) UNSIGNED NOT NULL,
-    id_produto INT(11) UNSIGNED NOT NULL,
+    id_produtopai INT(11) UNSIGNED NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_wishlist) REFERENCES wishlists(id),
-    FOREIGN KEY (id_produto) REFERENCES produtos(id)
+    FOREIGN KEY (id_produtopai) REFERENCES produtos(id)
 );
 
-INSERT INTO wishlist_produtos(id_wishlist, id_produto) VALUES
+INSERT INTO wishlist_produtos(id_wishlist, id_produtopai) VALUES
 (1, 1),
 (1, 2),
 (2, 3),
@@ -22,7 +23,7 @@ INSERT INTO wishlist_produtos(id_wishlist, id_produto) VALUES
 (7, 8),
 (5, 9);
 
-INSERT INTO wishlist_produtos(id_wishlist, id_produto) VALUES
+INSERT INTO wishlist_produtos(id_wishlist, id_produtopai) VALUES
 (10, 1),
 (10, 2),
 (12, 3),
