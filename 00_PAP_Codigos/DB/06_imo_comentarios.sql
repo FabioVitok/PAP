@@ -27,12 +27,12 @@ CREATE TABLE comentario_likes (
 );
 
 INSERT INTO comentarios (id_post, id_utilizador, id_comentario_pai, texto_comentario) VALUES
-(1, 2, NULL, '2024-06-01 11:00:00', 'Tenho que exprimentar com rick owens também'),
-(1, 3, 1, '2024-06-01 11:30:00', 'Ficou mesmo bem'),
-(2, 1, NULL, '2024-06-02 13:00:00', 'Quase um cosplay lmaoo'),
-(3, 2, NULL, '2024-06-03 16:00:00', 'Eu vou ya, este ano foi bom? Não consegui ir'),
-(3, 3, 4, '2024-06-03 16:30:00', 'Eu fui e teve uns runways bons'),
-(6, 2, NULL, '2024-06-06 19:00:00', 'O sonic blast é sempre top, o lineup deste ano está brutal');
+(1, 2, NULL, 'Tenho que exprimentar com rick owens também'),
+(1, 3, 1, 'Ficou mesmo bem'),
+(2, 1, NULL, 'Quase um cosplay lmaoo'),
+(3, 2, NULL, 'Eu vou ya, este ano foi bom? Não consegui ir'),
+(3, 3, 4, 'Eu fui e teve uns runways bons'),
+(6, 2, NULL, 'O sonic blast é sempre top, o lineup deste ano está brutal');
 
 INSERT INTO comentario_likes (id_comentario, id_utilizador, created_at) VALUES
 (1, 2, '2024-06-01 11:00:00'),
