@@ -1,8 +1,10 @@
 package com.example.imoral.models;
+
 public class Utilizador
 {
     private int id;
-    private String nome;
+
+    private String username;
     private String email;
     private String image;
     private String role;
@@ -14,7 +16,7 @@ public class Utilizador
     public Utilizador(int id, String nome, String email, String image, String role, String telefone, String password, String morada, String dtNascimento )
     {
         this.id = id;
-        this.nome = nome;
+        this.username = nome;
         this.email = email;
         this.image = image;
         this.role = role;
@@ -28,15 +30,15 @@ public class Utilizador
     {
         return this.id;
     }
-    
+
     public String getUsername()
     {
-        return this.nome;
+        return this.username;
     }
     
-    public void setNome(String nome)
+    public void setUsername(String username)
     {
-        this.nome = nome;
+        this.username = username;
     }
     
     public String getEmail()
@@ -108,4 +110,5 @@ public class Utilizador
     {
         this.dtNascimento = dtNascimento;
     }
+
 }

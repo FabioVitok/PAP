@@ -5,12 +5,13 @@ public class Wishlist
     private int id;
     private Utilizador user;
     HashMap<String, Produto> produtos;
-    public Wishlist(int id, Utilizador user){
-        this.id = id;
-        this.user = user;
-        this.produtos = new HashMap<>();
+    public Wishlist(){
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
     public Utilizador getUser()
     {
         return this.user;

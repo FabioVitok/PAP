@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void updateDrawState(@NonNull TextPaint textPaint) {
                 super.updateDrawState(textPaint);
-                textPaint.setColor(Color.WHITE); // coloca cor azul
+                textPaint.setColor(Color.WHITE);
                 textPaint.setUnderlineText(true); // Coloca o sublinhado
             }
         };
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Toast.makeText(LoginActivity.this, "Erro: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
 
             @Override
@@ -147,20 +147,19 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResponse loginResponse = gson.fromJson(responseBody, LoginResponse.class);
 
                     runOnUiThread(() -> {
-                        Toast.makeText(LoginActivity.this, "Code: " + statusCode + "\n" + loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
-
                         if (response.isSuccessful() && loginResponse != null && loginResponse.isSuccess()) {
                             SharedPreferences prefs = getSharedPreferences("app_session", MODE_PRIVATE);
                             SharedPreferences.Editor editor = prefs.edit();
                             editor.putString("jwt", loginResponse.getData().getJwt());
                             editor.putInt("user_id", loginResponse.getData().getUser().getId());
                             editor.putString("username", loginResponse.getData().getUser().getUsername());
+                            editor.putString("image", loginResponse.getData().getUser().getImage());
                             editor.putString("email", loginResponse.getData().getUser().getEmail());
+                            editor.putInt("carrinho_id", loginResponse.getData().getCarrinho().getId());
+                            editor.putInt("wishlist_id", loginResponse.getData().getWishlist().getId());
                             editor.apply();
 
                             Toast.makeText(LoginActivity.this, "Login com sucesso", Toast.LENGTH_SHORT).show();
-
-                            // Exemplo: navegar para MainActivity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -170,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                     });
 
                 } catch (Exception e) {
-                    Toast.makeText(LoginActivity.this, "\"Erro ao processar resposta:\\n\" + responseBody", Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Erro ao processar resposta:\n" + responseBody, Toast.LENGTH_SHORT).show());
                 }
             }
         });

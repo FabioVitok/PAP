@@ -1,5 +1,6 @@
 package com.example.imoral.adapters;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.imoral.ProdutosActivity;
+import com.bumptech.glide.Glide;
+import com.example.imoral.ProdutoActivity;
 import com.example.imoral.R;
 import com.example.imoral.models.ImageHelper;
 import com.example.imoral.models.ProdutoPai;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import utils.ApiConfig;
 
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder> {
 
@@ -32,10 +36,6 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
         notifyDataSetChanged();
     }
 
-    /*public ProdutoAdapter(List<ProdutoPai> Produtos, OnItemClickListener listener) {
-        this.Produtos = Produtos;
-        this.listener = listener;
-    } */
 
     @NonNull
     @Override
@@ -48,17 +48,22 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
     @Override
     public void onBindViewHolder(@NonNull ProdutoViewHolder holder, int position) {
         ProdutoPai ProdutoPai = Produtos.get(position);
-        int image = ImageHelper.getDrawableResourceId(holder.itemView.getContext(), ProdutoPai.getImage());
 
-        holder.ivImage.setImageResource(image);
+        Log.d("IMG_URL", ApiConfig.BASE_URL + "/" +ProdutoPai.getImage());
+
+        Glide.with(holder.itemView.getContext())
+                .load(ApiConfig.BASE_URL + "/" +ProdutoPai.getImage())
+                .into(holder.ivImage);
+
+
+        //holder.ivImage.setImageResource(image);
         holder.tvName.setText(ProdutoPai.getNome());
         String preco = Double.toString(ProdutoPai.getPreco_venda());
         holder.tvPrice.setText(preco);
 
         holder.itemView.setOnClickListener(v -> {
-            Intent i = new Intent(v.getContext(), ProdutosActivity.class);
-            i.putExtra("prodNome", ProdutoPai.getNome());
-            i.putExtra("prodImg",image);
+            Intent i = new Intent(v.getContext(), ProdutoActivity.class);
+            i.putExtra("ProdutoPai", ProdutoPai);
             v.getContext().startActivity(i);
         });
     }

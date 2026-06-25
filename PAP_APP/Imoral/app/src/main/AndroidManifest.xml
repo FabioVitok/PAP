@@ -13,12 +13,28 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Imoral">
+        android:theme="@style/Theme.Imoral"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".EntregaBottomSheet"
+            android:exported="false" />
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".models.Size.WishlistActivity"
+            android:exported="false" />
         <activity
             android:name=".ForumActivity"
             android:exported="false" />
         <activity
-            android:name=".ProdutosActivity"
+            android:name=".PostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProdutoActivity"
             android:exported="false" />
         <activity
             android:name=".CarrinhoActivity"

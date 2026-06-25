@@ -119,20 +119,23 @@
 
             <!-- Size chip / button -->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/buttonLogin"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTamanhos"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:background="@drawable/blackbutton_background"
-                    android:text="Tamanho unico"
-                    app:backgroundTint="@null"/>
+                    android:layout_weight="1"
+                    android:paddingTop="4dp"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingEnd="32dp"
+                    android:overScrollMode="never"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    />
 
             </LinearLayout>
         </LinearLayout>
@@ -227,7 +230,6 @@
     </ScrollView>
 
 
-    <!-- FOOTER FIXO NO FUNDO -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -238,18 +240,49 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#000000"
-        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingTop="10dp"
+        >
 
         <ImageButton
-            android:id="@+id/imageButtonHome"
-            android:layout_width="wrap_content"
+            android:id="@+id/imageButtonForum"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:background="@color/black"
-            app:srcCompat="@drawable/home_24" />
+            app:srcCompat="@drawable/web_50" />
+        <ImageButton
+            android:id="@+id/imageButtonHome2"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            app:srcCompat="@drawable/search_50" />
+        <ImageButton
+            android:id="@+id/imageButtonHome3"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            app:srcCompat="@drawable/home_50" />
+
+        <ImageButton
+            android:id="@+id/imageButtonHome4"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            app:srcCompat="@drawable/cart_50" />
+
+        <ImageButton
+            android:id="@+id/imageButtonHome5"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            app:srcCompat="@drawable/user_50" />
+
+
     </LinearLayout>
 
 </LinearLayout>

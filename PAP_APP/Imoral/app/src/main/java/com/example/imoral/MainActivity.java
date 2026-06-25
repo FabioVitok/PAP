@@ -10,11 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.imoral.models.Acessorio;
+
 import com.example.imoral.models.Home.HomeResponse;
-import com.example.imoral.models.Produto;
 import com.example.imoral.models.ProdutoPai;
-import com.example.imoral.models.Roupa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +20,12 @@ import java.util.List;
 import com.example.imoral.adapters.ProdutoAdapter;
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import utils.ApiConfig;
 public class MainActivity extends AppCompatActivity {
@@ -42,14 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private ProdutoAdapter produtoAdapter;
     private RecyclerView rvProdutos;
     private ImageButton imageButtonForum;
+    private ImageButton imageButtonCarrinho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-       this.rvProdutos = findViewById(R.id.rvProducts);
         setupProdutosList();
         CarregarProdutos();
 
@@ -62,10 +56,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+
+
+        imageButtonCarrinho = findViewById(R.id.imageButtonCarrinho);
+        imageButtonCarrinho.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, CarrinhoActivity.class);
+            startActivity(intent);
+        }
+    });
+
+}
 
     private void setupProdutosList() {
         produtoAdapter = new ProdutoAdapter();
+        rvProdutos = findViewById(R.id.rvProducts);
         rvProdutos.setLayoutManager(new GridLayoutManager(this, 2));
         rvProdutos.setAdapter(produtoAdapter);
     }

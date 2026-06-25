@@ -9,7 +9,6 @@ CREATE TABLE comentarios (
     id_comentario_pai INT(11) UNSIGNED,
     dt_comentario DATETIME NOT NULL,
     texto_comentario VARCHAR(500) NOT NULL,
-    like_count INT DEFAULT 0,
     FOREIGN KEY (id_post) REFERENCES posts(id),
     FOREIGN KEY (id_utilizador) REFERENCES utilizadores(id),
     FOREIGN KEY (id_comentario_pai) REFERENCES comentarios(id)

@@ -1,21 +1,30 @@
 package com.example.imoral.models;
 public class ProdutoCarrinho
 {
-    private Produto produto;
-    private int quantidade;
-    private boolean selecionado;
+    int id;
+    int id_carrinho;
+    int id_produto;
+    int quantidade;
+    String nome;
+    String image;
+    String tamanho;
+    double preco_venda;
     
-    public ProdutoCarrinho(Produto produto, int quantidade)
-    {
-        this.produto = produto;
-        this.quantidade = quantidade;
+    public ProdutoCarrinho() {}
+
+
+    public int getId() {
+        return id;
     }
-    
-    public Produto getProduto()
-    {
-        return this.produto;
+
+    public int getIdCarrinho() {
+        return id_carrinho;
     }
-    
+
+    public int getIdProduto() {
+        return id_produto;
+    }
+
     public int getQuantidade()
     {
         return this.quantidade;
@@ -25,14 +34,20 @@ public class ProdutoCarrinho
     {
         this.quantidade = quantidade;
     }
-    
-    public boolean getSelecionado()
-    {
-        return this.selecionado;
+
+    public String getNome() {
+        return nome;
     }
-    
-    public void setSelecionado(boolean selecionado)
-    {
-        this.selecionado = selecionado;
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getTamanho() {
+        return tamanho;
+    }
+
+    public double getPrecoVenda() {
+        return preco_venda;
     }
 }
