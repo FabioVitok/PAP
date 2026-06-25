@@ -39,12 +39,14 @@
             "id": "e5b57dc65432d8be",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.11.4"
+                "file": "Inicio Pap.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.11.4"
+              "icon": "lucide-file",
+              "title": "Inicio Pap"
             }
           }
         ],

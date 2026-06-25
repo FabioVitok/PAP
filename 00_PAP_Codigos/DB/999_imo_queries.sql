@@ -296,3 +296,14 @@ WHERE u.id = 1
   AND u.is_verified = 1
   AND u.verified_at IS NOT NULL
 LIMIT 1;
+
+
+    Select p.id,
+    p.id_produto_pai,
+    p.tamanho,
+    p.peso,
+    p.preco_custo,
+    p.stock
+    FROM produtos AS p
+    INNER JOIN produtos_pai ON p.id = produtos_pai.id
+    WHERE p.id_produto_pai = ?

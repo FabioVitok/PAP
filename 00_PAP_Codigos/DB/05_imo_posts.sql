@@ -13,6 +13,8 @@ CREATE TABLE posts (
     FOREIGN KEY (id_utilizador) REFERENCES utilizadores(id)
 );
 
+DROP TABLE IF EXISTS post_likes;
+
 CREATE TABLE post_likes (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_post INT(11) UNSIGNED NOT NULL,
