@@ -9,6 +9,7 @@ CREATE TABLE wishlist_produtos (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_wishlist) REFERENCES wishlists(id),
     FOREIGN KEY (id_produtopai) REFERENCES produtos(id)
+    UNIQUE KEY uq_wishlist_produto (id_wishlist, id_produtopai)
 );
 
 INSERT INTO wishlist_produtos(id_wishlist, id_produtopai) VALUES
