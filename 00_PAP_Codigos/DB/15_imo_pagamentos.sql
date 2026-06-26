@@ -8,12 +8,12 @@ CREATE TABLE pagamentos (
     id_pedido INT(11) UNSIGNED NOT NULL,
     metodo_pagamento VARCHAR(50) NOT NULL,
     valor DECIMAL(10, 2) NOT NULL,
-    data_pagamento DATETIME NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_utilizador) REFERENCES utilizadores(id),
     FOREIGN KEY (id_pedido) REFERENCES pedidos(id)
 );
 
-INSERT INTO pagamentos(id_utilizador, id_pedido, metodo_pagamento, valor, data_pagamento) VALUES
+INSERT INTO pagamentos(id_utilizador, id_pedido, metodo_pagamento, valor, created_at) VALUES
 (3, 1, 'Cartão de Crédito', 100.00, '2024-03-01 10:00:00'),
 (7, 2, 'PayPal', 150.00, '2024-04-01 10:05:00'),
 (4, 3, 'Transferência Bancária', 200.00, '2024-04-03 12:00:00'),
