@@ -1,6 +1,8 @@
 package com.example.imoral.adapters;
 
 import android.content.Intent;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.imoral.PostActivity;
-import com.example.imoral.ProdutosActivity;
+import com.example.imoral.ProdutoActivity;
 import com.example.imoral.R;
 import com.example.imoral.models.ImageHelper;
 import com.example.imoral.models.Post;
@@ -20,14 +23,12 @@ import com.example.imoral.models.Utilizador;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.ApiConfig;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
-    /* public interface OnItemClickListener {
-        void onItemClick(Produto Produto);
-    } */
 
     private List<Post> Posts = new ArrayList<>();
-    //private OnItemClickListener listener;
 
     public void submitList(List<Post> newPosts) {
         if (newPosts == null) return;
@@ -35,11 +36,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         this.Posts.addAll(newPosts);
         notifyDataSetChanged();
     }
-
-    /*public ProdutoAdapter(List<ProdutoPai> Produtos, OnItemClickListener listener) {
-        this.Produtos = Produtos;
-        this.listener = listener;
-    } */
 
     @NonNull
     @Override
@@ -51,19 +47,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.PostViewHolder holder, int position) {
-        Post Post =  Posts.get(position);
-        int image = ImageHelper.getDrawableResourceId(holder.itemView.getContext(), Post.getUser().getImage());
+        Post post = Posts.get(position);
 
-        holder.ivProfilePicture.setImageResource(image);
-        holder.tvUsername.setText(Post.getUser().getUsername());
-        holder.tvData.setText(Post.getDtPostagem());
-        holder.tvTexto.setText(Post.getTextoPost());
-        holder.tvLikeCount.setText(String.valueOf(Post.getLikeCount()));
+        Log.d("IMG_URL", ApiConfig.BASE_URL + "/" + post.getImage());
+
+        Glide.with(holder.itemView.getContext())
+                .load(ApiConfig.BASE_URL + "/" + post.getImage())
+                .into(holder.ivProfilePicture);
+
+        holder.tvUsername.setText(post.getUsername());
+        holder.tvData.setText(post.getDt_postagem());
+        holder.tvTexto.setText(post.getTexto_post());
+        holder.tvLikeCount.setText(String.valueOf(post.getLike_count()));
+        holder.tvCommentCount.setText(String.valueOf(post.getComment_count()));
 
         holder.itemView.setOnClickListener(v -> {
             Intent i = new Intent(v.getContext(), PostActivity.class);
-            i.putExtra("posttexto", Post.getTextoPost());
-            i.putExtra("prodImg",image);
+            i.putExtra("post", post);
             v.getContext().startActivity(i);
         });
     }
@@ -80,6 +80,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         TextView tvData;
         TextView tvTexto;
         TextView tvLikeCount;
+        TextView tvCommentCount;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +89,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             tvData  = itemView.findViewById(R.id.tvData);
             tvTexto  = itemView.findViewById(R.id.tvTexto);
             tvLikeCount  = itemView.findViewById(R.id.tvLikeCount);
+            tvCommentCount  = itemView.findViewById(R.id.tvCommentCount);
         }
     }
 }

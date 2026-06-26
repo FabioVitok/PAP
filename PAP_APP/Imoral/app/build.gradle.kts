@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp)
+    implementation(libs.glide)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -44,4 +45,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    annotationProcessor(libs.glide.compiler)
+
 }

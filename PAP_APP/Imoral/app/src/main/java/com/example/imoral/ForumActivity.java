@@ -1,50 +1,166 @@
 package com.example.imoral;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.imoral.adapters.PostAdapter;
-import com.example.imoral.adapters.ProdutoAdapter;
-import com.example.imoral.models.Acessorio;
+import com.example.imoral.models.Carrinhos.AdicionarCarrinhoResponse;
+import com.example.imoral.models.Forum.ForumResponse;
+import com.example.imoral.models.Forum.PostarResponse;
 import com.example.imoral.models.Post;
-import com.example.imoral.models.Produto;
 import com.example.imoral.models.Utilizador;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import utils.ApiConfig;
+
 public class ForumActivity extends AppCompatActivity {
 
+    private final OkHttpClient client = new OkHttpClient();
+    private final Gson gson = new Gson();
     private PostAdapter postAdapter;
     private RecyclerView rvPosts;
+    private ImageButton btnCreatePost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
-
+        this.btnCreatePost = findViewById(R.id.btnCreatePost);
         this.rvPosts = findViewById(R.id.rvPosts);
         setupPostsList();
+        CarregarPosts();
+        listeners();
         }
 
+        private void listeners(){
+            SharedPreferences prefs = getSharedPreferences("app_session", MODE_PRIVATE);
+            String username = prefs.getString("username", null);
+            String image = prefs.getString("image", null);
+            btnCreatePost.setOnClickListener(v -> {
+                PostFragment postFragment = PostFragment.newInstance(username,image);
+
+                postFragment.setOnPostListener(texto -> {
+                    CriarPost(texto);
+                });
+
+                postFragment.show(getSupportFragmentManager(), "post_fragment");
+            });
+        }
         private void setupPostsList() {
             postAdapter = new PostAdapter();
             rvPosts.setLayoutManager(new GridLayoutManager(this, 1));
             rvPosts.setAdapter(postAdapter);
-            Utilizador jpeg = new Utilizador (1, "JPEGMAFIA", "jp@gmail", "jpegmafia", "User", "967140012", "AMHAC", "Vialonga", "Hoje");
-            Utilizador mana = new Utilizador (2, "Mana Sama", "manabu@gmail", "mana", "User", "967140012", "malice", "Vialonga", "Hoje");
-            List<Post> Posts = new ArrayList<>();
-            Posts.add(new Post(1, jpeg, "25 Dec 2025", "O meu ultimo album foi mau"));
-            Posts.add(new Post(2, mana, "24 Dec 2025", "O album do jpegmafia foi mau"));
-            Posts.add(new Post(2, mana, "24 Dec 2025", "マリスミゼル「エーゲ海に捧」羅馬拼音歌詞"));
-            postAdapter.submitList(Posts);
-
         }
+
+    private void CarregarPosts() {
+        SharedPreferences prefs = getSharedPreferences("app_session", MODE_PRIVATE);
+        String jwt = prefs.getString("jwt", null);
+
+        Request request = new Request.Builder()
+                .url(ApiConfig.POSTS_URL)
+                .get()
+                .addHeader("Authorization", "Bearer " + jwt)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> Toast.makeText(ForumActivity.this, "Erro: "+ e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseBody = response.body() != null ? response.body().string() : "";
+
+                try{
+                    ForumResponse forumResponse = gson.fromJson(responseBody, ForumResponse.class);
+
+                    if (forumResponse != null && forumResponse.isSuccess()) {
+                        List<Post> posts = forumResponse.getData().getPosts();
+                        runOnUiThread(() -> {
+                            postAdapter.submitList(posts);
+                        });
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(ForumActivity.this, "Resposta inválida", Toast.LENGTH_SHORT).show());
+                    }
+
+                } catch (Exception e) {
+                    runOnUiThread(() -> Toast.makeText(ForumActivity.this, "Erro ao converter JSON:\n" + e.getMessage(), Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
     }
+
+    private void CriarPost(String texto){
+        SharedPreferences prefs = getSharedPreferences("app_session", MODE_PRIVATE);
+        String jwt = prefs.getString("jwt", null);
+        int UserId = prefs.getInt("user_id", 0);
+
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("id_utilizador", UserId);
+            jsonBody.put("texto_post", texto);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        RequestBody body = RequestBody.create(
+                jsonBody.toString(),
+                MediaType.parse("application/json")
+        );
+
+        Request request = new Request.Builder()
+                .url(ApiConfig.POSTS_URL)
+                .post(body)
+                .addHeader("Authorization", "Bearer " + jwt)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() -> Toast.makeText(ForumActivity.this, "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseBody = response.body() != null ? response.body().string() : "";
+                android.util.Log.d("ADD_CARRINHO", "Status: " + response.code() + " | Body: " + responseBody);
+                try {
+                    PostarResponse resp = gson.fromJson(responseBody, PostarResponse.class);
+
+                    if (resp != null && resp.isSuccess()) {
+                        runOnUiThread(() -> Toast.makeText(ForumActivity.this, "Post Postado!", Toast.LENGTH_SHORT).show());
+                        CarregarPosts();
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(ForumActivity.this, "Erro ao postar", Toast.LENGTH_SHORT).show());
+                    }
+                } catch (Exception e) {
+                    runOnUiThread(() -> Toast.makeText(ForumActivity.this, "Erro ao converter JSON:\n" + e.getMessage(), Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
+    }
+}
+

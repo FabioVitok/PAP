@@ -52,53 +52,53 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#333333" />
-    <!-- FOOTER FIXO NO FUNDO -->
+
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#000000"
-        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingTop="10dp"
+        >
 
         <ImageButton
             android:id="@+id/imageButtonForum"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:background="@color/black"
-            app:srcCompat="@drawable/vectorised_1779189831059" />
+            app:srcCompat="@drawable/web_50" />
         <ImageButton
             android:id="@+id/imageButtonHome2"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:background="@color/black"
-            app:srcCompat="@drawable/home_24" />
+            app:srcCompat="@drawable/search_50" />
         <ImageButton
             android:id="@+id/imageButtonHome3"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:background="@color/black"
-            app:srcCompat="@drawable/home_24" />
+            app:srcCompat="@drawable/home_50" />
 
         <ImageButton
-            android:id="@+id/imageButtonHome4"
-            android:layout_width="wrap_content"
+            android:id="@+id/imageButtonCarrinho"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:background="@color/black"
-            app:srcCompat="@drawable/home_24" />
+            app:srcCompat="@drawable/cart_50" />
 
         <ImageButton
-            android:id="@+id/imageButtonHome5"
-            android:layout_width="wrap_content"
+            android:id="@+id/imageButtonUser"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:background="@color/black"
-            app:srcCompat="@drawable/home_24" />
+            app:srcCompat="@drawable/user_50" />
 
 
     </LinearLayout>
