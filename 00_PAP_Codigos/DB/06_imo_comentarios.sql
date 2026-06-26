@@ -26,7 +26,7 @@ CREATE TABLE comentario_likes (
     UNIQUE KEY unique_like (id_comentario, id_utilizador)
 );
 
-INSERT INTO comentarios (id_post, id_utilizador, id_comentario_pai, texto_comentario) VALUES
+INSERT INTO comentarios (id_post, id_utilizador, id_comentario_pai, created_at, texto_comentario) VALUES
 (1, 2, NULL, '2024-06-01 11:00:00', 'Tenho que exprimentar com rick owens também'),
 (1, 3, 1, '2024-06-01 11:30:00', 'Ficou mesmo bem'),
 (2, 1, NULL, '2024-06-02 13:00:00', 'Quase um cosplay lmaoo'),
