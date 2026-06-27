@@ -252,4 +252,18 @@ class PostController
             throw new Exception("Erro ao eliminar post.");
         }
     }
+
+    public function restore(int $postId) {
+        $post = (new PostDAO())->findPostById($postId);
+
+        if (!$post) {
+            throw new Exception("Post não encontrado.");
+        }
+
+        $result = (new PostDAO())->restorePost($postId);
+
+        if (!$result) {
+            throw new Exception("Erro ao restaurar post.");
+        }
+    }
 }

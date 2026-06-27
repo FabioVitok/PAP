@@ -300,6 +300,18 @@ elseif(preg_match('#^/posts/(\d+)/delete$#', $uri, $m) && $method === 'POST') {
     }
 }
 
+elseif(preg_match('#^/posts/(\d+)/restore$#', $uri, $m) && $method === 'POST') {
+    if(!AuthMiddlewareWeb::isAdmin()) {
+        throw new Exception("Acesso negado. Apenas administradores podem restaurar posts.");
+    }
+    try {
+        (new PostController())->restore((int)$m[1]);
+        Utils::jsonResponse(['success' => true]);
+    } catch (Exception $e) {
+        Utils::jsonResponse(['success' => false, 'message' => $e->getMessage()], 400);
+    }
+}
+
 elseif($uri === '/dashboard' && $method === 'GET') {
     if(!AuthMiddlewareWeb::isAdmin()) {
         $_SESSION['toast'] = [

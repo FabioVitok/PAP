@@ -259,11 +259,15 @@ class AuthController{
       }
  
       $user = (new UserDAO())->findByEmail($email);
- 
+
       if (! $user || ! password_verify($password, $user->getPassword())) {
         throw new Exception("Email ou password errados");
       }
 
+      if($user->getDeletedAt() !== NULL)  {
+        throw new Exception("Conta Banida");
+      }
+      
       $carrinho = (new CarrinhoDAO())->findCarrinhoByUserId($user->getId());
 
       if (!$carrinho) {

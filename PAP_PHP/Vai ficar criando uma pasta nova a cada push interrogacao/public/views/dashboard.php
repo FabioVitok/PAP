@@ -117,7 +117,7 @@ $camposvisiveisProdutos = ['image', 'id', 'nome', 'tipo', 'cor', 'tamanho', 'pes
 $camposEditaveisProdutos = ['tamanho', 'peso', 'preco_custo', 'stock'];
 
 $posts = new PostDAO();
-$posts = $posts->getAllPosts();
+$posts = $posts->adminGetAllPosts();
 
 $camposvisiveisPosts = ['id', 'username', 'image', 'texto_post', 'like_count', 'comment_count', 'created_at', 'updated_at', 'deleted_at'];
 $camposEditaveisPosts = ['image', 'texto_post'];
@@ -1427,17 +1427,24 @@ $camposEditaveisPosts = ['image', 'texto_post'];
                                                                                             <?= htmlspecialchars($row[$campo] ?? '') ?>
                                                                                         </a>
                                                                                     </td>
+                                                                                <?php elseif ($campo === 'deleted_at'): ?>
+                                                                                    <td class="deletedAtCell"><?= htmlspecialchars($row[$campo] ?? '') ?></td>
                                                                                 <?php else: ?>
                                                                                     <td><?= htmlspecialchars($row[$campo] ?? '') ?></td>
                                                                                 <?php endif; ?>
                                                                             <?php endforeach; ?>
                                                                             <td>
                                                                                 <div class="row">
-                                                                                    <div class="col-md-12 d-flex">
-                                                                                        <button class="btn btn-sm btn-warning btnUpdatePost" data-bs-toggle="modal" data-bs-target="#editPostModal-<?= $row['id'] ?>" style="width: 80px;"> Update </button>
-                                                                                    </div>
-                                                                                    <div class="col-md-12 d-flex">
-                                                                                        <button class="btn btn-sm btn-danger btnDeletePost" style="width: 80px;">Delete</button>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 d-flex">
+                                                                                            <button class="btn btn-sm btn-warning btnUpdatePost" data-bs-toggle="modal" data-bs-target="#editPostModal-<?= $row['id'] ?>" style="width: 80px;">Update</button>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 d-flex divDeletePost <?= !empty($row['deleted_at']) ? 'd-none' : '' ?>">
+                                                                                            <button class="btn btn-sm btn-danger btnDeletePost" style="width: 80px;">Delete</button>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 d-flex divRestorePost <?= empty($row['deleted_at']) ? 'd-none' : '' ?>">
+                                                                                            <button class="btn btn-sm btn-success btnRestorePost" style="width: 80px;">Restore</button>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </td>
@@ -2080,7 +2087,7 @@ $camposEditaveisPosts = ['image', 'texto_post'];
     const corpoTabelaPostsDB = document.getElementById('corpoTabelaPostsDB');
     if (corpoTabelaPostsDB) {
         corpoTabelaPostsDB.addEventListener('click', async function(e) {
-            const linha  = e.target.closest('tr');
+            const linha = e.target.closest('tr');
             if (!linha) return;
             const postId = linha.querySelector('[data-id]')?.dataset.id;
 
@@ -2092,7 +2099,28 @@ $camposEditaveisPosts = ['image', 'texto_post'];
                     alert(data.message || 'Erro ao apagar post.');
                     return;
                 }
-                linha.remove();
+
+                const deletedAtCell = linha.querySelector('.deletedAtCell');
+                if (deletedAtCell) deletedAtCell.textContent = data.deleted_at;
+
+                linha.querySelector('.divDeletePost').classList.add('d-none');
+                linha.querySelector('.divRestorePost').classList.remove('d-none');
+            }
+
+            if (e.target.classList.contains('btnRestorePost')) {
+                const res  = await fetch('/posts/' + postId + '/restore', { method: 'POST' });
+                const data = await res.json();
+
+                if (!data.success) {
+                    alert(data.message || 'Erro ao restaurar post.');
+                    return;
+                }
+
+                const deletedAtCell = linha.querySelector('.deletedAtCell');
+                if (deletedAtCell) deletedAtCell.textContent = '';
+
+                linha.querySelector('.divRestorePost').classList.add('d-none');
+                linha.querySelector('.divDeletePost').classList.remove('d-none');
             }
         });
     }

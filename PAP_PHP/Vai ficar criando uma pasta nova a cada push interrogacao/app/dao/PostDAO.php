@@ -74,6 +74,35 @@ class PostDAO {
             LEFT JOIN post_likes as pl ON pl.id_post = p.id
             INNER JOIN utilizadores as u ON p.id_utilizador = u.id
             LEFT JOIN comentarios as c ON c.id_post = p.id
+            WHERE p.deleted_at IS NULL
+            GROUP BY p.id
+            ORDER BY p.created_at DESC
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function adminGetAllPosts(): array {
+        $sql = "
+            SELECT 
+                p.id,
+                p.id_utilizador,
+                u.username,
+                u.image,
+                p.dt_postagem,
+                p.texto_post,
+                p.created_at,
+                p.updated_at,
+                p.deleted_at,
+                COUNT(pl.id) as like_count,
+                COUNT(c.id) as comment_count
+            FROM posts as p
+            LEFT JOIN post_likes as pl ON pl.id_post = p.id
+            INNER JOIN utilizadores as u ON p.id_utilizador = u.id
+            LEFT JOIN comentarios as c ON c.id_post = p.id
             GROUP BY p.id
             ORDER BY p.created_at DESC
         ";
@@ -111,6 +140,18 @@ class PostDAO {
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(1, $postId, PDO::PARAM_INT);
         $stmt->bindParam(2, $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
+    public function restorePost(int $postId): int {
+        $sql = "
+            UPDATE posts 
+            SET deleted_at = NULL 
+            WHERE id = ?
+        ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(1, $postId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->rowCount();
     }
