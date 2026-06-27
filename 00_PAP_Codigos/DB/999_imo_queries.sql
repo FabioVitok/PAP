@@ -277,6 +277,7 @@ SELECT
         WHERE c.id_comentario_pai = ?
         GROUP BY c.id
         ORDER BY c.dt_comentario ASC
+
 SELECT 
     u.id,
     u.username,
@@ -307,3 +308,46 @@ LIMIT 1;
     FROM produtos AS p
     INNER JOIN produtos_pai ON p.id = produtos_pai.id
     WHERE p.id_produto_pai = ?
+
+    
+    
+    SELECT 
+                p.id,
+                p.id_utilizador,
+                u.username,
+                u.image,
+                p.dt_postagem,
+                p.texto_post,
+                p.created_at,
+                p.updated_at,
+                p.deleted_at,
+                COUNT(pl.id) as like_count,
+                COUNT(c.id) as comment_count
+            FROM posts as p
+            LEFT JOIN post_likes as pl ON pl.id_post = p.id
+            INNER JOIN utilizadores as u ON p.id_utilizador = u.id
+            LEFT JOIN comentarios as c ON c.id_post = p.id
+            WHERE p.id_utilizador = ?
+            GROUP BY p.id
+            ORDER BY p.created_at DESC
+    
+
+SELECT 
+                p.id,
+                p.id_utilizador,
+                u.username,
+                u.image,
+                p.dt_postagem,
+                p.texto_post,
+                p.created_at,
+                p.updated_at,
+                p.deleted_at,
+                COUNT(pl.id) as like_count,
+                COUNT(c.id) as comment_count
+            FROM posts as p
+            LEFT JOIN post_likes as pl ON pl.id_post = p.id
+            INNER JOIN utilizadores as u ON p.id_utilizador = u.id
+            LEFT JOIN comentarios as c ON c.id_post = p.id
+            WHERE p.id_utilizador = 1
+            GROUP BY p.id
+            ORDER BY p.created_at DESC
