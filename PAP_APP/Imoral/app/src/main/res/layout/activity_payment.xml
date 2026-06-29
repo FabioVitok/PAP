@@ -6,47 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PaymentActivity"
-    android:background="#000000">
+    android:background="@color/background_gray">
 
-    <!-- HEADER fixo no topo, fora do scroll -->
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="#000000"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/imoral_logo"
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/logo1" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/dividerTop"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#333333"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- SCROLL começa aqui, abaixo do header -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/dividerTop"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -66,10 +33,10 @@
                 android:textSize="20dp"
                 android:layout_marginStart="10dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageButton3"/>
+                app:layout_constraintStart_toEndOf="@id/btnBack"/>
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
@@ -103,7 +70,7 @@
                     android:id="@+id/tvNome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fábio vitoriano"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:layout_marginTop="7dp"
@@ -111,10 +78,10 @@
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
-                    android:id="@+id/tvPhone"
+                    android:id="@+id/tvTelefone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+351 967140012"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:layout_marginTop="7dp"
@@ -128,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:text="Rua Octavio pato, 10 Loja B, Rua octavio pato, 10 Loja B"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:layout_marginTop="1dp"
@@ -137,12 +104,12 @@
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
-                    android:id="@+id/tvCountry"
+                    android:id="@+id/tvEndereco"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:text="Vila Franca de Xira, Lisboa, Portugal, 2625-727"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     android:layout_marginTop="1dp"
@@ -202,41 +169,140 @@
                 app:layout_constraintTop_toBottomOf="@id/rvCarrinho"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutPagamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/carrinho_background"
-            android:padding="10dp"
-            app:layout_constraintTop_toBottomOf="@id/tvTitlePagamento"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            <RadioGroup
+                android:id="@+id/groupPagamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvTitlePagamento"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <RadioButton
+                    android:id="@+id/btnCreditCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Cartão de Crédito"
+                    android:padding="7dp"
+                    android:drawablePadding="14dp"
+                    android:drawableStart="@drawable/credit_card"
+                    android:textColor="@color/white"/>
+
+                <RadioButton
+                    android:id="@+id/btnPaypal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Paypal"
+                    android:padding="7dp"
+                    android:drawablePadding="14dp"
+                    android:drawableStart="@drawable/paypal"
+                    android:textColor="@color/white"/>
 
 
+                <RadioButton
+                    android:id="@+id/btnMbWay"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="MB WAY"
+                    android:padding="7dp"
+                    android:drawablePadding="14dp"
+                    android:drawableStart="@drawable/mbway"
+                    android:textColor="@color/white"/>
+
+            </RadioGroup>
+
+            <View
+                android:id="@+id/dividerTotal"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="#333333"
+                app:layout_constraintTop_toBottomOf="@id/groupPagamento"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <TextView
+                android:id="@+id/tvTitlePreco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total a Pagar"
+                android:text="Preço do Carrinho"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="12dp"
-                app:layout_constraintTop_toBottomOf="@id/layoutPagamento"
+                app:layout_constraintTop_toBottomOf="@id/dividerTotal"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
+                android:id="@+id/tvPreco"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="25,59€"
+                android:text="00,00€"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="12dp"
-                app:layout_constraintTop_toBottomOf="@id/layoutPagamento"
+                app:layout_constraintTop_toBottomOf="@id/groupPagamento"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvTitleFrete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frete"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvTitlePreco"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvFrete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00,00€"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvPreco"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvTitleTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preço total da encomenta"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvTitleFrete"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00,00€"
+                android:textColor="@color/white"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/tvFrete"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            <Button
+                android:id="@+id/btnComprar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/blackbutton_background"
+                android:text="Finalizar a Compra"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"
+                app:layout_constraintTop_toBottomOf="@id/tvTotal"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
 

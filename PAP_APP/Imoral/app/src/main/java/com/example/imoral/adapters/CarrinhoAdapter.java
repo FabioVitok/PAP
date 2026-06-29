@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.imoral.R;
 import com.example.imoral.models.ProdutoCarrinho;
+import com.example.imoral.models.ProdutoPai;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,22 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Produt
         void onQuantidadeChange(ProdutoCarrinho produto, int quantidade);
     }
 
+    public interface OnUiUpdateListener {
+        void onUiUpdate();
+    }
+
     private List<ProdutoCarrinho> ProdutosCarrinho = new ArrayList<>();
     private final OnRemoverClickListener removerListener;
     private final OnQuantidadeChangeListener quantidadeListener;
 
+    private final OnUiUpdateListener uiUpdateListener;
+
     public CarrinhoAdapter(OnRemoverClickListener removerListener,
-                           OnQuantidadeChangeListener quantidadeListener) {
+                           OnQuantidadeChangeListener quantidadeListener,
+                           OnUiUpdateListener uiUpdateListener) {
         this.removerListener = removerListener;
         this.quantidadeListener = quantidadeListener;
+        this.uiUpdateListener = uiUpdateListener;
     }
 
     public void submitList(List<ProdutoCarrinho> newprodutos) {
@@ -78,6 +87,8 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Produt
         holder.tvQuantidade.setText(quantidade);
         String Tamanho = ("Tamanho: " + produto.getTamanho());
         holder.tvProdutoTamanho.setText(Tamanho);
+        String priceAlone = (String.valueOf(produto.getPrecoVenda()));
+        holder.tvProdutoPriceAlone.setText("Preço individual: " + priceAlone);
 
         /*holder.itemView.setOnClickListener(v -> {
             Intent i = new Intent(v.getContext(), ProdutosActivity.class);
@@ -87,11 +98,14 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Produt
         });
         */
 
-        holder.btnRemover.setOnClickListener(v -> removerListener.onRemover(produto));
+        holder.btnRemover.setOnClickListener(v -> {
+            removerListener.onRemover(produto);
+        });
 
         holder.btnMais.setOnClickListener(v -> {
             produto.setQuantidade(produto.getQuantidade() + 1);
             atualizarUiQuantidade(holder, produto);
+            if (uiUpdateListener != null) uiUpdateListener.onUiUpdate();
             agendarPedido(holder, produto);
         });
 
@@ -99,6 +113,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Produt
             if (produto.getQuantidade() > 1) {
                 produto.setQuantidade(produto.getQuantidade() - 1);
                 atualizarUiQuantidade(holder, produto);
+                if (uiUpdateListener != null) uiUpdateListener.onUiUpdate();
                 agendarPedido(holder, produto);
             }
         });
@@ -127,10 +142,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Produt
     // ViewHolder
     public static class ProdutoViewHolder extends RecyclerView.ViewHolder {
         ImageView ivImage;
-        TextView tvName;
-        TextView tvPrice;
-        TextView tvQuantidade;
-        TextView tvProdutoTamanho;
+        TextView tvName, tvPrice, tvQuantidade, tvProdutoTamanho, tvProdutoPriceAlone;
         Button btnMais;
         Button btnMenos;
         ImageButton btnRemover;
@@ -145,6 +157,7 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.Produt
             tvPrice  = itemView.findViewById(R.id.tvProdutoPrice);
             tvQuantidade  = itemView.findViewById(R.id.tvQuantidade);
             tvProdutoTamanho  = itemView.findViewById(R.id.tvProdutoTamanho);
+            tvProdutoPriceAlone  = itemView.findViewById(R.id.tvProdutoPriceAlone);
             btnMais     = itemView.findViewById(R.id.btnMais);
             btnMenos    = itemView.findViewById(R.id.btnMenos);
             btnRemover = itemView.findViewById(R.id.btnRemover);

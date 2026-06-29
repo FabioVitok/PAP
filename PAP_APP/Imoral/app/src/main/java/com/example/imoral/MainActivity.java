@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,42 +37,66 @@ public class MainActivity extends AppCompatActivity {
 
     private ProdutoAdapter produtoAdapter;
     private RecyclerView rvProdutos;
-    private ImageButton imageButtonForum;
-    private ImageButton imageButtonCarrinho;
+    private ImageView btnForum, btnCarrinho, btnUser, btnHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        InitiliazeViews();
+        listeners();
         setupProdutosList();
         CarregarProdutos();
 
-        imageButtonForum = findViewById(R.id.imageButtonForum);
-        imageButtonForum.setOnClickListener(new View.OnClickListener() {
+}
+
+    private void InitiliazeViews(){
+        btnForum = findViewById(R.id.btnForum);
+        btnCarrinho = findViewById(R.id.btnCarrinho);
+        btnUser = findViewById(R.id.btnUser);
+        btnHome = findViewById(R.id.btnHome);
+        rvProdutos = findViewById(R.id.rvProducts);
+    }
+
+    private void listeners(){
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnForum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ForumActivity.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+
+        btnCarrinho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CarrinhoActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
 
-
-        imageButtonCarrinho = findViewById(R.id.imageButtonCarrinho);
-        imageButtonCarrinho.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, CarrinhoActivity.class);
-            startActivity(intent);
-        }
-    });
-
-}
+    }
 
     private void setupProdutosList() {
         produtoAdapter = new ProdutoAdapter();
-        rvProdutos = findViewById(R.id.rvProducts);
         rvProdutos.setLayoutManager(new GridLayoutManager(this, 2));
         rvProdutos.setAdapter(produtoAdapter);
     }

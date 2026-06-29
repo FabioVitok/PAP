@@ -36,10 +36,15 @@ import java.util.List;
 import com.example.imoral.adapters.CarrinhoAdapter;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import utils.ApiConfig;
 
@@ -49,10 +54,11 @@ public class CarrinhoActivity extends AppCompatActivity {
     private CarrinhoAdapter CarrinhoAdapter;
     private RecyclerView rvCarrinho;
     private List<ProdutoCarrinho> produtos = new ArrayList<>();
-    private TextView tvTotalCarrinho;
-    private ImageView ivCarrinhoVazio;
-    private TextView tvCarrinhoVazio;
+    private TextView tvTotalCarrinho, tvCarrinhoVazio, tvCarrinhoPrice;
+    private ImageView ivCarrinhoVazio, btnForum, btnCarrinho, btnUser, btnHome;
     private Button btnComprar;
+    private Double custoTotal;
+    private int produtosTotal;
 
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(Carrinho.class, (JsonDeserializer<Carrinho>) (json, typeOfT, context) -> {
@@ -78,9 +84,14 @@ public class CarrinhoActivity extends AppCompatActivity {
     private void initializeviews(){
         btnComprar = findViewById(R.id.btnComprar);
         btnComprar.setEnabled(false);
+        btnForum = findViewById(R.id.btnForum);
+        btnCarrinho = findViewById(R.id.btnCarrinho);
+        btnUser = findViewById(R.id.btnUser);
+        btnHome = findViewById(R.id.btnHome);
         ivCarrinhoVazio = findViewById(R.id.ivCarrinhoVazio);
         tvCarrinhoVazio = findViewById(R.id.tvCarrinhoVazio);
         tvTotalCarrinho = findViewById(R.id.tvTotalCarrinho);
+        tvCarrinhoPrice = findViewById(R.id.tvCarrinhoPrice);
     }
 
     private void listeners(){
@@ -88,19 +99,65 @@ public class CarrinhoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CarrinhoActivity.this, PaymentActivity.class);
+                Gson gson = new Gson();
+                String produtosJson = gson.toJson(produtos);
+                intent.putExtra("produtos", produtosJson);
+                intent.putExtra("valor_total", custoTotal);
                 startActivity(intent);
             }
         });
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CarrinhoActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btnForum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CarrinhoActivity.this, ForumActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnCarrinho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarCarrinho();
+            }
+        });
+
+        btnUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CarrinhoActivity.this, UserActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
     private void totalCarrinho(){
-        String Total = ("Carrinho (" + CarrinhoAdapter.getItemCount() + ")");
-        tvTotalCarrinho.setText(Total);
+        custoTotal = 0.0;
+        produtosTotal = 0;
+
+        for (ProdutoCarrinho produto : produtos) {
+            custoTotal = custoTotal + produto.getQuantidade() * produto.getPrecoVenda();
+            produtosTotal = produtosTotal + 1 * produto.getQuantidade();
+        }
+        String TotalPrecoFormat = String.format("%.2f€", custoTotal);
+        tvCarrinhoPrice.setText(TotalPrecoFormat);
+        tvTotalCarrinho.setText("Carrinho (" + produtosTotal  + ")");
     }
 
     private void setupProdutosList() {
         CarrinhoAdapter = new CarrinhoAdapter(
                 produto -> RemoverProduto(produto),
-                (produto, quantidade) -> AlterarQuantidade(produto, quantidade)
+                (produto, quantidade) -> AlterarQuantidade(produto, quantidade),
+                () -> totalCarrinho()
         );
         rvCarrinho = findViewById(R.id.rvCarrinho);
         rvCarrinho.setLayoutManager(new GridLayoutManager(this, 1));
@@ -192,6 +249,7 @@ public class CarrinhoActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
                         runOnUiThread(() -> {
+                            produtos.remove(produto);
                             CarrinhoAdapter.removeItem(produto);
                             totalCarrinho();
                             Toast.makeText(CarrinhoActivity.this, "Produto removido!", Toast.LENGTH_SHORT).show();
@@ -207,8 +265,56 @@ public class CarrinhoActivity extends AppCompatActivity {
         }
 
         private void AlterarQuantidade(ProdutoCarrinho produto, int quantidade) {
+            SharedPreferences prefs = getSharedPreferences("app_session", MODE_PRIVATE);
+            String jwt = prefs.getString("jwt", null);
+            int idUser = prefs.getInt("user_id", -1);
+            int idProduto = produto.getId();
 
+
+            JSONObject jsonBody = new JSONObject();
+            try {
+                jsonBody.put("id_produto", idProduto);
+                jsonBody.put("quantidade", quantidade);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            RequestBody body = RequestBody.create(
+                    jsonBody.toString(),
+                    MediaType.parse("application/json")
+            );
+
+            Request request = new Request.Builder()
+                    .url(ApiConfig.CARRINHO_URL + idUser)
+                    .patch(body)
+                    .addHeader("Authorization", "Bearer " + jwt)
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    runOnUiThread(() -> Toast.makeText(CarrinhoActivity.this, "Erro: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String responseBody = response.body() != null ? response.body().string() : "";
+                    android.util.Log.d("ADD_CARRINHO", "Status: " + response.code() + " | Body: " + responseBody);
+                    try {
+                        AdicionarCarrinhoResponse resp = gson.fromJson(responseBody, AdicionarCarrinhoResponse.class);
+
+                        if (resp != null && resp.isSuccess()) {
+                            runOnUiThread(() -> Toast.makeText(CarrinhoActivity.this, "Adicionado ao carrinho!", Toast.LENGTH_SHORT).show());
+                        } else {
+                            runOnUiThread(() -> Toast.makeText(CarrinhoActivity.this, "Erro ao adicionar produto", Toast.LENGTH_SHORT).show());
+                        }
+                    } catch (Exception e) {
+                        runOnUiThread(() -> Toast.makeText(CarrinhoActivity.this, "Erro ao converter JSON:\n" + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    }
+                }
+            });
         }
-
-
     }
+
+

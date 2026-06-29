@@ -1,8 +1,11 @@
 package com.example.imoral;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,31 +43,77 @@ public class ForumActivity extends AppCompatActivity {
     private PostAdapter postAdapter;
     private RecyclerView rvPosts;
     private ImageButton btnCreatePost;
+    private ImageView btnForum, btnCarrinho, btnUser, btnHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
-        this.btnCreatePost = findViewById(R.id.btnCreatePost);
-        this.rvPosts = findViewById(R.id.rvPosts);
+        initializeView();
         setupPostsList();
         CarregarPosts();
         listeners();
         }
 
+        private void initializeView(){
+            btnCreatePost = findViewById(R.id.btnCreatePost);
+            rvPosts = findViewById(R.id.rvPosts);
+            btnForum = findViewById(R.id.btnForum);
+            btnCarrinho = findViewById(R.id.btnCarrinho);
+            btnUser = findViewById(R.id.btnUser);
+            btnHome = findViewById(R.id.btnHome);
+        }
+
         private void listeners(){
+            btnHome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ForumActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            btnForum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CarregarPosts();
+                }
+            });
+
+            btnCarrinho.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ForumActivity.this, CarrinhoActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            btnUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ForumActivity.this, UserActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            btnCreatePost.setOnClickListener(v -> {
+                openPostarFragment();
+            });
+        }
+
+        private void openPostarFragment(){
             SharedPreferences prefs = getSharedPreferences("app_session", MODE_PRIVATE);
             String username = prefs.getString("username", null);
             String image = prefs.getString("image", null);
-            btnCreatePost.setOnClickListener(v -> {
-                PostFragment postFragment = PostFragment.newInstance(username,image);
+            PostFragment postFragment = PostFragment.newInstance(username,image);
 
-                postFragment.setOnPostListener(texto -> {
-                    CriarPost(texto);
-                });
-
-                postFragment.show(getSupportFragmentManager(), "post_fragment");
+            postFragment.setOnPostListener(texto -> {
+                CriarPost(texto);
             });
+
+            postFragment.show(getSupportFragmentManager(), "post_fragment");
         }
         private void setupPostsList() {
             postAdapter = new PostAdapter();

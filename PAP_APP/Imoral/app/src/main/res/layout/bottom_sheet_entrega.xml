@@ -1,141 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:padding="24dp"
     android:background="@drawable/compra_bottomsheet_background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvDetalhes"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="Detalhes da entrega"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnFechar" />
 
+    <ImageButton
+        android:id="@+id/btnFechar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="24dp"
-            android:text="Detalhes"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/white"/>
-
-        <ImageButton
-            android:id="@+id/btnFechar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/grey"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-    </LinearLayout>
 
     <TextView
-        android:id="@+id/textTamanho"
-        android:layout_width="match_parent"
+        android:id="@+id/tvPais"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Selecionar Tamanho: "
+        android:text="País / Região"
         android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:textColor="@color/white"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTamanhos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="4dp"
-            android:layout_gravity="center_horizontal"
-            android:paddingEnd="32dp"
-            android:overScrollMode="never"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            />
-
-    </LinearLayout>
-
-
+        app:layout_constraintTop_toBottomOf="@id/tvDetalhes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textQuantidade"
-        android:layout_width="match_parent"
+        android:id="@+id/tvPortugal"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:text="Portugal"
+        android:textSize="15sp"
+        android:padding="6dp"
+        android:textColor="#9E9E9E"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvPais"
+        app:layout_constraintStart_toStartOf="@id/tvPais"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView
+        android:id="@+id/tvInfoPT"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Selecionar Quantidade: "
+        android:text="(De momento a nossa loja apenas envia para Portugal)"
+        android:textSize="12sp"
+        android:textColor="#9E9E9E"
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toBottomOf="@id/tvPortugal"
+        app:layout_constraintStart_toStartOf="@id/tvPais"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#333333"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInfoPT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvInfoPessoal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Informação pessoais"
         android:textSize="16sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInfoPT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <EditText
+        android:id="@+id/etNomeContato"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:textSize="13sp"
+        android:padding="6dp"
+        android:hint="Nome de contato"
+        android:textColorHint="#9E9E9E"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInfoPessoal"
+        app:layout_constraintStart_toStartOf="@id/tvInfoPessoal"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+    <EditText
+        android:id="@+id/etDDI"
+        android:layout_width="85dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:textSize="13sp"
+        android:padding="6dp"
+        android:hint="DDI"
+        android:textColorHint="#9E9E9E"
+        android:textColor="@color/white"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/etNomeContato"
+        app:layout_constraintStart_toStartOf="@id/etNomeContato"/>
 
+    <EditText
+        android:id="@+id/etNumTelefone"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:textSize="13sp"
+        android:padding="6dp"
+        android:hint="Número de telefone"
+        android:textColorHint="#9E9E9E"
+        android:textColor="@color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@id/etNomeContato"
+        app:layout_constraintStart_toEndOf="@id/etDDI"
+        app:layout_constraintEnd_toEndOf="@id/etNomeContato"/>
 
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#333333"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/etNumTelefone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
-            android:id="@+id/btnMenos"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:textSize="18sp"
-            android:text="-"
-            android:textColor="@color/white"
-            android:background="@drawable/greybutton_background"
-            app:backgroundTint="@null"/>
+    <TextView
+        android:id="@+id/tvEndereco"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Endereço"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/tvQuantidade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_gravity="center" />
+    <EditText
+        android:id="@+id/etMorada"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:textSize="13sp"
+        android:padding="6dp"
+        android:hint="Morada"
+        android:textColorHint="#9E9E9E"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvEndereco"
+        app:layout_constraintStart_toStartOf="@id/tvEndereco"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <Button
-            android:id="@+id/btnMais"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_marginStart="10dp"
-            android:textSize="18sp"
-            android:text="+"
-            android:textColor="@color/white"
-            android:background="@drawable/greybutton_background"
-            app:backgroundTint="@null"/>
+    <EditText
+        android:id="@+id/etMoradaEspecific"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:textSize="13sp"
+        android:padding="6dp"
+        android:hint="Número, piso, apartamento, prédio, etc."
+        android:textColorHint="#9E9E9E"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/etMorada"
+        app:layout_constraintStart_toStartOf="@id/etMorada"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    </LinearLayout>
+    <EditText
+        android:id="@+id/etCodigoPostal"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:textSize="13sp"
+        android:padding="6dp"
+        android:hint="Código-Postal"
+        android:textColorHint="#9E9E9E"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/etMoradaEspecific"
+        app:layout_constraintStart_toStartOf="@id/etMoradaEspecific"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <EditText
+        android:id="@+id/etDistrito"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:textSize="13sp"
+        android:padding="6dp"
+        android:hint="Distrito"
+        android:textColorHint="#9E9E9E"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/etCodigoPostal"
+        app:layout_constraintStart_toStartOf="@id/etCodigoPostal"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/etConcelho"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/greybutton_background"
+        android:textSize="13sp"
+        android:padding="6dp"
+        android:hint="Concelho"
+        android:textColorHint="#9E9E9E"
+        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/etDistrito"
+        app:layout_constraintStart_toStartOf="@id/etDistrito"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvGuardar"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="Guardar estes dados para futuras compras"
+        android:textSize="14sp"
+        android:textColor="#9E9E9E"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/etConcelho"
+        app:layout_constraintStart_toStartOf="@id/tvPais"
+        />
+
+    <CheckBox
+        android:id="@+id/cbGuardar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="38dp"
+        app:layout_constraintStart_toEndOf="@id/tvGuardar"
+        app:layout_constraintTop_toTopOf="@id/tvGuardar"/>
 
     <Button
-        android:id="@+id/btnComprar"
-        android:layout_width="match_parent"
+        android:id="@+id/btnSalvar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="8dp"
-        android:text="Adicionar ao carrinho"
+        android:text="Salvar endereço"
         android:textColor="@color/white"
         android:background="@drawable/greybutton_background"
-        app:backgroundTint="@null"/>
-</LinearLayout>
+        app:backgroundTint="@null"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tvGuardar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
