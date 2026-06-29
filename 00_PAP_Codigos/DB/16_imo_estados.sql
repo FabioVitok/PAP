@@ -14,7 +14,8 @@ INSERT INTO estados(nome_estado ,cor_estado) VALUES
 ('Encomenda Enviada', '#039dfc'), -- Azul
 ('Encomenda Entregue', '#03fc4a'), -- Verde
 ('Encomenda em Transferência', '#fce703'), -- Amarelo
-('Pedido por pagar', '#fce703'), -- Amarelo
+('Pedido por pagar', '#ff7300'), -- Amarelo
+('Encomenda a ser Preparada', '#fce703'), -- Amarelo
 -- Estados de conta
 ('Conta Apagada', '#fc1c03'), -- Vermelho
 ('Conta Banida', '#ad0000'), -- Vermelho Escuro

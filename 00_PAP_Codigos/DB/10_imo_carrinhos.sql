@@ -12,7 +12,7 @@ CREATE TABLE carrinhos (
 INSERT INTO carrinhos(id_utilizador, custo_total) VALUES
 (1, 0.00),
 (2, 0.00),
-(3, 0.00),
+(3, 0.00);
 (4, 0.00),
 (5, 0.00),
 (6, 0.00),

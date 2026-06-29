@@ -39,7 +39,7 @@ INSERT INTO produtos (id_produto_pai, tamanho, peso, preco_custo, stock) VALUES
 (1, 'M',  0.55, 10.20, 10),
 (1, 'L',  0.60, 10.30, 10),
 (1, 'XL', 0.65, 10.40, 10),
-(1, 'XLL',0.70, 15.50, 10);
+(1, 'XXL',0.70, 15.50, 10);
 
 -- flared distress Jeans
 INSERT INTO produtos (id_produto_pai, tamanho, peso, preco_custo, stock) VALUES
@@ -57,7 +57,7 @@ INSERT INTO produtos (id_produto_pai, tamanho, peso, preco_custo, stock) VALUES
 (7, 'M', 0.75, 15.20, 10),
 (7, 'L', 0.80, 15.30, 10),
 (7, 'XL', 0.85, 15.40, 10),
-(7, 'XLL', 0.90, 15.50, 10);
+(7, 'XXL', 0.90, 15.50, 10);
 
 -- acessórios
 INSERT INTO produtos (id_produto_pai, tamanho, peso, preco_custo, stock) VALUES

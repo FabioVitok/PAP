@@ -351,3 +351,51 @@ SELECT
             WHERE p.id_utilizador = 1
             GROUP BY p.id
             ORDER BY p.created_at DESC
+
+SELECT 
+            pedidos.id                  AS pedido_id,
+            pedidos.dt_compra,
+            pagamentos.metodo_pagamento,
+            pagamentos.valor,
+            entregas.morada_entrega,
+            entregas.metodo_envio,
+            entregas.entregadora,
+            entregas.peso
+        FROM pedidos
+        INNER JOIN pagamentos ON pagamentos.id_pedido    = pedidos.id
+        INNER JOIN entregas   ON entregas.id_pedido      = pedidos.id
+        WHERE pagamentos.id_utilizador = 3
+        ORDER BY pedidos.dt_compra DESC;
+
+
+          SELECT 
+            pedido_produtos.id,
+            pedido_produtos.id_pedido,
+            pedido_produtos.id_produto,
+            pedido_produtos.quantidade,
+            produtos_pai.nome,
+            produtos_pai.preco_venda,
+            produtos_pai.image,
+            produtos.tamanho
+        FROM pedido_produtos
+        INNER JOIN produtos ON pedido_produtos.id_produto = produtos.id
+        INNER JOIN produtos_pai ON produtos.id_produto_pai = produtos_pai.id
+        WHERE pedido_produtos.id_pedido = ?;
+
+
+         SELECT 
+                carrinho_produtos.id,
+                carrinho_produtos.id_carrinho AS id_carrinho,
+                carrinho_produtos.id_produto AS id_produto,
+                carrinho_produtos.quantidade,
+                produtos_pai.nome,
+                produtos_pai.image,
+                produtos.tamanho,
+                produtos_pai.preco_venda
+            FROM carrinho_produtos
+            INNER JOIN produtos ON carrinho_produtos.id_produto = produtos.id
+            INNER JOIN produtos_pai ON produtos.id_produto_pai = produtos_pai.id
+            INNER JOIN carrinhos ON carrinho_produtos.id_carrinho = carrinhos.id
+            INNER JOIN utilizadores ON carrinhos.id_utilizador = utilizadores.id
+            WHERE carrinhos.id_utilizador = 1;
+
