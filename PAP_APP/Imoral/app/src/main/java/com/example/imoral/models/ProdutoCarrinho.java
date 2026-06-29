@@ -1,5 +1,8 @@
 package com.example.imoral.models;
-public class ProdutoCarrinho
+
+import java.io.Serializable;
+
+public class ProdutoCarrinho implements Serializable
 {
     int id;
     int id_carrinho;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "47800335269",
+    "project_id": "imoral-61956",
+    "storage_bucket": "imoral-61956.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47800335269:android:e4ac39fb3bf5270823464c",
+        "android_client_info": {
+          "package_name": "com.example.imoral"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcSC1O4NBLoH1f_9Bc-EHkULjDMFDgyuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

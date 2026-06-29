@@ -12,6 +12,8 @@ public class Utilizador
     private String password;
     private String morada;
     private String dtNascimento;
+    private int seguidores;
+    private int seguindo;
     
     public Utilizador(int id, String nome, String email, String image, String role, String telefone, String password, String morada, String dtNascimento )
     {
@@ -111,4 +113,19 @@ public class Utilizador
         this.dtNascimento = dtNascimento;
     }
 
+    public int getSeguidores() {
+        return seguidores;
+    }
+
+    public void setSeguidores(int seguidores) {
+        this.seguidores = seguidores;
+    }
+
+    public int getSeguindo() {
+        return seguindo;
+    }
+
+    public void setSeguindo(int seguindo) {
+        this.seguindo = seguindo;
+    }
 }

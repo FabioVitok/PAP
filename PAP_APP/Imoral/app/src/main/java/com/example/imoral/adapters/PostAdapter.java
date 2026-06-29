@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.imoral.PerfilActivity;
 import com.example.imoral.PostActivity;
 import com.example.imoral.ProdutoActivity;
 import com.example.imoral.R;
@@ -53,6 +55,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
         Glide.with(holder.itemView.getContext())
                 .load(ApiConfig.BASE_URL + "/" + post.getImage())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(holder.ivProfilePicture);
 
         holder.tvUsername.setText(post.getUsername());
@@ -66,7 +70,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             i.putExtra("post", post);
             v.getContext().startActivity(i);
         });
+
+        View.OnClickListener perfilListener = v -> {
+            Intent i = new Intent(v.getContext(), PerfilActivity.class);
+            i.putExtra("userId", post.getId_utilizador());
+            v.getContext().startActivity(i);
+        };
+
+        holder.tvUsername.setOnClickListener(perfilListener);
+        holder.ivProfilePicture.setOnClickListener(perfilListener);
     }
+
 
     @Override
     public int getItemCount() {

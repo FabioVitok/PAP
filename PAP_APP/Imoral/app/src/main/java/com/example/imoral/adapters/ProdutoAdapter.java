@@ -58,7 +58,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ProdutoV
 
         //holder.ivImage.setImageResource(image);
         holder.tvName.setText(ProdutoPai.getNome());
-        String preco = Double.toString(ProdutoPai.getPreco_venda());
+        String preco = String.format("%.2f€", ProdutoPai.getPreco_venda());
         holder.tvPrice.setText(preco);
 
         holder.itemView.setOnClickListener(v -> {

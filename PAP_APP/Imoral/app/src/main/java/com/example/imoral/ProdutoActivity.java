@@ -1,9 +1,11 @@
 package com.example.imoral;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,36 +47,38 @@ public class ProdutoActivity extends AppCompatActivity {
     private List<Produto> produtos = new ArrayList<>();
     private ProdutoPai produto;
     ImageView ivProduto;
-    TextView tvNome;
-    TextView tvPrice;
+    TextView tvNome, tvPrice;
     Button btnAddToCart;
+    ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produto);
+        initializeViews();
+        setProdutoInfo();
+        listeners();
 
-        this.produto = (ProdutoPai) getIntent().getSerializableExtra("ProdutoPai");
 
-        this.ivProduto = findViewById(R.id.ImagemProduto);
-        this.tvNome = findViewById(R.id.NomeProduto);
-        this.tvPrice = findViewById(R.id.tvPrice);
-        this.btnAddToCart = findViewById(R.id.btnAddToCart);
+    }
 
-        String produtoImg = ApiConfig.BASE_URL + "/" + produto.getImage();
+    private void initializeViews() {
+        ivProduto = findViewById(R.id.ImagemProduto);
+        tvNome = findViewById(R.id.NomeProduto);
+        tvPrice = findViewById(R.id.tvPrice);
+        btnAddToCart = findViewById(R.id.btnAddToCart);
+        btnBack = findViewById(R.id.btnBack);
+        rv = findViewById(R.id.rvTamanhos);
+    }
 
-        Glide.with(this)
-                .load(produtoImg)
-                .into(ivProduto);
+    private void listeners() {
 
-        this.tvNome.setText(produto.getNome());
-        this.tvPrice.setText(String.format("%.2f€", produto.getPreco_venda()));
-
-        this.rv = findViewById(R.id.rvTamanhos);
-
-        int idPordutoPai = produto.getId();
-        setupTamanhosList();
-        CarregarProdutos(idPordutoPai);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +87,22 @@ public class ProdutoActivity extends AppCompatActivity {
                 AdicionarProdutoCarrinho();
             }
         });
+    }
+
+    private void setProdutoInfo() {
+        produto = (ProdutoPai) getIntent().getSerializableExtra("ProdutoPai");
+        String produtoImg = ApiConfig.BASE_URL + "/" + produto.getImage();
+        Glide.with(this)
+                .load(produtoImg)
+                .into(ivProduto);
+
+        tvNome.setText(produto.getNome());
+        tvPrice.setText(String.format("%.2f€", produto.getPreco_venda()));
+
+
+        int idPordutoPai = produto.getId();
+        setupTamanhosList();
+        CarregarProdutos(idPordutoPai);
     }
 
     private void setupTamanhosList() {

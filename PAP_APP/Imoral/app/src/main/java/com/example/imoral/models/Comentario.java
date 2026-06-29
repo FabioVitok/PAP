@@ -1,6 +1,8 @@
 package com.example.imoral.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Comentario implements Serializable {
     private int id;
@@ -13,6 +15,8 @@ public class Comentario implements Serializable {
     private int comment_count;
     private String username;
     private String image;
+    private boolean mostrarRespostas = false;
+    private List<Comentario> respostas = new ArrayList<>();
 
     public Comentario() {}
 
@@ -45,6 +49,13 @@ public class Comentario implements Serializable {
 
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+
+    public boolean isMostrarRespostas() { return mostrarRespostas; }
+    public void setMostrarRespostas(boolean mostrarRespostas) { this.mostrarRespostas = mostrarRespostas; }
+
+    public List<Comentario> getRespostas() { return respostas; }
+    public void setRespostas(List<Comentario> respostas) { this.respostas = respostas; }
 }
+
 
 

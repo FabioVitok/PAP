@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.imoral.adapters.TamanhoAdapter;
 import com.example.imoral.models.Produto;
 import com.example.imoral.models.ProdutoPai;
@@ -26,7 +27,7 @@ import java.util.List;
 
 import utils.ApiConfig;
 
-public class PostFragment extends DialogFragment {
+public class PostFragment extends BottomSheetDialogFragment {
     public interface OnPostListener {
 
         // metodo chamado quando o utilizador Posta o post.
@@ -38,7 +39,7 @@ public class PostFragment extends DialogFragment {
 
     TextView tvUsername;
     EditText etTextoPost;
-    Button btnPostar;
+    ImageButton btnPostar;
     ImageButton btnFechar;
     ImageView ivProfilePicture;
     String username;
@@ -85,7 +86,7 @@ public class PostFragment extends DialogFragment {
         // Associar as variaveis locais aos respetivos elementos do xml
         tvUsername = view.findViewById(R.id.tvUsername);
         etTextoPost = view.findViewById(R.id.etTextoPost);
-        btnPostar = view.findViewById(R.id.btnPost);
+        btnPostar = view.findViewById(R.id.btnPostar);
         ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
         //btnFechar = view.findViewById(R.id.btnPost);
 
@@ -94,6 +95,8 @@ public class PostFragment extends DialogFragment {
         String userPfp = ApiConfig.BASE_URL + "/" + image;
         Glide.with(this)
                 .load(userPfp)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(ivProfilePicture);
 
 
