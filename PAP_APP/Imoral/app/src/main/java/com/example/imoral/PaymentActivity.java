@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +51,8 @@ public class PaymentActivity extends AppCompatActivity {
     private RecyclerView rvCarrinho;
     private PedidoProdutoAdapter pedidoProdutoAdapter;
     private List<ProdutoCarrinho> produtos;
-    private ConstraintLayout layoutDados, btnBack;
+    private ConstraintLayout layoutDados;
+    private ImageView btnBack;
     private TextView tvNome, tvTelefone, tvMorada, tvEndereco, tvTotal, tvPreco, tvFrete;
     private Double valorTotal, valorPreco, valorFrete = 2.50;
     private Button btnComprar;
@@ -89,7 +91,7 @@ public class PaymentActivity extends AppCompatActivity {
         tvFrete = findViewById(R.id.tvFrete);
         btnComprar = findViewById(R.id.btnComprar);
         groupPagamento = findViewById(R.id.groupPagamento);
-        btnBack = findViewById(R.id.header);
+        btnBack = findViewById(R.id.btnBack);
     }
 
 
