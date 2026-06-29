@@ -6,7 +6,8 @@ CREATE TABLE utilizadores (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    image VARCHAR(255),
+    image VARCHAR(255) NOT NULL DEFAULT 'assets/images/users/user_icon.png',
+    --banner VARCHAR(255) NOT NULL DEFAULT 'assets/images/users/user_icon.png',
     telefone VARCHAR(14) UNIQUE,
     password VARCHAR(255) NOT NULL,
     morada VARCHAR(255) NOT NULL DEFAULT '',
@@ -19,13 +20,13 @@ CREATE TABLE utilizadores (
     verified_at DATETIME NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at DATETIME NULL    
+    deleted_at DATETIME NULL
 );
 
 INSERT INTO utilizadores (username, email, image, telefone, password, morada, dt_nascimento, dt_criacao, pronomes, is_admin, ultimo_login, is_verified, verified_at, created_at, updated_at) VALUES
 ('FabioK','fabio.vitoriano@icloud.com', 'assets/images/users/Fabio_icon.jpeg','+351967140012','$2y$10$SJa0ptPX/quBesjk8mgv9.6LO0qaF9BZUKUOzI776kwK5t.zGN5jy','Praça de Antunes, 76, 1214-236 Vila Nova de Santo André','2008-03-02','2024-01-01','ele/dele',1,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00'),
 ('vulgo.arthur','arthurmellomattos@gmail.com', 'assets/images/users/Arthur_icon.png','+351911507683','$2y$10$SJa0ptPX/quBesjk8mgv9.6LO0qaF9BZUKUOzI776kwK5t.zGN5jy','Alameda Melo, 119, 3461-205 Viseu','2008-03-10','2024-01-01','ele/dele',1,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00'),
-('ricardo95','ricardo95@gmail.com', 'assets/images/users/ricardo.webp','+351922391890','$2y$10$SJa0ptPX/quBesjk8mgv9.6LO0qaF9BZUKUOzI776kwK5t.zGN5jy','Av do Arboreto, 50, 0642-990 Setúbal','1971-04-19','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00'),
+('ricardo95','ricardo95@gmail.com', 'assets/images/users/ricardo.webp','+351922391890','$2y$10$SJa0ptPX/quBesjk8mgv9.6LO0qaF9BZUKUOzI776kwK5t.zGN5jy','Av do Arboreto, 50, 0642-990 Setúbal','1971-04-19','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00');
 ('kevinThrone','Kevin.thrones@gmail.com','4','+351929518195','$2y$10$SJa0ptPX/quBesjk8mgv9.6LO0qaF9BZUKUOzI776kwK5t.zGN5jy','Largo Rita Abreu, 32, 0138-963 Barreiro','1987-02-11','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00'),
 ('Marinheirus','david.coelho4@gmail.com','5','+351915279273','$2y$10$SJa0ptPX/quBesjk8mgv9.6LO0qaF9BZUKUOzI776kwK5t.zGN5jy','Avenida Eva Costa, S/N, 3879-216 Porto','2002-01-31','2024-01-01','ele/dele',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00'),
 ('Elli','emozinho@gmail.com','6','+351912114123','$2y$10$SJa0ptPX/quBesjk8mgv9.6LO0qaF9BZUKUOzI776kwK5t.zGN5jy','Alameda do Preto, 68, 1022-144 Barcelos','2004-05-02','2024-01-01','elu/delu',0,'2024-06-01 10:00:00',1,'2024-01-01 00:00:00','2024-01-01 00:00:00','2024-01-01 00:00:00'),

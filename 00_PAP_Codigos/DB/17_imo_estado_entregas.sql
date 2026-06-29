@@ -11,7 +11,7 @@ CREATE TABLE estado_entregas (
     FOREIGN KEY (id_estado) REFERENCES estados(id)
 );
 
-INSERT INTO estado_entregas(id_entrega, id_estado, data_alteracao) VALUES
+INSERT INTO estado_entregas(id_entrega, id_estado, updated_at) VALUES
 (1, 2, '2024-06-01 10:00:00'),
 (1, 4, '2024-06-02 10:00:00'),
 (1, 3, '2024-06-02 11:00:00'),
