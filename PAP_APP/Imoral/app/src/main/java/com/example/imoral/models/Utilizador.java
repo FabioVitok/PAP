@@ -7,6 +7,7 @@ public class Utilizador
     private String username;
     private String email;
     private String image;
+    private String banner;
     private String role;
     private String telefone;
     private String password;
@@ -21,6 +22,7 @@ public class Utilizador
         this.username = nome;
         this.email = email;
         this.image = image;
+        this.banner = banner;
         this.role = role;
         this.telefone = telefone;
         this.password = password;
@@ -57,7 +59,9 @@ public class Utilizador
     {
         return this.image;
     }
-    
+
+    public String getBanner() {return banner;}
+
     public void setImagemId(String image)
     {
         this.image = image;

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Imoral"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PedidoActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditUserActivity"
             android:exported="false" />
         <activity

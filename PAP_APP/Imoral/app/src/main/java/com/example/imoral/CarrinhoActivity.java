@@ -223,7 +223,6 @@ public class CarrinhoActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     android.util.Log.e("CARRINHO", "Erro ao converter JSON", e);
-                    runOnUiThread(() -> Toast.makeText(CarrinhoActivity.this, "Erro ao carregar carrinho", Toast.LENGTH_SHORT).show());
                 }
             }
         });

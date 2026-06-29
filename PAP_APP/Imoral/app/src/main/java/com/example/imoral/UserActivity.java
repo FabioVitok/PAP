@@ -122,7 +122,8 @@ public class UserActivity extends AppCompatActivity {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(UserActivity.this, HistoryActivity.class);
+                startActivity(intent);
             }
         });
 

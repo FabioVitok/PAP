@@ -9,6 +9,7 @@ public class Post implements Serializable {
     private int comment_count;
     private String username;
     private String image;
+    private String banner;
 
     // construtor vazio precisa pro Gson)
     public Post() {}
@@ -36,4 +37,5 @@ public class Post implements Serializable {
 
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+    public String getBanner() {return banner;}
 }

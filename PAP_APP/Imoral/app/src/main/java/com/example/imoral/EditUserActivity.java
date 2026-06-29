@@ -40,13 +40,13 @@ import utils.ApiConfig;
 
 public class EditUserActivity extends AppCompatActivity {
 
-    private ImageButton btnBack;
-    private ConstraintLayout btnProfilePicture, btnBanner, btnSave;
+
+    private ConstraintLayout btnProfilePicture, btnBanner, btnSave, btnBack;
     private EditText etUsername;
     private ImageView ivBanner, ivProfilePicture;
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
-    private Uri selectedProfileUri = null;
+    private Uri selectedProfileUri = null, selectedBannerUri = null;
 
 
     @Override
@@ -66,7 +66,7 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     private void initializeViews(){
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.header);
         btnProfilePicture = findViewById(R.id.btnProfilePicture);
         btnBanner = findViewById(R.id.btnBanner);
         btnSave = findViewById(R.id.btnSave);
@@ -115,23 +115,21 @@ public class EditUserActivity extends AppCompatActivity {
         etUsername.setText(username);
 
         String image = prefs.getString("image", null);
-        if(image == null){
-            String userPfp = ApiConfig.BASE_URL + "/assets/images/users/user_icon.png";
-            Glide.with(this)
-                    .load(userPfp)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(ivProfilePicture);
-
-        } else {
+        String banner = prefs.getString("banner", null);
             String userPfp = ApiConfig.BASE_URL + "/" + image;
             Glide.with(this)
                     .load(userPfp)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(ivProfilePicture);
+        String userBanner = ApiConfig.BASE_URL + "/" + banner;
+        Glide.with(this)
+                .load(userBanner)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(ivBanner);
         }
-    }
+
 
     private final ActivityResultLauncher<String> pickImage =
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
@@ -146,6 +144,7 @@ public class EditUserActivity extends AppCompatActivity {
                     new ActivityResultContracts.GetContent(),
                     uri -> {
                         if (uri != null) {
+                            selectedBannerUri = uri;
                             ivBanner.setImageURI(uri);
                         }
                     }
@@ -180,6 +179,12 @@ public class EditUserActivity extends AppCompatActivity {
                 builder.addFormDataPart("image", "profile.jpg",
                         RequestBody.create(profileBytes, MediaType.parse("image/jpeg")));
             }
+
+            if (selectedBannerUri != null) {
+                byte[] profileBytes = uriToBytes(selectedBannerUri);
+                builder.addFormDataPart("banner", "banner.jpg",
+                        RequestBody.create(profileBytes, MediaType.parse("banner/jpeg")));
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -205,14 +210,16 @@ public class EditUserActivity extends AppCompatActivity {
                     PostarResponse resp = gson.fromJson(responseBody, PostarResponse.class);
 
                     if (resp != null && resp.isSuccess()) {
-                        runOnUiThread(() -> Toast.makeText(EditUserActivity.this, "Post Postado!", Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> Toast.makeText(EditUserActivity.this, "Perfil Atualizado!", Toast.LENGTH_SHORT).show());
                         SharedPreferences.Editor editor = prefs.edit();
                         String caminhoImagem = ("assets/images/users/" + userId + ".jpg");
+                        String caminhoBanner = ("assets/images/banner/" + userId + ".jpg");
                         editor.putString("username", username);
                         editor.putString("image", caminhoImagem);
+                        editor.putString("banner", caminhoBanner);
                         editor.apply();
                     } else {
-                        runOnUiThread(() -> Toast.makeText(EditUserActivity.this, "Erro ao postar", Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> Toast.makeText(EditUserActivity.this, "Erro ao Atualizar", Toast.LENGTH_SHORT).show());
                     }
                 } catch (Exception e) {
                     runOnUiThread(() -> Toast.makeText(EditUserActivity.this, "Erro ao converter JSON:\n" + e.getMessage(), Toast.LENGTH_SHORT).show());

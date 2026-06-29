@@ -42,9 +42,8 @@ public class PerfilActivity extends AppCompatActivity {
     private int  userId;
     private PostAdapter postAdapter;
     private RecyclerView rvPosts;
-    private ConstraintLayout btnFollow;
+    private ConstraintLayout btnFollow, btnBack;
     private ImageView ivProfilePicture, ivBanner;
-    private ImageButton btnBack;
     private TextView tvUsername, tvUsernameTitle, tvSeguidores, tvAseguir;
 
     @Override
@@ -73,7 +72,7 @@ public class PerfilActivity extends AppCompatActivity {
         tvAseguir = findViewById(R.id.tvAseguir);
         btnFollow = findViewById(R.id.btnFollow);
         tvUsernameTitle = findViewById(R.id.tvUsernameTitle);
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.header);
     }
 
     private void listeners() {
@@ -87,11 +86,17 @@ public class PerfilActivity extends AppCompatActivity {
     }
     private void setUserinfo(Utilizador user){
         String userPfp = ApiConfig.BASE_URL + "/" + user.getImage();
+        String userBanner = ApiConfig.BASE_URL + "/" + user.getBanner();
         Glide.with(this)
                 .load(userPfp)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .into(ivProfilePicture);
+        Glide.with(this)
+                .load(userBanner)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(ivBanner);
         tvUsername.setText(user.getUsername());
         tvUsernameTitle.setText(user.getUsername());
         tvSeguidores.setText(String.valueOf(user.getSeguidores()));

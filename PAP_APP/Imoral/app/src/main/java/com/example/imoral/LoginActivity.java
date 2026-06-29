@@ -154,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putInt("user_id", loginResponse.getData().getUser().getId());
                             editor.putString("username", loginResponse.getData().getUser().getUsername());
                             editor.putString("image", loginResponse.getData().getUser().getImage());
+                            editor.putString("banner", loginResponse.getData().getUser().getBanner());
                             editor.putString("email", loginResponse.getData().getUser().getEmail());
                             editor.putInt("carrinho_id", loginResponse.getData().getCarrinho().getId());
                             editor.putInt("wishlist_id", loginResponse.getData().getWishlist().getId());

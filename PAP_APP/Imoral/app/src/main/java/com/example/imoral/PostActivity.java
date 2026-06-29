@@ -45,10 +45,9 @@ public class PostActivity extends AppCompatActivity {
     private ComentarioAdapter comentarioAdapter;
     private RecyclerView rvComments;
     private int globalCommentCount, idComentarioPai = 0;
-    private ImageView btnBack;
     ImageView ivProfilePicture, ivProfilePictureBottomSheet;
     TextView tvUsername, tvData, tvTexto, tvLikeCount, tvCommentCount, tvBigCommentCount;
-    ConstraintLayout btnComment;
+    ConstraintLayout btnComment, btnBack;
     Post post;
 
 
@@ -75,7 +74,7 @@ public class PostActivity extends AppCompatActivity {
         tvCommentCount  = findViewById(R.id.tvCommentCount);
         tvBigCommentCount = findViewById(R.id.tvBigCommentCount);
         btnComment = findViewById(R.id.btnComment);
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.header);
     }
 
     private void listeners(){

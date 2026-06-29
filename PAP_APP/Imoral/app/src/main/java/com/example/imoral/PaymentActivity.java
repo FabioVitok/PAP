@@ -50,12 +50,11 @@ public class PaymentActivity extends AppCompatActivity {
     private RecyclerView rvCarrinho;
     private PedidoProdutoAdapter pedidoProdutoAdapter;
     private List<ProdutoCarrinho> produtos;
-    private ConstraintLayout layoutDados;
+    private ConstraintLayout layoutDados, btnBack;
     private TextView tvNome, tvTelefone, tvMorada, tvEndereco, tvTotal, tvPreco, tvFrete;
     private Double valorTotal, valorPreco, valorFrete = 2.50;
     private Button btnComprar;
     private String metodoPagamento = "", moradaEntrega = "";
-    private ImageButton btnBack;
     RadioGroup groupPagamento;
     Gson gson = new Gson();
 
@@ -90,7 +89,7 @@ public class PaymentActivity extends AppCompatActivity {
         tvFrete = findViewById(R.id.tvFrete);
         btnComprar = findViewById(R.id.btnComprar);
         groupPagamento = findViewById(R.id.groupPagamento);
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.header);
     }
 
 
@@ -200,12 +199,12 @@ public class PaymentActivity extends AppCompatActivity {
                     CheckoutResponse resp = gson.fromJson(responseBody, CheckoutResponse.class);
 
                     if (resp != null && resp.isSuccess()) {
-                        runOnUiThread(() -> Toast.makeText(PaymentActivity.this, "Post Postado!", Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> Toast.makeText(PaymentActivity.this, "Compra Efetuada!", Toast.LENGTH_SHORT).show());
                         Intent intent = new Intent(PaymentActivity.this, CarrinhoActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        runOnUiThread(() -> Toast.makeText(PaymentActivity.this, "Erro ao postar", Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> Toast.makeText(PaymentActivity.this, "Erro ao efetuar a compra", Toast.LENGTH_SHORT).show());
                     }
                 } catch (Exception e) {
                     runOnUiThread(() -> Toast.makeText(PaymentActivity.this, "Erro ao converter JSON:\n" + e.getMessage(), Toast.LENGTH_SHORT).show());

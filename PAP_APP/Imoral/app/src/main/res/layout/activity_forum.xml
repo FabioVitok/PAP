@@ -2,34 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray">
 
-
-    <View
-        android:id="@+id/dividerBottom"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#333333"
-        app:layout_constraintBottom_toTopOf="@id/footer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <ImageButton
-        android:id="@+id/btnCreatePost"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/white_circle_button"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="10dp"
-        app:srcCompat="@drawable/plus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/dividerBottom" />
-
-
+    <!-- FOOTER -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/footer"
         android:layout_width="0dp"
@@ -90,11 +67,20 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <View
+        android:id="@+id/dividerBottom"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#333333"
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- SCROLL (entre o topo e o divider) -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:overScrollMode="never"
-        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/dividerBottom"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- HEADER (dentro do scroll) -->
+            <!-- HEADER -->
             <LinearLayout
                 android:id="@+id/header"
                 android:layout_width="0dp"
@@ -140,7 +126,7 @@
             <!-- RECYCLERVIEW -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPosts"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/background_gray"
                 android:clipToPadding="false"
@@ -159,5 +145,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <!-- BOTÃO CRIAR POST — fora do scroll, sempre visível e clicável -->
+    <ImageButton
+        android:id="@+id/btnCreatePost"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/white_circle_button"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="8dp"
+        app:srcCompat="@drawable/plus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dividerBottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

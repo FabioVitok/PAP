@@ -12,7 +12,7 @@
     android:layout_marginVertical="6dp">
 
     <TextView
-        android:id="@+id/tvIdPedido"
+        android:id="@+id/tvIdPedidoTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -25,7 +25,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvData"
+        android:id="@+id/tvIdPedido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/tvIdPedidoTitle"
+        app:layout_constraintTop_toTopOf="@id/tvIdPedidoTitle" />
+
+    <TextView
+        android:id="@+id/tvDataTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
@@ -34,11 +47,22 @@
         android:text="Data da compra:"
         android:textColor="#FFFFFF"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/tvIdPedido"
-        app:layout_constraintTop_toBottomOf="@id/tvIdPedido" />
+        app:layout_constraintStart_toStartOf="@id/tvIdPedidoTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvIdPedidoTitle" />
 
     <TextView
-        android:id="@+id/tvValor"
+        android:id="@+id/tvData"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/tvDataTitle"
+        app:layout_constraintTop_toTopOf="@id/tvDataTitle" />
+
+    <TextView
+        android:id="@+id/tvValorTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
@@ -47,11 +71,22 @@
         android:text="Valor da Compra:"
         android:textColor="#FFFFFF"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/tvIdPedido"
-        app:layout_constraintTop_toBottomOf="@id/tvData" />
+        app:layout_constraintStart_toStartOf="@id/tvIdPedidoTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvDataTitle" />
 
     <TextView
-        android:id="@+id/tvMorada"
+        android:id="@+id/tvValor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/tvValorTitle"
+        app:layout_constraintTop_toTopOf="@id/tvValorTitle" />
+
+    <TextView
+        android:id="@+id/tvMoradaTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
@@ -60,53 +95,20 @@
         android:text="Morada de entrega:"
         android:textColor="#FFFFFF"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/tvIdPedido"
-        app:layout_constraintTop_toBottomOf="@id/tvValor" />
+        app:layout_constraintStart_toStartOf="@id/tvIdPedidoTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvValorTitle" />
 
     <TextView
-        android:id="@+id/tvEstadoTitle"
+        android:id="@+id/tvMorada"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:text="Estado da entrega"
+        android:layout_marginStart="12dp"
+        android:text="0"
         android:textColor="#FFFFFF"
         android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvEstadoTitle"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <View
-            android:id="@+id/estadoColor"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginEnd="5dp"
-            android:background="#039dfc"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvEstado"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:text="Encomenda Enviada"
-        android:textColor="#FFFFFF"
-        android:textSize="13sp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toStartOf="@id/estadoColor"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/tvMoradaTitle"
+        app:layout_constraintTop_toTopOf="@id/tvMoradaTitle" />
 
 
 

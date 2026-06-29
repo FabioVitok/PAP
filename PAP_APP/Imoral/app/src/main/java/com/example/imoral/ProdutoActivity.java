@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,7 +50,7 @@ public class ProdutoActivity extends AppCompatActivity {
     ImageView ivProduto;
     TextView tvNome, tvPrice;
     Button btnAddToCart;
-    ImageButton btnBack;
+    ConstraintLayout btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class ProdutoActivity extends AppCompatActivity {
         tvNome = findViewById(R.id.NomeProduto);
         tvPrice = findViewById(R.id.tvPrice);
         btnAddToCart = findViewById(R.id.btnAddToCart);
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.header);
         rv = findViewById(R.id.rvTamanhos);
     }
 
